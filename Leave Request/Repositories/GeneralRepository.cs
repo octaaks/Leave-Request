@@ -1,4 +1,6 @@
 ﻿using Leave_Request.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
+using NETCore.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
