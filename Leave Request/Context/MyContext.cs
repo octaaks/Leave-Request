@@ -21,13 +21,15 @@ namespace NETCore.Context
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Status> Statuses { get; set; }
+        public DbSet<ManagerFill> ManagerFills { get; set; }
+        public DbSet<Religion> Religions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Employee --< LeaveRequest
             modelBuilder.Entity<Employee>()
                 .HasMany(lr => lr.LeaveRequests)
-                .WithOne(em => em.Employees);
+                .WithOne(em => em.Employee);
 
             //Religion --< Employee
             modelBuilder.Entity<Religion>()
