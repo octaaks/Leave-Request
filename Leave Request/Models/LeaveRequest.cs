@@ -21,8 +21,8 @@ namespace Leave_Request.Models
         public int LeaveTypeId { get; set; }
         public int StatusId { get; set; }
         public virtual Employee Employee { get; set; }
-        public virtual LeaveTypes LeaveTypes { get; set; }
-        public virtual Statuses Statuses { get; set; }
+        public virtual LeaveType LeaveTypes { get; set; }
+        public virtual Status Statuses { get; set; }
         public virtual ICollection<ManagerFill> ManagerFills { get; set; }
     }
 }
