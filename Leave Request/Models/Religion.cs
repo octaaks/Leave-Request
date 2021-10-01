@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Leave_Request.Models
 {
-    [Table("tb_m_Statuses")]
-    public class Statuses
+    [Table("tb_m_Religions")]
+    public class Religion
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<LeaveRequest> LeaveRequests { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }
