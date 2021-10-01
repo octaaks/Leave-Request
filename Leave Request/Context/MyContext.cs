@@ -71,6 +71,6 @@ namespace NETCore.Context
                 .HasOne(ar => ar.Role)
                 .WithMany(r => r.AccountRoles)
                 .HasForeignKey(ar => ar.RoleId);
-        }
+        } 
     }
 }
