@@ -14,5 +14,7 @@ namespace Leave_Request.Models
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual ICollection<AccountRole> AccountRoles { get; set; }
     }
 }

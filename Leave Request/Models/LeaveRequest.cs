@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Leave_Request.Models
 {
+    [Table("tb_m_leave_requests")]
     public class LeaveRequest
     {
         [Key]
@@ -18,5 +20,9 @@ namespace Leave_Request.Models
         public int EmployeeId { get; set; }
         public int LeaveTypeId { get; set; }
         public int StatusId { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual LeaveTypes LeaveTypes { get; set; }
+        public virtual Statuses Statuses { get; set; }
+        public virtual ICollection<ManagerFill> ManagerFills { get; set; }
     }
 }

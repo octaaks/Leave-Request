@@ -30,5 +30,9 @@ namespace Leave_Request.Models
         public int TotalLeave { get; set; }
         public int ReligionId { get; set; }
         public int JobId { get; set; }
+        public virtual Account Account { get; set; }
+        public virtual Religions Religions { get; set; }
+        public virtual Job Job { get; set; }
+        public virtual ICollection<LeaveRequest> LeaveRequests { get; set; }
     }
 }

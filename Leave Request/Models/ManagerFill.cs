@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Leave_Request.Models
 {
+    [Table("tb_m_manager_fills")]
     public class ManagerFill
     {
         [Key]
@@ -14,5 +16,6 @@ namespace Leave_Request.Models
         public DateTime DateApproved { get; set; }
         public int LeaveRequestId { get; set; }
         public int StatusId { get; set; }
+        public virtual LeaveRequest LeaveRequest { get; set; }
     }
 }
