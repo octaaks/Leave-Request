@@ -32,7 +32,7 @@ namespace Leave_Request.Models
         public int JobId { get; set; }
         public virtual Account Account { get; set; }
         public virtual Religion Religion { get; set; }
-        public virtual Job Jobs { get; set; }
+        public virtual Job Job { get; set; }
         public virtual ICollection<LeaveRequest> LeaveRequests { get; set; }
     }
 }

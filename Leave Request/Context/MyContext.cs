@@ -39,17 +39,17 @@ namespace NETCore.Context
             //Job --< Employee
             modelBuilder.Entity<Job>()
                 .HasMany(em => em.Employees)
-                .WithOne(j => j.Jobs);
+                .WithOne(j => j.Job);
 
             //Status --< LeaveRequest
             modelBuilder.Entity<Status>()
                 .HasMany(lr => lr.LeaveRequests)
-                .WithOne(st => st.Statuses);
+                .WithOne(st => st.Status);
 
             //LeaveType --< LeaveRequest
             modelBuilder.Entity<LeaveType>()
                 .HasMany(lr => lr.LeaveRequests)
-                .WithOne(lt => lt.LeaveTypes);
+                .WithOne(lt => lt.LeaveType);
 
             //LeaveRequest --< ManagerFill
             modelBuilder.Entity<LeaveRequest>()
