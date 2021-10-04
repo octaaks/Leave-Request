@@ -10,8 +10,8 @@ using NETCore.Context;
 namespace Leave_Request.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20211004033723_tables")]
-    partial class tables
+    [Migration("20211004035606_newdatabases")]
+    partial class newdatabases
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -142,16 +142,11 @@ namespace Leave_Request.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("StatusId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
 
                     b.HasIndex("LeaveTypeId");
-
-                    b.HasIndex("StatusId");
 
                     b.ToTable("tb_m_leave_requests");
                 });
@@ -310,15 +305,9 @@ namespace Leave_Request.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Leave_Request.Models.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId");
-
                     b.Navigation("Employee");
 
                     b.Navigation("LeaveType");
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("Leave_Request.Models.ManagerFill", b =>

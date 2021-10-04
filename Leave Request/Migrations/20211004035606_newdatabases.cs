@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Leave_Request.Migrations
 {
-    public partial class tables : Migration
+    public partial class newdatabases : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -137,8 +137,7 @@ namespace Leave_Request.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LeaveDuration = table.Column<int>(type: "int", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    LeaveTypeId = table.Column<int>(type: "int", nullable: false),
-                    StatusId = table.Column<int>(type: "int", nullable: true)
+                    LeaveTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,12 +154,6 @@ namespace Leave_Request.Migrations
                         principalTable: "tb_m_leave_types",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_tb_m_leave_requests_tb_m_statuses_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "tb_m_statuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,11 +230,6 @@ namespace Leave_Request.Migrations
                 column: "LeaveTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_m_leave_requests_StatusId",
-                table: "tb_m_leave_requests",
-                column: "StatusId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_tb_m_manager_fills_LeaveRequestId",
                 table: "tb_m_manager_fills",
                 column: "LeaveRequestId");
@@ -269,6 +257,9 @@ namespace Leave_Request.Migrations
                 name: "tb_m_leave_requests");
 
             migrationBuilder.DropTable(
+                name: "tb_m_statuses");
+
+            migrationBuilder.DropTable(
                 name: "tb_m_accounts");
 
             migrationBuilder.DropTable(
@@ -276,9 +267,6 @@ namespace Leave_Request.Migrations
 
             migrationBuilder.DropTable(
                 name: "tb_m_leave_types");
-
-            migrationBuilder.DropTable(
-                name: "tb_m_statuses");
 
             migrationBuilder.DropTable(
                 name: "tb_m_employees");
