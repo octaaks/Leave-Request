@@ -21,7 +21,12 @@ namespace Leave_Request
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+=========
             //services.AddControllers();
+>>>>>>>>> Temporary merge branch 2
+=========
+            //services.AddControllers();
+>>>>>>>>> Temporary merge branch 2
             services.AddControllersWithViews();
 
             //scope tiap repository
