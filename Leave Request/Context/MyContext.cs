@@ -41,9 +41,9 @@ namespace NETCore.Context
                 .HasMany(em => em.Employees)
                 .WithOne(j => j.Job);
 
-            //Status --< LeaveRequest
+            //Status --< ManagerFill
             modelBuilder.Entity<Status>()
-                .HasMany(lr => lr.LeaveRequests)
+                .HasMany(mf => mf.ManagerFills)
                 .WithOne(st => st.Status);
 
             //LeaveType --< LeaveRequest

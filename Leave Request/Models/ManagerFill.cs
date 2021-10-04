@@ -17,5 +17,6 @@ namespace Leave_Request.Models
         public int LeaveRequestId { get; set; }
         public int StatusId { get; set; }
         public virtual LeaveRequest LeaveRequest { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Leave_Request.Models
 {
-    [Table("tb_m_Religions")]
+    [Table("tb_m_religions")]
     public class Religion
     {
         [Key]

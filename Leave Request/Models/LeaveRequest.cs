@@ -16,10 +16,8 @@ namespace Leave_Request.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int LeaveDuration { get; set; }
-
         public int EmployeeId { get; set; }
         public int LeaveTypeId { get; set; }
-        public int StatusId { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual LeaveType LeaveType { get; set; }
         public virtual Status Status { get; set; }

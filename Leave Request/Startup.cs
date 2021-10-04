@@ -1,15 +1,11 @@
+using Leave_Request.Repositories.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using NETCore.Context;
 
 namespace Leave_Request
 {
@@ -26,6 +22,20 @@ namespace Leave_Request
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //scope tiap repository
+            services.AddScoped<AccountRepository>();
+            services.AddScoped<AccountRoleRepository>();
+            services.AddScoped<EmployeeRepository>();
+            services.AddScoped<JobRepository>();
+            services.AddScoped<LeaveRequestRepository>();
+            services.AddScoped<LeaveTypeRepository>();
+            services.AddScoped<ManagerFillRepository>();
+            services.AddScoped<ReligionRepository>();
+            services.AddScoped<RoleRepository>();
+            services.AddScoped<StatusRepository>();
+
+            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NETCoreContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

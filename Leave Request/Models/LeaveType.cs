@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Leave_Request.Models
 {
-    [Table("tb_m_Leave_Types")]
+    [Table("tb_m_leave_types")]
     public class LeaveType
     {
         [Key]
