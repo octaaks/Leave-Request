@@ -35,8 +35,10 @@ namespace Leave_Request
             services.AddScoped<RoleRepository>();
             services.AddScoped<StatusRepository>();
 
-            services.AddDbContext<MyContext>(options => options.UseLazyLoadingProxies()
-            .UseSqlServer(Configuration.GetConnectionString("NETCoreContext")));
+            services.AddDbContext<MyContext>(options =>
+                options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("NETCoreContext"))
+            );
+            //services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NETCoreContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
