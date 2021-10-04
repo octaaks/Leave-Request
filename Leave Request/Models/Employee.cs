@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Leave_Request.Models
@@ -13,7 +14,6 @@ namespace Leave_Request.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
         public string Address { get; set; }
         public enum Gender
@@ -21,6 +21,7 @@ namespace Leave_Request.Models
             Male,
             Female
         }
+        [JsonConverter(typeof(StringEnumConverter))]
         public Gender gender { get; set; }
         [Phone]
         public string Phone { get; set; }
