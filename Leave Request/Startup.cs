@@ -21,7 +21,8 @@ namespace Leave_Request
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //services.AddControllers();
+            services.AddControllersWithViews();
 
             //scope tiap repository
             services.AddScoped<AccountRepository>();
@@ -35,7 +36,10 @@ namespace Leave_Request
             services.AddScoped<RoleRepository>();
             services.AddScoped<StatusRepository>();
 
-            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NETCoreContext")));
+            services.AddDbContext<MyContext>(options =>
+                options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("NETCoreContext"))
+            );
+            //services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NETCoreContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
