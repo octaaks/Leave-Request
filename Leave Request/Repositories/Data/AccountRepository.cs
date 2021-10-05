@@ -183,6 +183,31 @@ namespace Leave_Request.Repositories.Data
             return 1;
         }
 
+        public int ResetPassword(string email)
+        {
+            //return 200 = email salah
+
+            var account = myContext.Accounts.Where(e => e.Email == email).FirstOrDefault();
+            if (account == null)
+            {
+                return 200;
+            }
+
+            //generate new password
+            string passwordReset = Guid.NewGuid().ToString();
+            account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset);
+
+            //kirim email
+            string bodyEmail = $"Password baru anda : {passwordReset}";
+            SendEmail(bodyEmail, account.Email);
+
+            //save ke DB
+            Update(account);
+            myContext.SaveChanges();
+
+            return 1; //kirim email
+        }
+
         public int ChangePassword(ChangePasswordVM cpVM)
         {
             //return 100 = NIK tdk terdaftar
@@ -221,10 +246,11 @@ namespace Leave_Request.Repositories.Data
 
             return 1;
         }
+
         public static void SendEmail(string htmlString, string toMailAddress)
         {
-            string fromMail = "octa.aks@gmail.com";
-            string fromPassword = "######";
+            string fromMail = "leaverequest55@gmail.com";
+            string fromPassword = "Leave_Request_55";
             MailMessage message = new MailMessage();
 
             message.From = new MailAddress(fromMail);

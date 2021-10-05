@@ -111,5 +111,86 @@ namespace Leave_Request.Controllers
                 });
             }
         }
+
+        [HttpPost("reset-password/email={Email}")]
+        public ActionResult ResetPassword(string Email)
+        {
+            /*string tempEmail = Request.Query.Keys.Contains("email").ToString();*/
+            int output = repository.ResetPassword(Email);
+            
+            if (output == 200)
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    message = "Email not found!",
+                });
+            }
+            return Ok(new
+            {
+                statusCode = StatusCode(200),
+                status = HttpStatusCode.OK,
+                message = "Password has been reset !"
+            });
+        }
+
+        [HttpPost("forget-password")]
+        public ActionResult ForgetPassword(string email)
+        {
+            int output = repository.ForgetPassword(email);
+            if (output == 100)
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    message = "Email Not Found",
+                });
+            }
+            return Ok(new
+            {
+                status = HttpStatusCode.OK,
+                message = "Reset Password link sent !"
+            });
+        }
+
+        [HttpPost("change-password")]
+        public ActionResult ChangePassword(ChangePasswordVM cpVM)
+        {
+            if (ModelState.IsValid)
+            {
+                //
+            }
+            int output = repository.ChangePassword(cpVM);
+            
+            if (output == 200)
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    message = "Email tdk terdaftar!"
+                });
+            }
+            else if (output == 300)
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    message = "Password lama salah!"
+                });
+            }
+            else if (output == 400)
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    message = "Konfirmasi password tidak sama!"
+                });
+            }
+            return Ok(new
+            {
+                status = HttpStatusCode.OK,
+                message = "Success ganti password!"
+            });
+        }
     }
 }
