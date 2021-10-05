@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,7 +17,11 @@ namespace Leave_Request.Models
         public DateTime DateApproved { get; set; }
         public int LeaveRequestId { get; set; }
         public int StatusId { get; set; }
+
+        [JsonIgnore]
         public virtual LeaveRequest LeaveRequest { get; set; }
+
+        [JsonIgnore]
         public virtual Status Status { get; set; }
 
         public ManagerFill(string note, DateTime dateApproved, int leaveRequestId, int statusId)

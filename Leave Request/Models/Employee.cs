@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,7 +22,6 @@ namespace Leave_Request.Models
         }
         [JsonConverter(typeof(StringEnumConverter))]
         public Gender gender { get; set; }
-        [Phone]
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
         public int Salary { get; set; }
@@ -31,9 +29,17 @@ namespace Leave_Request.Models
         public int TotalLeave { get; set; }
         public int ReligionId { get; set; }
         public int JobId { get; set; }
+
+        [JsonIgnore]
         public virtual Account Account { get; set; }
+
+        [JsonIgnore]
         public virtual Religion Religion { get; set; }
+
+        [JsonIgnore]
         public virtual Job Job { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<LeaveRequest> LeaveRequests { get; set; }
     }
 }

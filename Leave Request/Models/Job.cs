@@ -14,6 +14,8 @@ namespace Leave_Request.Models
         [Key]
         public int Id { get; set; }
         public string Title  { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Employee> Employees { get; set; }
     }
 }
