@@ -37,6 +37,10 @@ namespace Leave_Request.Repositories.Data
             employee.JoinDate = registrationVM.JoinDate;
             employee.ReligionId = registrationVM.ReligionId;
             employee.JobId = registrationVM.JobId;
+            if (registrationVM.JoinDate.AddYears(1) <= DateTime.Now)
+            {
+                employee.TotalLeave = 12;
+            }
             myContext.Employees.Add(employee);
             myContext.SaveChanges();
 
@@ -47,6 +51,27 @@ namespace Leave_Request.Repositories.Data
             account.Password = BCrypt.Net.BCrypt.HashPassword(registrationVM.Password, saltPassword);
             myContext.Accounts.Add(account);
             myContext.SaveChanges();
+
+            AccountRole accountRole = new AccountRole();
+            accountRole.AccountId = registrationVM.Id;
+            accountRole.RoleId = 1;
+            myContext.AccountRoles.Add(accountRole);
+            myContext.SaveChanges();
+
+            if (registrationVM.JobId == 6 || registrationVM.JobId == 7)
+            {
+                accountRole.AccountId = registrationVM.Id;
+                accountRole.RoleId = 2;
+                myContext.AccountRoles.Add(accountRole);
+                myContext.SaveChanges();
+            }
+            else if (registrationVM.JobId == 2 || registrationVM.JobId == 5)
+            {
+                accountRole.AccountId = registrationVM.Id;
+                accountRole.RoleId = 3;
+                myContext.AccountRoles.Add(accountRole);
+                myContext.SaveChanges();
+            }
 
             return "ok";
         }
@@ -96,9 +121,9 @@ namespace Leave_Request.Repositories.Data
         public string[] GetRoles(int id)
         {
             var getRoles = (from a in myContext.Accounts
-                            join ar in myContext.AccountRoles on a.Id equals ar.Id
+                            join ar in myContext.AccountRoles on a.Id equals ar.AccountId
                             join r in myContext.Roles on ar.RoleId equals r.Id
-                            where id == ar.Id
+                            where id == ar.AccountId
                             select new Role
                             {
                                 Name = r.Name
@@ -111,7 +136,7 @@ namespace Leave_Request.Repositories.Data
             return GetRoles;
         }
 
-        public void GetJWT(int id, LoginVM loginVM)
+        public JwtSecurityToken GetJWT(int id, LoginVM loginVM)
         {
             string[] roles = GetRoles(id);
             var Claims = new List<Claim>();
@@ -131,6 +156,8 @@ namespace Leave_Request.Repositories.Data
                 claims: Claims,
                 expires: DateTime.UtcNow.AddMinutes(10),
                 signingCredentials: signIn);
+
+            return token;
         }   
     }
 }
