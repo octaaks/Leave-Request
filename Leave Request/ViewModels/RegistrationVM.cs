@@ -1,5 +1,4 @@
-﻿using DataAnnotationsExtensions;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
@@ -49,7 +48,7 @@ namespace Leave_Request.ViewModels
         public int JobId { get; set; }
 
         [Required(ErrorMessage = "Email must be filled out")]
-        [Email(ErrorMessage = "Email is not valid")]
+        [EmailAddress(ErrorMessage = "Email is not valid")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password must be filled out")]
