@@ -1,5 +1,4 @@
-﻿using DataAnnotationsExtensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +9,7 @@ namespace Leave_Request.ViewModels
     public class ChangePasswordVM
     {
         [Required]
-        [Email(ErrorMessage = "Email format not correct!")]
+        [EmailAddress(ErrorMessage = "Email format not correct!")]
         public string Email { get; set; }
 
         [Required]
