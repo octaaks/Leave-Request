@@ -22,5 +22,15 @@ namespace Leave_Request.Models
         public virtual Employee Employee { get; set; }
         public virtual LeaveType LeaveType { get; set; }
         public virtual ICollection<ManagerFill> ManagerFills { get; set; }
+
+        public LeaveRequest(DateTime requestDate, DateTime startDate, DateTime endDate, int leaveDuration, int employeeId, int leaveTypeId)
+        {
+            RequestDate = requestDate;
+            StartDate = startDate;
+            EndDate = endDate;
+            LeaveDuration = leaveDuration;
+            EmployeeId = employeeId;
+            LeaveTypeId = leaveTypeId;
+        }
     }
 }

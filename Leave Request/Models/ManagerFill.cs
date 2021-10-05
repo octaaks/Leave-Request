@@ -18,5 +18,13 @@ namespace Leave_Request.Models
         public int StatusId { get; set; }
         public virtual LeaveRequest LeaveRequest { get; set; }
         public virtual Status Status { get; set; }
+
+        public ManagerFill(string note, DateTime dateApproved, int leaveRequestId, int statusId)
+        {
+            Note = note;
+            DateApproved = dateApproved;
+            LeaveRequestId = leaveRequestId;
+            StatusId = statusId;
+        }
     }
 }
