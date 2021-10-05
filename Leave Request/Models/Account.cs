@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,7 +15,11 @@ namespace Leave_Request.Models
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+
+        [JsonIgnore]
         public virtual Employee Employee { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<AccountRole> AccountRoles { get; set; }
     }
 }

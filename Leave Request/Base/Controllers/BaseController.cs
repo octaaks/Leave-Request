@@ -76,8 +76,7 @@ namespace NETCore.Base
                 return BadRequest(new
                 {
                     status = HttpStatusCode.NoContent,
-                    message = "No Data",
-                    /*error = e*/
+                    message = "No Data"
                 });
             }
         }
