@@ -112,28 +112,6 @@ namespace Leave_Request.Controllers
             }
         }
 
-        [HttpPost("reset-password/email={Email}")]
-        public ActionResult ResetPassword(string Email)
-        {
-            /*string tempEmail = Request.Query.Keys.Contains("email").ToString();*/
-            int output = repository.ResetPassword(Email);
-            
-            if (output == 200)
-            {
-                return BadRequest(new
-                {
-                    status = HttpStatusCode.BadRequest,
-                    message = "Email not found!",
-                });
-            }
-            return Ok(new
-            {
-                statusCode = StatusCode(200),
-                status = HttpStatusCode.OK,
-                message = "Password has been reset !"
-            });
-        }
-
         [HttpPost("forget-password")]
         public ActionResult ForgetPassword(string email)
         {
@@ -149,9 +127,31 @@ namespace Leave_Request.Controllers
             return Ok(new
             {
                 status = HttpStatusCode.OK,
-                message = "Reset Password link sent !"
+                message = "Reset Password email sent !"
             });
         }
+
+        //[HttpPost("reset-password/email={Email}")]
+        //public ActionResult ResetPassword(string Email)
+        //{
+        //    /*string tempEmail = Request.Query.Keys.Contains("email").ToString();*/
+        //    int output = repository.ResetPassword(Email);
+            
+        //    if (output == 200)
+        //    {
+        //        return BadRequest(new
+        //        {
+        //            status = HttpStatusCode.BadRequest,
+        //            message = "Email not found!",
+        //        });
+        //    }
+        //    return Ok(new
+        //    {
+        //        statusCode = StatusCode(200),
+        //        status = HttpStatusCode.OK,
+        //        message = "Password has been reset !"
+        //    });
+        //}
 
         [HttpPost("change-password")]
         public ActionResult ChangePassword(ChangePasswordVM cpVM)

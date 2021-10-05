@@ -183,30 +183,30 @@ namespace Leave_Request.Repositories.Data
             return 1;
         }
 
-        public int ResetPassword(string email)
-        {
-            //return 200 = email salah
+        //public int ResetPassword(string email)
+        //{
+        //    //return 200 = email salah
 
-            var account = myContext.Accounts.Where(e => e.Email == email).FirstOrDefault();
-            if (account == null)
-            {
-                return 200;
-            }
+        //    var account = myContext.Accounts.Where(e => e.Email == email).FirstOrDefault();
+        //    if (account == null)
+        //    {
+        //        return 200;
+        //    }
 
-            //generate new password
-            string passwordReset = Guid.NewGuid().ToString();
-            account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset);
+        //    //generate new password
+        //    string passwordReset = Guid.NewGuid().ToString();
+        //    account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset);
 
-            //kirim email
-            string bodyEmail = $"Password baru anda : {passwordReset}";
-            SendEmail(bodyEmail, account.Email);
+        //    //kirim email
+        //    string bodyEmail = $"Password baru anda : {passwordReset}";
+        //    SendEmail(bodyEmail, account.Email);
 
-            //save ke DB
-            Update(account);
-            myContext.SaveChanges();
+        //    //save ke DB
+        //    Update(account);
+        //    myContext.SaveChanges();
 
-            return 1; //kirim email
-        }
+        //    return 1; //kirim email
+        //}
 
         public int ChangePassword(ChangePasswordVM cpVM)
         {
