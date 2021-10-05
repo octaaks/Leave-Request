@@ -23,5 +23,13 @@ namespace Leave_Request.Models
 
         [JsonIgnore]
         public virtual Status Status { get; set; }
+
+        public ManagerFill(string note, DateTime dateApproved, int leaveRequestId, int statusId)
+        {
+            Note = note;
+            DateApproved = dateApproved;
+            LeaveRequestId = leaveRequestId;
+            StatusId = statusId;
+        }
     }
 }
