@@ -22,9 +22,11 @@ namespace Leave_Request.Controllers
     public class AccountsController : BaseController<Account, AccountRepository, int>
     {
         private readonly AccountRepository repository;
+        public IConfiguration configuration;
 
-        public AccountsController(AccountRepository repository) : base(repository)
+        public AccountsController(IConfiguration configuration, AccountRepository repository) : base(repository)
         {
+            this.configuration = configuration;
             this.repository = repository;
         }
 
@@ -77,13 +79,12 @@ namespace Leave_Request.Controllers
                 }
                 else if ((repository.CheckLoginPassword(id, loginVM.Password)))
                 {
-                   // repository.GetJWT(id, loginVM);
                     return Ok(new
                     {
                         status = HttpStatusCode.OK,
                         message = "Login successfull !!!",
-                        //token = new JwtSecurityTokenHandler().WriteToken(token),
-                        //tokenexpired = token.ValidTo
+                        token = new JwtSecurityTokenHandler().WriteToken(repository.GetJWT(id, loginVM)),
+                        tokenexpired = repository.GetJWT(id, loginVM).ValidTo
                     });
 
                     /*return Ok(new JWTokenVM
@@ -99,11 +100,6 @@ namespace Leave_Request.Controllers
                         status = HttpStatusCode.BadRequest,
                         message = "Login unsuccessfull. Wrong password!"
                     });
-                    /*return Ok(new JWTokenVM
-                    {
-                        Token = null,
-                        Message = "Login Unseccessful!"
-                    });*/
                 }
             }
             catch (Exception e)
