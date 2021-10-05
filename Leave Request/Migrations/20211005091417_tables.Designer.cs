@@ -10,8 +10,8 @@ using NETCore.Context;
 namespace Leave_Request.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20211004040327_all-tables")]
-    partial class alltables
+    [Migration("20211005091417_tables")]
+    partial class tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,7 +75,6 @@ namespace Leave_Request.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")

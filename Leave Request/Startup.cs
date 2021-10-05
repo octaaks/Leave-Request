@@ -29,11 +29,6 @@ namespace Leave_Request
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
-            services.AddControllersWithViews()
-                .AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
-
             //scope tiap repository
             services.AddScoped<AccountRepository>();
             services.AddScoped<AccountRoleRepository>();

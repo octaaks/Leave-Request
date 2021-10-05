@@ -41,12 +41,12 @@ namespace NETCore.Base
                     message = "Success"
                 });
             }
-            catch
+            catch(Exception e)
             {
                 return BadRequest(new
                 {
                     status = HttpStatusCode.BadRequest,
-                    message = "Error duplicate data",
+                    message = "Error" + e.Message,
                     error = entity,
                 });
             }
