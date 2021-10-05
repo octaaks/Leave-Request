@@ -21,13 +21,12 @@ namespace Leave_Request
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-=========
-            //services.AddControllers();
->>>>>>>>> Temporary merge branch 2
-=========
-            //services.AddControllers();
->>>>>>>>> Temporary merge branch 2
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();
+
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             //scope tiap repository
             services.AddScoped<AccountRepository>();
@@ -44,6 +43,7 @@ namespace Leave_Request
             services.AddDbContext<MyContext>(options =>
                 options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("NETCoreContext"))
             );
+
             //services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NETCoreContext")));
         }
 

@@ -1,11 +1,10 @@
 ﻿using Leave_Request.Models;
 using Leave_Request.Repositories.Data;
-using Microsoft.AspNetCore.Http;
+using Leave_Request.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Leave_Request.Controllers
@@ -14,9 +13,55 @@ namespace Leave_Request.Controllers
     [ApiController]
     public class LeaveRequestsController : BaseController<LeaveRequest, LeaveRequestRepository, int>
     {
+        private readonly LeaveRequestRepository repository;
         public LeaveRequestsController(LeaveRequestRepository repository) : base(repository)
         {
 
+            this.repository = repository;
+        }
+
+        [HttpGet("GetLeaveRequests")]
+        public ActionResult GetLeaveRequests()
+        {
+            var getPerson = repository.GetLeaveRequestVMs();
+            if (getPerson != null)
+            {
+
+                return Ok(getPerson);
+            }
+            else
+            {
+                var get = NotFound(new
+                {
+                    status = HttpStatusCode.NotFound,
+                    result = getPerson,
+                    message = "Data Empty"
+                });
+                return get;
+            }
+        }
+
+        [HttpPost("Register")]
+        public ActionResult Insert(LeaveRequestVM lrVM)
+        {
+            try
+            {
+                int output = repository.Insert(lrVM);
+               
+                return Ok(new
+                {
+                    status = HttpStatusCode.OK,
+                    message = "Success"
+                });
+            }
+            catch
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    message = "Error!",
+                });
+            }
         }
     }
 }

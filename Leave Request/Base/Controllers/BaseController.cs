@@ -88,7 +88,6 @@ namespace NETCore.Base
         /// <param name="key"></param>
         /// <returns></returns>
 
-        [EnableCors("AllowAllOrigins")]
         [HttpGet("{key}")]
         public ActionResult Get(Key key)
         {
@@ -144,7 +143,6 @@ namespace NETCore.Base
         /// <param name="key"></param>
         /// <returns></returns>
 
-        [EnableCors("AllowAllOrigins")]
         [HttpDelete("{key}")]
         public ActionResult Delete(Key key)
         {
