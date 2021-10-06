@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Leave_Request.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,6 +25,20 @@ namespace Client.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+        public IActionResult Dashboard()
         {
             return View();
         }
