@@ -70,7 +70,7 @@ namespace Leave_Request.Controllers
             try
             {
                 int id = repository.CheckLoginEmail(loginVM.Email);
-                if (string.IsNullOrEmpty(id.ToString()))
+                if (id == 0)
                 {
                     return StatusCode((int)HttpStatusCode.NotFound, new
                     {
@@ -128,7 +128,7 @@ namespace Leave_Request.Controllers
             return Ok(new
             {
                 status = HttpStatusCode.OK,
-                message = "Reset Password email sent !"
+                message = "Link for Reset Password has been sent to your email!"
             });
         }
 
@@ -174,7 +174,7 @@ namespace Leave_Request.Controllers
                 return BadRequest(new
                 {
                     status = HttpStatusCode.BadRequest,
-                    message = "Email tdk terdaftar!"
+                    message = "Email not registered!"
                 });
             }
             else if (output == 300)
@@ -182,7 +182,7 @@ namespace Leave_Request.Controllers
                 return BadRequest(new
                 {
                     status = HttpStatusCode.BadRequest,
-                    message = "Password lama salah!"
+                    message = "Wrong old password!"
                 });
             }
             else if (output == 400)
@@ -190,13 +190,21 @@ namespace Leave_Request.Controllers
                 return BadRequest(new
                 {
                     status = HttpStatusCode.BadRequest,
-                    message = "Konfirmasi password tidak sama!"
+                    message = "Wrong on confirmation new password!"
+                });
+            }
+            else if (output == 500)
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    message = "New password must be different from old password!"
                 });
             }
             return Ok(new
             {
                 status = HttpStatusCode.OK,
-                message = "Success ganti password!"
+                message = "Password change successfully!"
             });
         }
     }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Leave_Request.Migrations
 {
-    public partial class tables : Migration
+    public partial class newdatabases : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -112,7 +112,8 @@ namespace Leave_Request.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -159,13 +160,14 @@ namespace Leave_Request.Migrations
                 name: "tb_tr_accounts_roles",
                 columns: table => new
                 {
-                    AccountId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AccountId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_tr_accounts_roles", x => new { x.AccountId, x.RoleId });
+                    table.PrimaryKey("PK_tb_tr_accounts_roles", x => x.Id);
                     table.ForeignKey(
                         name: "FK_tb_tr_accounts_roles_tb_m_accounts_AccountId",
                         column: x => x.AccountId,
@@ -237,6 +239,11 @@ namespace Leave_Request.Migrations
                 name: "IX_tb_m_manager_fills_StatusId",
                 table: "tb_m_manager_fills",
                 column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_tr_accounts_roles_AccountId",
+                table: "tb_tr_accounts_roles",
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_tr_accounts_roles_RoleId",
