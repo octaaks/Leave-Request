@@ -10,8 +10,8 @@ using NETCore.Context;
 namespace Leave_Request.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20211006022653_add-token")]
-    partial class addtoken
+    [Migration("20211006073703_new-databases")]
+    partial class newdatabases
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,16 +42,20 @@ namespace Leave_Request.Migrations
 
             modelBuilder.Entity("Leave_Request.Models.AccountRole", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("AccountId", "RoleId");
+                    b.HasIndex("AccountId");
 
                     b.HasIndex("RoleId");
 

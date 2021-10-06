@@ -63,8 +63,10 @@ namespace NETCore.Context
                 .HasForeignKey<Account>(a => a.Id);
 
             //Account >---< Role
+            //modelBuilder.Entity<AccountRole>()
+            //   .HasKey(ar => new { ar.AccountId, ar.RoleId });
             modelBuilder.Entity<AccountRole>()
-               .HasKey(ar => new { ar.AccountId, ar.RoleId });
+               .HasKey(ar => ar.Id);
             modelBuilder.Entity<AccountRole>()
                 .HasOne(ar => ar.Account)
                 .WithMany(a => a.AccountRoles)

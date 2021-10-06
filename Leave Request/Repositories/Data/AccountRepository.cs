@@ -62,16 +62,18 @@ namespace Leave_Request.Repositories.Data
 
             if (registrationVM.JobId == 6 || registrationVM.JobId == 7)
             {
-                accountRole.AccountId = registrationVM.Id;
-                accountRole.RoleId = 2;
-                myContext.AccountRoles.Add(accountRole);
+                AccountRole accountRole_ = new AccountRole();
+                accountRole_.AccountId = registrationVM.Id;
+                accountRole_.RoleId = 2;
+                myContext.AccountRoles.Add(accountRole_);
                 myContext.SaveChanges();
             }
             else if (registrationVM.JobId == 2 || registrationVM.JobId == 5)
             {
-                accountRole.AccountId = registrationVM.Id;
-                accountRole.RoleId = 3;
-                myContext.AccountRoles.Add(accountRole);
+                AccountRole accountRole_ = new AccountRole();
+                accountRole_.AccountId = registrationVM.Id;
+                accountRole_.RoleId = 3;
+                myContext.AccountRoles.Add(accountRole_);
                 myContext.SaveChanges();
             }
 
@@ -177,7 +179,7 @@ namespace Leave_Request.Repositories.Data
             //generate token
             account.Token = Guid.NewGuid().ToString();
 
-            string bodyEmail = $"Berikut tautan untuk mereset password anda reset-password/email={account.Email}&token={account.Token}";
+            string bodyEmail = $"Here is link for reset your password: reset-password/email={account.Email}&token={account.Token}";
             SendEmail(bodyEmail, account.Email);
             myContext.SaveChanges();
             return 1;
@@ -202,7 +204,7 @@ namespace Leave_Request.Repositories.Data
             account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset);
 
             //kirim email
-            string bodyEmail = $"Password baru anda : <b>{passwordReset}</b>";
+            string bodyEmail = $"Your new password : <b>{passwordReset}</b>";
             SendEmail(bodyEmail, account.Email);
 
             //save ke DB
@@ -215,7 +217,6 @@ namespace Leave_Request.Repositories.Data
 
         public int ChangePassword(ChangePasswordVM cpVM)
         {
-            //return 100 = NIK tdk terdaftar
             //return 200 = email tdk terdaftar
             //return 300 = password salah
             //return 400 = confirm password tdk match
@@ -231,10 +232,17 @@ namespace Leave_Request.Repositories.Data
                 return 300;
             }
 
+            if (cpVM.NewPassword == cpVM.OldPassword)
+            {
+                return 500;
+            }
+
             if (cpVM.NewPassword != cpVM.ConfirmNewPassword)
             {
                 return 400;
             }
+
+            
 
             //insert new password
             string newPassword = cpVM.ConfirmNewPassword;
@@ -250,11 +258,12 @@ namespace Leave_Request.Repositories.Data
         {
             string fromMail = "leaverequest55@gmail.com";
             string fromPassword = "Leave_Request_55";
+            string timeStamp = DateTime.Now.ToString();
             MailMessage message = new MailMessage();
 
             message.From = new MailAddress(fromMail);
             message.To.Add(new MailAddress(toMailAddress));
-            message.Subject = "Reset Password - Leave Request";
+            message.Subject = $"Reset Password - Leave Request ({timeStamp})";
             message.Body = "<html><body>" + htmlString + "<html><body>";
             message.IsBodyHtml = true;
             var smtpClient = new SmtpClient("smtp.gmail.com")
