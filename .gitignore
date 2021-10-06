@@ -365,3 +365,5 @@ FodyWeavers.xsd
 # app setting json
 Leave Request/appsettings.json
 Client/appsettings.json
+Leave Request/API.csproj
+Leave Request/appsettings.json

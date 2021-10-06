@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Client.Controllers
 {
+    [Route("[controller]")]
     public class AccountsController : BaseController<Account, AccountRepository, int>
     {
         private readonly AccountRepository repository;
@@ -25,7 +26,7 @@ namespace Client.Controllers
             return View();
         }
 
-        [HttpPost("Register")]
+        [HttpPost("Register/")]
         public JsonResult Register([FromBody] RegistrationVM entity)
         {
             var result = repository.Register(entity);

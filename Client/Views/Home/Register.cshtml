@@ -82,10 +82,10 @@
 
                 <div class="form-row">
                     <div class="col-md mb-3">
-                        <label for="gender">Gender</label>
+                        <label for="inputGender">Gender</label>
                         <div class="input-group">
 
-                            <select id="gender" class="custom-select" required>
+                            <select id="inputGender" class="custom-select" required>
                                 <option value="0">Male</option>
                                 <option value="1">Female</option>
                             </select>
@@ -220,6 +220,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js" integrity="sha512-LGXaggshOkD/at6PFNcp2V2unf9LzFq6LE+sChH7ceMTDP0g2kn6Vxwgg7wkPP7AAtX+lmPqPdxB47A0Nz0cMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 <script>
     $(document).ready(function () {
@@ -289,33 +290,35 @@
                     form.addEventListener('submit', function (event) {
                         if (form.checkValidity() === true) {
                             event.preventDefault();
+
                             var obj = {
 
-                                //"nik": $('#inputNik').val(),
-                                //"firstName": $('#inputFirstName').val(),
-                                //"lastName": $('#inputLastName').val(),
-                                //"phone": $('#inputPhone').val(),
-                                //"birthDate": moment($('#inputBirthDate').val()).format("YYYY-MM-DDTHH:mm:ss"),
-                                //"gender": parseInt($('#gender').val()),
-                                //"salary": parseInt($('#inputSalary').val()),
-                                //"email": $('#inputEmail').val(),
-                                //"password": $('#inputPassword').val(),
-                                //"degree": $('#inputDegree').val(),
-                                //"GPA": $('#inputGpa').val(),
-                                //"UniversityId": parseInt($('#inputUniversity').val())
+                                //"Id": 12,
+                                //"Name": "Cumi Cumi",
+                                //"Address": "Bandung, Indonesia",
+                                //"Gender": 1,
+                                //"Phone": "0812322126007",
+                                //"BirthDate": "1994-05-11",
+                                //"Salary": 1000000,
+                                //"JoinDate": "2020-10-05",
+                                //"ReligionId": 1,
+                                //"JobId": 1,
+                                //"Email": "ciciici7@gmail.com",
+                                //"Password": "Qwerty007"
 
-                                "Id": $('#inputId').val(),
+                                "Id": parseInt($('#inputId').val()),
                                 "Name": $('#inputName').val(),
                                 "Address": $('#inputAddress').val(),
-                                "Gender": $('#inputGender').val(),
+                                "Gender": parseInt($('#inputGender').val()),
                                 "Phone": $('#inputPhone').val(),
-                                "BirthDate": $('#inputBirthDate').val(),
-                                "Salary": $('#inputSalary').val(),
-                                "JoinDate": $('#inputJoinDate').val(),
-                                "ReligionId": $('#inputReligion').val(),
-                                "JobId": $('#inputJob').val(),
+                                "BirthDate": moment($('#inputBirthDate').val()).format("YYYY-MM-DD"),
+                                "Salary": parseInt($('#inputSalary').val()),
+                                "JoinDate": moment($('#inputJoinDate').val()).format("YYYY-MM-DD"),
+                                "ReligionId": parseInt($('#inputReligion').val()),
+                                "JobId": parseInt($('#inputJob').val()),
                                 "Email": $('#inputEmail').val(),
                                 "Password": $('#inputPassword').val()
+                               
                             };
 
                             var data = JSON.stringify(obj);
@@ -352,6 +355,7 @@
                 //    $('#table_id').val(json.lastInput);
                 //});
             }).fail((result) => {
+                console.log("fail");
                 console.log(result);
             });
         };
