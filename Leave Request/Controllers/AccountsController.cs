@@ -1,5 +1,6 @@
 ﻿using Leave_Request.Models;
 using Leave_Request.Repositories.Data;
+using Leave_Request.ViewModel;
 using Leave_Request.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -112,10 +113,10 @@ namespace Leave_Request.Controllers
             }
         }
 
-        [HttpPost("forget-password")]
-        public ActionResult ForgetPassword(string email)
+        [HttpPost("forgot-password")]
+        public ActionResult ForgotPassword(EmailVM email)
         {
-            int output = repository.ForgetPassword(email);
+            int output = repository.ForgotPassword(email.Email);
             if (output == 100)
             {
                 return BadRequest(new
@@ -131,27 +132,33 @@ namespace Leave_Request.Controllers
             });
         }
 
-        //[HttpPost("reset-password/email={Email}")]
-        //public ActionResult ResetPassword(string Email)
-        //{
-        //    /*string tempEmail = Request.Query.Keys.Contains("email").ToString();*/
-        //    int output = repository.ResetPassword(Email);
-            
-        //    if (output == 200)
-        //    {
-        //        return BadRequest(new
-        //        {
-        //            status = HttpStatusCode.BadRequest,
-        //            message = "Email not found!",
-        //        });
-        //    }
-        //    return Ok(new
-        //    {
-        //        statusCode = StatusCode(200),
-        //        status = HttpStatusCode.OK,
-        //        message = "Password has been reset !"
-        //    });
-        //}
+        [HttpPost("reset-password/email={Email}&token={Token}")]
+        public ActionResult ResetPassword(string Email, string Token)
+        {
+            int output = repository.ResetPassword(Email, Token);
+            if (output == 100)
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    message = "Wrong Token !",
+                });
+            }
+            else if (output == 200)
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    message = "Wrong Email !",
+                });
+            }
+            return Ok(new
+            {
+                statusCode = StatusCode(200),
+                status = HttpStatusCode.OK,
+                message = "New Password has been sent to your email!"
+            });
+        }
 
         [HttpPost("change-password")]
         public ActionResult ChangePassword(ChangePasswordVM cpVM)

@@ -162,7 +162,7 @@ namespace Leave_Request.Repositories.Data
             return token;
         }
 
-        public int ForgetPassword(string email)
+        public int ForgotPassword(string email)
         {
             /*Guid myuuid = Guid.NewGuid().ToString();
             string newPassword = myuuid.ToString();*/
@@ -173,40 +173,45 @@ namespace Leave_Request.Repositories.Data
             {
                 return 100;
             }
-            //generate new password
-            string passwordReset = Guid.NewGuid().ToString();
-            account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset);
 
-            string bodyEmail = $"Password anda yang baru adalah {account.Password}";
+            //generate token
+            account.Token = Guid.NewGuid().ToString();
+
+            string bodyEmail = $"Berikut tautan untuk mereset password anda reset-password/email={account.Email}&token={account.Token}";
             SendEmail(bodyEmail, account.Email);
             myContext.SaveChanges();
             return 1;
         }
 
-        //public int ResetPassword(string email)
-        //{
-        //    //return 200 = email salah
+        public int ResetPassword(string email, string token)
+        {
+            //return 100 = token salah
+            //return 200 = email salah
+            var account = myContext.Accounts.Where(e => e.Email == email).FirstOrDefault();
+            if (account == null)
+            {
+                return 200;
+            }
+            if (account.Token != token)
+            {
+                return 100;
+            }
 
-        //    var account = myContext.Accounts.Where(e => e.Email == email).FirstOrDefault();
-        //    if (account == null)
-        //    {
-        //        return 200;
-        //    }
+            //generate new password
+            string passwordReset = Guid.NewGuid().ToString();
+            account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset);
 
-        //    //generate new password
-        //    string passwordReset = Guid.NewGuid().ToString();
-        //    account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset);
+            //kirim email
+            string bodyEmail = $"Password baru anda : <b>{passwordReset}</b>";
+            SendEmail(bodyEmail, account.Email);
 
-        //    //kirim email
-        //    string bodyEmail = $"Password baru anda : {passwordReset}";
-        //    SendEmail(bodyEmail, account.Email);
+            //save ke DB
+            Update(account);
+            account.Token = null;
+            myContext.SaveChanges();
 
-        //    //save ke DB
-        //    Update(account);
-        //    myContext.SaveChanges();
-
-        //    return 1; //kirim email
-        //}
+            return 1;
+        }
 
         public int ChangePassword(ChangePasswordVM cpVM)
         {
@@ -255,7 +260,7 @@ namespace Leave_Request.Repositories.Data
 
             message.From = new MailAddress(fromMail);
             message.To.Add(new MailAddress(toMailAddress));
-            message.Subject = "Test";
+            message.Subject = "Reset Password - Leave Request";
             message.Body = "<html><body>" + htmlString + "<html><body>";
             message.IsBodyHtml = true;
             var smtpClient = new SmtpClient("smtp.gmail.com")
