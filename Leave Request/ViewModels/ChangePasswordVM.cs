@@ -16,11 +16,11 @@ namespace Leave_Request.ViewModels
         public string OldPassword { get; set; }
         [Required]
         [MinLength(8, ErrorMessage = "Password must have minimum 8 characters")]
-        [RegularExpression("^.*(?=.{8,})(?=.*[a-zA-Z])[a-zA-Z0-9]+$", ErrorMessage = "Password must contains numbers, lowercase, and uppercase")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$", ErrorMessage = "Password must contains numbers, lowercase, and uppercase")]
         public string NewPassword { get; set; }
         [Required]
         [MinLength(8, ErrorMessage = "Password must have minimum 8 characters")]
-        [RegularExpression("^.*(?=.{8,})(?=.*[a-zA-Z])[a-zA-Z0-9]+$", ErrorMessage = "Password must contains numbers, lowercase, and uppercase")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$", ErrorMessage = "Password must contains numbers, lowercase, and uppercase")]
         public string ConfirmNewPassword { get; set; }
     }
 }

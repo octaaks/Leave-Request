@@ -53,7 +53,7 @@ namespace Leave_Request.ViewModels
 
         [Required(ErrorMessage = "Password must be filled out")]
         [MinLength(8, ErrorMessage = "Password must have minimum 8 characters")]
-        [RegularExpression("^.*(?=.{8,})(?=.*[a-zA-Z])[a-zA-Z0-9]+$", ErrorMessage = "Password must contains numbers, lowercase, and uppercase")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$", ErrorMessage = "Password must contains numbers, lowercase, and uppercase")]
         public string Password { get; set; }
     }
 }

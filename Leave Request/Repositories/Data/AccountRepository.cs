@@ -221,12 +221,6 @@ namespace Leave_Request.Repositories.Data
                 return 200;
             }
 
-            //var pass = myContext.Accounts.Where(a => a.Password == cpVM.OldPassword).FirstOrDefault();
-            //if (pass == null)
-            //{
-            //    return 300;
-            //}
-
             if (!BCrypt.Net.BCrypt.Verify(cpVM.OldPassword, account.Password))
             {
                 return 300;
