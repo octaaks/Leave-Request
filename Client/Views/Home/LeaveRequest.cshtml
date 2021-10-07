@@ -1,0 +1,434 @@
+﻿@{
+    Layout = (string)ViewData["Layout"] ?? "_LayoutUser";
+    ViewData["Title"] = "History";
+}
+<html>
+<head>
+    <title>Title</title>
+    <!--<link href="~/fontawesome/css/all.css" rel="stylesheet">--> <!--load all styles -->
+    <!-- CSS Boostrap -->
+    @*<link rel="styles heet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">*@
+
+    <!-- CSS Bootstrap Datepicker -->
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">*@
+    @*<link rel="stylesheet" href="~/css/persons.css" />*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 id="judul" text-align:start;">Leave Request</h3>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary ml-3" style="float:right" data-bs-toggle="modal" data-bs-target="#registerModal">New Request <i class="fas fa-plus ml-2"></i></button>
+            </div>
+        </div>
+
+        <div class="card shadow p-3 mt-3 p-lg-3">
+            <table id="table_id" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>Request Date</th>
+                        <th>Leave Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th>Date Approved</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal 1-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="modal-content" class="modal-body">
+                        <div class="row">
+                            <div class="col-4 pl-5 font-weight-bold">
+                                <div>NIK</div>
+                                <div>Name</div>
+                                <div>Gender</div>
+                                <div>Email</div>
+                                <div>Phone</div>
+                                <div>BirthDate</div>
+                                <div>Salary</div>
+
+                                <div>University</div>
+                                <div>Degree</div>
+                                <div>GPA</div>
+
+                                <div>Roles</div>
+                            </div>
+                            <div class="col-1">
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                            </div>
+                            <div class="col-7">
+                                <div id="modal-data"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Request Form-->
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Request</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="modal-content" class="modal-body">
+                        <form id="contactform" class="needs-validation" novalidate>
+                            @*<form method="post" action="" id="contactform" class="was-validated">*@
+
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="inputId">Employee ID</label>
+                                </div>
+                                <div class="col mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="nik" class="form-control" id="inputId" placeholder="Employee ID" aria-describedby="" value="@ViewBag.userid" autocomplete="off" required>
+                                        <p class="validation-message" id="invalid-nik"></p>
+                                        <div class="invalid-feedback">
+                                            Please type your ID.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="inputLeaveType">Leave Type</label>
+                                </div>
+                                <div class="col-md mb-3">
+                                    <div class="input-group">
+                                        <select class="custom-select my-1 mr-sm-2" id="inputLeaveType" placeholder="Leave Type" required>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select the leave type.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label>Date Range</label>
+                                </div>
+                                <div class="col-md mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                                        </div>
+                                        <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputStartDate" placeholder="Start Date" autocomplete="off" autocorrect="off"
+                                               autocapitalize="off" spellcheck="false" required>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please insert the start date.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                                        </div>
+                                        <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputEndDate" placeholder="End Date" autocomplete="off" autocorrect="off"
+                                               autocapitalize="off" spellcheck="false" required>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please insert the end date.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="inputBirthDate">Leave Duration</label>
+                                    
+                                </div>
+                                <div class="col-md mb-3">
+                                    <input type="number" class="form-control" id="leaveDuration" placeholder="Leave Duration" autocomplete="off" autocorrect="off"
+                                           autocapitalize="off" spellcheck="false" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="univId" type="checkbox" value="" id="invalidCheck" required>
+                                    <label class="form-check-label" for="invalidCheck">
+                                        Agree to terms and conditions
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        You must agree before submitting.
+                                    </div>
+                                </div>
+                            </div>
+                            @*<button id="register" class="btn btn-primary" type="submit">Submit form</button>*@
+                            <button class="btn btn-primary" type="submit" id="btnSubmit">Submit form</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+
+<script>
+    //date select
+
+    var startdate = "";
+    var enddate = "";
+    var duration = "";
+
+    $('#inputStartDate').datepicker({
+        format: 'mm/dd/yyyy',
+    }).on('changeDate', function (e) {
+        startdate = e.format();
+    });
+
+    $('#inputEndDate').datepicker({
+        format: 'mm/dd/yyyy',
+    }).on('changeDate', function (e) {
+        enddate = e.format();
+
+        duration = moment(enddate).diff(moment(startdate));
+       
+        console.log(moment.duration(moment(startdate), moment(enddate, 'days')));
+
+        $('#leaveDuration').val(duration);
+    });
+
+
+    //DATATABLEs
+    var mt = $('#table_id').DataTable({
+        "columnDefs": [{
+            "targets": 0,
+            "searchable": false,
+            "orderable": false
+        }],
+        "order": [[1, 'asc']],
+        "filter": true,
+        "ajax": {
+            "url": "/leaverequests/getleaverequests",
+            "datatype": "json",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": null },
+            { "data": "nik" },
+            { "data": "fullName" },
+            { "data": "email" },
+            {
+                "data": "gender",
+                "render": function (data, type, row) {
+                    if (data == 0) {
+                        return 'Male' + ' <i class="fas fa-mars"></i>';
+                    } else {
+                        return 'Female' + ' <i class="fas fa-venus"></i>';
+                    }
+                }
+            },
+            {
+                "data": "phone",
+                "render": function (data, type, row) {
+
+                    return '(+62)' + data.slice(1, 99);
+                },
+                "autoWidth": true
+            },
+            {
+                "data": "nik",
+                "render": function (data, type, row) {
+
+                    return '<button class="btn btn-primary mr-1" onclick="show(' + data + ')" data-bs-toggle="modal" data-bs-target="#exampleModal"> Details </button><button class="btn btn-danger" onclick="deletePerson(' + data + ')"> Delete </button>';
+                },
+                "autoWidth": true
+            }
+        ],
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
+            },
+        ]
+    });
+
+    mt.on('order.dt search.dt', function () {
+        mt.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
+
+    $(document).ready(function () {
+
+        //get all leave req
+        $.ajax({
+            url: "/leaverequests/getleaverequests/"
+        }).done((result) => {
+            console.log(result);
+        }).fail((result) => {
+            console.log(result);
+        });
+
+        //get all leave types
+        $.ajax({
+            url: "/leavetypes/getall"
+        }).done((result) => {
+            var text = "";
+            console.log(result);
+            $.each(result, function (key, val) {
+                text += `
+                <option value="${val.id}">${val.name}</option>
+            `
+            });
+            $("#inputLeaveType").html(text);
+        }).fail((result) => {
+            console.log(result);
+        });
+
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                            })
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === true) {
+                            event.preventDefault();
+                            var obj = {
+                                //"nik": $('#inputNik').val(),
+
+                                "RequestDate": "1911-11-11T00:00:00",
+                                "StartDate": "1911-11-11T00:00:00",
+                                "EndDate": "1911-11-11T00:00:00",
+                                "LeaveDuration": 2,
+                                "LeaveTypeId": 1,
+                                "EmployeeId": 6
+                            };
+
+                            var data = JSON.stringify(obj);
+
+                            insertRequest(data);
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        function insertRequest(data) {
+            console.log(data);
+
+            $.ajax({
+                type: "POST",
+                url: "/leaverequests/post",
+                data: data,
+                traditional: true,
+                contentType: 'application/json',
+                dataType: "json",
+
+            }).done((result) => {
+                console.log(result);
+                $('#registerModal').modal('toggle');
+                $('#contactform')[0].reset();
+
+                Swal.fire(
+                    'Congratulations!',
+                    'Register succeed!'
+                );
+                mt.ajax.reload(function (json) {
+                    $('#table_id').val(json.lastInput);
+                });
+            }).fail((result) => {
+                console.log(result);
+            });
+        };
+
+        //reload button
+        $("#reloadBtn").click(function () {
+            mt.ajax.reload(function (json) {
+                $('#table_id').val(json.lastInput);
+            });
+        });
+    });
+</script>

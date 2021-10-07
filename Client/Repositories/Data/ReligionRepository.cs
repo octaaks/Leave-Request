@@ -14,7 +14,7 @@ namespace Client.Repositories.Data
     public class ReligionRepository : GeneralRepository<Religion, int>
     {
         private readonly Address address;
-        private readonly HttpClient httpClient;
+        //private readonly HttpClient httpClient;
         private readonly string request;
 
         public ReligionRepository(Address address, string request = "Religions/") : base(address, request)

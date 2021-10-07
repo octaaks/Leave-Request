@@ -44,6 +44,8 @@ namespace Client
 
             services.AddControllersWithViews();
             services.AddScoped<AccountRepository>();
+            services.AddScoped<LeaveTypeRepository>();
+            services.AddScoped<LeaveRequestRepository>();
             services.AddScoped<JobRepository>();
             services.AddScoped<ReligionRepository>();
             services.AddScoped<Address>();

@@ -4,10 +4,12 @@ using Leave_Request.Models;
 using Leave_Request.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Client.Controllers
@@ -49,9 +51,10 @@ namespace Client.Controllers
             {
                 return RedirectToAction("index","home");
             }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             HttpContext.Session.SetString("JWToken", token);
-            //HttpContext.Session.SetString("Email", login.Email);
+            HttpContext.Session.SetString("Email", login.Email);
 
             return RedirectToAction("dashboard", "home");
         } 

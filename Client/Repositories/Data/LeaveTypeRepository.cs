@@ -1,6 +1,7 @@
 ﻿using Client.Base.Urls;
 using Leave_Request.Models;
 using Leave_Request.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Client.Repositories.Data
 {
-    public class JobRepository : GeneralRepository<Job, int>
+    public class LeaveTypeRepository : GeneralRepository<LeaveType, int>
     {
         private readonly Address address;
         //private readonly HttpClient httpClient;
         private readonly string request;
 
-        public JobRepository(Address address, string request = "Jobs/") : base(address, request)
+        public LeaveTypeRepository(Address address, string request = "LeaveTypes/") : base(address, request)
         {
             this.address = address;
             this.request = request;
