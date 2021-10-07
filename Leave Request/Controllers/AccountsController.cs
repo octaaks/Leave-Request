@@ -132,7 +132,7 @@ namespace Leave_Request.Controllers
             });
         }
 
-        [HttpGet("reset-password/email={Email}&token={Token}")]
+        [HttpPost("reset-password/email={Email}&token={Token}")]
         public ActionResult ResetPassword(string Email, string Token)
         {
             int output = repository.ResetPassword(Email, Token);
