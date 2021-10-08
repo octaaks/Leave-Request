@@ -17,12 +17,18 @@
         <div class="row vertical-center">
             <div class="col">
                 @*<form asp-controller="Home" asp-action="Login" method="get">*@
-                <button type="button" class="btn btn-outline-light" id="button-home" data-toggle="modal" data-target="#doLogin">Login</button>
+                <button type="button" class="btn btn-outline-light" id="button-home"
+                        data-toggle="modal" data-target="#doLogin">
+                    Login
+                </button>
                 @*</form>*@
             </div>
             <div class="col">
                 @*<form asp-controller="Home" asp-action="Register" method="get">*@
-                <button type="button" class="btn btn-outline-light" id="button-home" data-toggle="modal" data-target="#insertRegis">Register</button>
+                <button type="button" class="btn btn-outline-light" id="button-home"
+                        data-toggle="modal" data-target="#insertRegis">
+                    Register
+                </button>
                 @* </form>*@
             </div>
         </div>
@@ -250,8 +256,8 @@
                             </div>
                             <button class="btn btn-primary" type="submit" id="btnSubmit">Submit</button>
                             @*<p class="mb-1 mt-3 float-right">
-                                Already have an account? <a asp-controller="Home" asp-action="Login">Log In Here!</a>
-                            </p>*@
+                                    Already have an account? <a asp-controller="Home" asp-action="Login">Log In Here!</a>
+                                </p>*@
                         </form>
                     </div>
                 </div>
@@ -317,15 +323,16 @@
                             <a asp-controller="Home" asp-action="ForgotPassword">I forgot my password</a>
                         </p>
                         @*<p class="mb-0">
-                    <a asp-controller="Home" asp-action="Register" class="text-center">Register a new membership</a>
-                </p>*@
+                                <a asp-controller="Home" asp-action="Register" class="text-center">Register a new membership</a>
+                            </p>*@
                     </div>
                     <!-- /.login-card-body -->
                 </div>
             </div>
         </div>
     </div>
-    
+
+
     <!-- /.login-box -->
     <!-- jQuery -->
     <script src="~/adminlte/plugins/jquery/jquery.min.js"></script>
@@ -335,3 +342,6 @@
     <script src="~/adminlte/dist/js/adminlte.min.js"></script>
 </body>
 
+@section scripts{
+    <script src="~/js/homeAction.js"></script>
+}
