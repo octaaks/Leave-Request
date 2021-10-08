@@ -1,8 +1,7 @@
 ﻿@{
-    Layout = "";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,190 +16,215 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="~/adminlte/dist/css/adminlte.min.css">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
 </head>
-<body class="hold-transition login-page">
-    <div class="card card-info m-auto mt-5 mb-5" style="width: 60%;">
+<body class="hold-transition login-page d-flex justify-content-center">
+    <div class="card card-info m-auto mt-5 mb-5" style="width:75%;">
         <div class="card-header text-center text-white">
             <h2>Register</h2>
         </div>
         <div class="card-body">
-            <form id="contactform" class="needs-validation" novalidate>
+                <form id="contactform" class="needs-validation" novalidate>
 
-                <div class="form-row">
-                    <div class="col mb-3">
-                        <label for="inputId">Employee ID</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputId" placeholder="Employee ID" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please type your Employee ID.
+                    <div class="form-row">
+                        <div class="col-4 mb-3">
+                            <label for="inputId">Employee ID</label>
+                            <div class="input-group">
+                                <input type="text" name="nik" class="form-control" id="inputId" placeholder="Employee ID"
+                                       aria-describedby="inputGroupPrepend" autocomplete="off" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please type your employee ID.
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col mb-3">
-                        <label for="inputName">Name</label>
-                        <input type="text" name="firstname" class="form-control" id="inputName" placeholder="Name" value="" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col-md mb-3">
-                        <label for="inputEmail">Email</label>
-                        <div class="input-group">
-                            <input type="text" name="email" class="form-control" id="inputEmail" placeholder="Email" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please type an email.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md mb-3">
-                        <label for="inputPassword">Password</label>
-                        <div class="input-group">
-                            <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please insert your password.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md mb-3">
-                        <label for="inputPhone">Phone</label>
-                        <div class="input-group">
-                            <input type="text" name="phone" class="form-control" id="inputPhone" placeholder="Phone" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please type a phone number.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col-md mb-3">
-                        <label for="inputGender">Gender</label>
-                        <div class="input-group">
-
-                            <select id="inputGender" class="custom-select" required>
-                                <option value="0">Male</option>
-                                <option value="1">Female</option>
-                            </select>
-
-                            <div class="invalid-feedback">
-                                Please insert date of birth.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col mb-3">
-                        <label for="inputAddress">Address</label>
-                        <input type="text" name="firstname" class="form-control" id="inputAddress" placeholder="Address" value="" required>
-                        @*<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>*@
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col-md mb-3">
-                        <label for="inputReligion">Religion</label>
-                        <div class="input-group">
-                            <select class="custom-select my-1 mr-sm-2" id="inputReligion" placeholder="Religion" required>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select your religion.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col-md mb-3">
-                        <label for="inputBirthDate">BirthDate</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
-                            </div>
-                            <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputBirthDate" placeholder="Birth Date" autocomplete="off" autocorrect="off"
-                                   autocapitalize="off" spellcheck="false" required>
-                            <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-th"></span>
+                        <div class="col-8 mb-3">
+                            <label for="inputName">Name</label>
+                            <input type="text" name="firstname" class="form-control" id="inputName" placeholder="Name" required>
+                            <div class="valid-feedback">
+                                Looks good!
                             </div>
                             <div class="invalid-feedback">
-                                Please insert date of birth.
+                                Please type your name.
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="col-md mb-3">
-                        <label for="inputJoinDate">Join Date</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="form-row">
+                        <div class="col-md mb-3">
+                            <label for="inputEmail">Email</label>
+                            <div class="input-group">
+                                <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email"
+                                       aria-describedby="inputGroupPrepend" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please type an active email.
+                                </div>
                             </div>
-                            <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputJoinDate" placeholder="Birth Date" autocomplete="off" autocorrect="off"
-                                   autocapitalize="off" spellcheck="false" required>
-                            <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                        <div class="col-md mb-3">
+                            <label for="inputPassword">Password</label>
+                            <div class="input-group">
+                                <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password"
+                                       pattern="^(?=.?[A-Z])(?=.?[a-z])(?=.*?[0-9]).{8,}$" aria-describedby="inputGroupPrepend" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Min 8 char, contain lowercase, uppercase, & number.
+                                </div>
                             </div>
+                        </div>
+                        <div class="col-md mb-3">
+                            <label for="inputPhone">Phone</label>
+                            <div class="input-group">
+                                <input type="number" name="phone" class="form-control" id="inputPhone" placeholder="Phone"
+                                       aria-describedby="inputGroupPrepend" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please type a phone number.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md mb-3">
+                            <label for="inputGender">Gender</label>
+                            <div class="input-group">
+
+                                <select id="inputGender" class="custom-select" required>
+                                    <option value=0>Male</option>
+                                    <option value=1>Female</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please insert your gender.
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <div class="col mb-3">
+                            <label for="inputAddress">Address</label>
+                            <input type="text" name="firstname" class="form-control" id="inputAddress" placeholder="Address" value="" required>
                             <div class="invalid-feedback">
-                                Please insert join date.
+                                Please insert your address.
+                            </div>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    
+                        <div class="col-md mb-3">
+                            <label for="inputReligion">Religion</label>
+                            <div class="input-group">
+                                <select class="custom-select my-1 mr-sm-2" id="inputReligion" placeholder="Religion" required>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please select your religion.
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="col-md mb-3">
-                        <label for="inputJob">Position</label>
-                        <div class="input-group">
-                            <select class="custom-select my-1 mr-sm-2" id="inputJob" placeholder="Position" required>
-                            </select>
+                    <div class="form-row">
+                        <div class="col-md mb-3">
+                            <label for="inputBirthDate">BirthDate</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" data-date-format="yyyy-mm-dd" id="inputBirthDate"
+                                       placeholder="Birth Date" autocomplete="off" autocorrect="off"
+                                       autocapitalize="off" spellcheck="false" required>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please insert your birthdate.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md mb-3">
+                            <label for="inputJoinDate">Join Date</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" data-date-format="yyyy-mm-dd" id="inputJoinDate"
+                                       placeholder="Birth Date" autocomplete="off" autocorrect="off"
+                                       autocapitalize="off" spellcheck="false" required>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please insert join date.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md mb-3">
+                            <label for="inputJob">Position</label>
+                            <div class="input-group">
+                                <select class="custom-select my-1 mr-sm-2" id="inputJob" placeholder="Position" required>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please select your position.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md mb-3">
+                            <label for="inputSalary">Salary</label>
+                            <div class="input-group">
+                                <input type="number" name="salary" class="form-control" id="inputSalary" placeholder="Salary"
+                                       aria-describedby="inputGroupPrepend" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please insert your salary.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <div class="form-check">
+                            <input class="form-check-input" name="check" type="checkbox" value="" id="invalidCheck" required>
+                            <label class="form-check-label" for="invalidCheck">
+                                Agree to terms and conditions
+                            </label>
                             <div class="invalid-feedback">
-                                Please select your position.
+                                You must agree before submitting.
                             </div>
                         </div>
                     </div>
-                    <div class="col-md mb-3">
-                        <label for="inputSalary">Salary</label>
-                        <div class="input-group">
-                            <input type="text" name="salary" class="form-control" id="inputSalary" placeholder="Salary" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Please insert your salary.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group mt-3">
-                    <div class="form-check">
-                        <input class="form-check-input" name="univId" type="checkbox" value="" id="invalidCheck" required>
-                        <label class="form-check-label" for="invalidCheck">
-                            Agree to terms and conditions
-                        </label>
-                        <div class="invalid-feedback">
-                            You must agree before submitting.
-                        </div>
-                    </div>
-                </div>
-                <button class="btn btn-primary" type="submit" id="btnSubmit">Submit form</button>
-            </form>
-
-            <p class="mb-1 mt-3 float-right">
-                Already have an account? <a asp-controller="Home" asp-action="Login">Log In Here!</a>
-            </p>
+                    <button class="btn btn-primary" type="submit" id="btnSubmit">Submit form</button>
+                    <p class="mb-1 mt-3 float-right">
+                        Already have an account? <a asp-controller="Home" asp-action="Login">Log In Here!</a>
+                    </p>
+                </form>
+            </div>
         </div>
         <!-- /.login-card-body -->
-    </div>
     <!-- /.login-box -->
     <!-- jQuery -->
     <script src="~/adminlte/plugins/jquery/jquery.min.js"></script>
@@ -209,7 +233,7 @@
     <!-- AdminLTE App -->
     <script src="~/adminlte/dist/js/adminlte.min.js"></script>
 </body>
-</html>
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -318,7 +342,7 @@
                                 "JobId": parseInt($('#inputJob').val()),
                                 "Email": $('#inputEmail').val(),
                                 "Password": $('#inputPassword').val()
-                               
+
                             };
 
                             var data = JSON.stringify(obj);
