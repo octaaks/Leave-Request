@@ -231,32 +231,45 @@
         var enddate = "";
         var duration = "";
 
-        var dateToday = new Date();
-        var date1 = new Date(startdate);
-
         $('#inputStartDate').datepicker({
-            minDate: new Date(),
+            startDate: '-0m',
             format: 'mm/dd/yyyy',
         }).on('changeDate', function (e) {
             startdate = e.format();
+
+            //fetch from API libur nasional
+            getHolidays(moment(startdate).format("YYYY"));
+
+            $("#inputEndDate").datepicker("destroy");
+            $('#inputEndDate').datepicker({
+                format: 'mm/dd/yyyy',
+                startDate: new Date(moment(startdate))
+            }).on('changeDate', function (e) {
+                enddate = e.format();
+
+                duration = 1 + moment(enddate).diff(moment(startdate), 'days');
+                $('#leaveDuration').val(duration);
+            });
         });
-
-        $('#inputEndDate').datepicker({
-            format: 'mm/dd/yyyy',
-            minDate: date1,
-        }).on('changeDate', function (e) {
-            enddate = e.format();
-
-            duration = moment(enddate).diff(moment(startdate), 'days');
-
-            console.log(moment.duration(moment(startdate), moment(enddate, 'days')));
-
-            $('#leaveDuration').val(duration);
-        });
-
     });
-    
 
+    function getHolidays(year) {
+        //get holidays
+        $.ajax({
+            url: "https://api-harilibur.vercel.app/api?year="+year
+        }).done((result) => {
+            console.log(result);
+        }).fail((result) => {
+            console.log(result);
+        });
+    }
+
+    function checkHolidays(year) {
+
+        for (var i = 0; i < length; i++) {
+
+        }
+    }
 
     //DATATABLEs
     var mt = $('#table_id').DataTable({
