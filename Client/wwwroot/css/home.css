@@ -1,0 +1,89 @@
+﻿.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.vertical-upper {
+    margin: 0;
+    position: absolute;
+    top: 35%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#bg {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    display: block;
+    /* The image used */
+    background-image: url("https://miro.medium.com/max/4800/1*NaUmBti42n0FMMffyjTtBg.jpeg");
+    /* Full height */
+    height: 100%;
+    opacity: 1;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* Add the blur effect */
+    filter: blur(3px);
+    -webkit-filter: blur(2px);
+}
+#bg-ol {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    display: block;
+    background-color: black;
+    background-attachment: fixed;
+    /* Full height */
+    height: 100%;
+    opacity: 0.5;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#button-home {
+    width:100px;
+}
+
+#title {
+    z-index: 1;
+    font-family: Courier New, Courier, monospace;
+    font-size: 80px;
+    color: white
+}
+
+#subtitle {
+    z-index: 1;
+    font-family: cursive;
+    font-size: 30px;
+    color: white
+}
+
+#add-subtitle {
+    z-index: 1;
+    font-family: Courier New, Courier, monospace;
+    font-size: 40px;
+    font-weight: bold;
+    color: white
+}
+
+#generalcontainer {
+    z-index: 1;
+}

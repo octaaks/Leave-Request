@@ -25,10 +25,10 @@ namespace Client.Repositories
             this.address = address;
             this.request = request;
             //_contextAccessor = new HttpContextAccessor();
-            httpClient = new HttpClient
-            {
-                BaseAddress = new Uri(address.link)
-            };
+            //httpClient = new HttpClient
+            //{
+            //    BaseAddress = new Uri(address.link)
+            //};
             //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", _contextAccessor.HttpContext.Session.GetString("JWToken"));
         }
 

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,10 +17,10 @@ namespace Client.Repositories.Data
     public class AccountRepository : GeneralRepository<Account, int>
     {
         private readonly Address address;
-        private readonly HttpClient httpClient;
         private readonly string request;
         private readonly IHttpContextAccessor contextAccessor;
-
+        private readonly HttpClient httpClient;
+        
         public AccountRepository(Address address, string request = "Accounts/") : base(address, request)
         {
             this.address = address;
@@ -30,6 +31,7 @@ namespace Client.Repositories.Data
             {
                 BaseAddress = new Uri(address.link)
             };
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", contextAccessor.HttpContext.Session.GetString("JWToken"));
         }
 
         //public HttpStatusCode Register(RegistrationVM entity)
