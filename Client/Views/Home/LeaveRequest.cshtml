@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="col mb-3">
                                     <div class="input-group">
-                                        <input type="text" name="nik" class="form-control" id="inputId" placeholder="Employee ID" aria-describedby="" value="@ViewBag.userid" autocomplete="off" required>
+                                        <input type="text" name="nik" class="form-control" id="inputId" placeholder="Employee ID" aria-describedby="" value="" autocomplete="off" required>
                                         <p class="validation-message" id="invalid-nik"></p>
                                         <div class="invalid-feedback">
                                             Please type your ID.
@@ -229,18 +229,22 @@
     var enddate = "";
     var duration = "";
 
+    var dateToday = new Date();
+
     $('#inputStartDate').datepicker({
         format: 'mm/dd/yyyy',
+        minDate: dateToday,
     }).on('changeDate', function (e) {
         startdate = e.format();
     });
 
     $('#inputEndDate').datepicker({
         format: 'mm/dd/yyyy',
+        minDate: moment(startdate),
     }).on('changeDate', function (e) {
         enddate = e.format();
 
-        duration = moment(enddate).diff(moment(startdate));
+        duration = moment(enddate).diff(moment(startdate), 'days');
        
         console.log(moment.duration(moment(startdate), moment(enddate, 'days')));
 
