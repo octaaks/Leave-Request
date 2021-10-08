@@ -17,21 +17,20 @@ namespace Client.Repositories.Data
     public class AccountRepository : GeneralRepository<Account, int>
     {
         private readonly Address address;
+        private readonly HttpClient httpClient;
         private readonly string request;
         private readonly IHttpContextAccessor contextAccessor;
-        private readonly HttpClient httpClient;
-        
+
         public AccountRepository(Address address, string request = "Accounts/") : base(address, request)
         {
             this.address = address;
-            this.request = request; 
-            
+            this.request = request;
+
             contextAccessor = new HttpContextAccessor();
             httpClient = new HttpClient
             {
                 BaseAddress = new Uri(address.link)
             };
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", contextAccessor.HttpContext.Session.GetString("JWToken"));
         }
 
         //public HttpStatusCode Register(RegistrationVM entity)
@@ -61,6 +60,5 @@ namespace Client.Repositories.Data
 
             return token;
         }
-
     }
 }

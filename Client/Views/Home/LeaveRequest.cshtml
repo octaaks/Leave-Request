@@ -223,33 +223,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 
 <script>
-    //date select
+    $(function () {
 
-    var startdate = "";
-    var enddate = "";
-    var duration = "";
+        //date select
 
-    var dateToday = new Date();
+        var startdate = "";
+        var enddate = "";
+        var duration = "";
 
-    $('#inputStartDate').datepicker({
-        format: 'mm/dd/yyyy',
-        minDate: dateToday,
-    }).on('changeDate', function (e) {
-        startdate = e.format();
+        var dateToday = new Date();
+        var date1 = new Date(startdate);
+
+        $('#inputStartDate').datepicker({
+            minDate: new Date(),
+            format: 'mm/dd/yyyy',
+        }).on('changeDate', function (e) {
+            startdate = e.format();
+        });
+
+        $('#inputEndDate').datepicker({
+            format: 'mm/dd/yyyy',
+            minDate: date1,
+        }).on('changeDate', function (e) {
+            enddate = e.format();
+
+            duration = moment(enddate).diff(moment(startdate), 'days');
+
+            console.log(moment.duration(moment(startdate), moment(enddate, 'days')));
+
+            $('#leaveDuration').val(duration);
+        });
+
     });
-
-    $('#inputEndDate').datepicker({
-        format: 'mm/dd/yyyy',
-        minDate: moment(startdate),
-    }).on('changeDate', function (e) {
-        enddate = e.format();
-
-        duration = moment(enddate).diff(moment(startdate), 'days');
-       
-        console.log(moment.duration(moment(startdate), moment(enddate, 'days')));
-
-        $('#leaveDuration').val(duration);
-    });
+    
 
 
     //DATATABLEs
