@@ -1,5 +1,7 @@
 ﻿using Client.Models;
+using Leave_Request.Models;
 using Leave_Request.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -38,7 +40,13 @@ namespace Client.Controllers
         {
             return View();
         }
+
         public IActionResult Dashboard()
+        {
+            return View();
+        }
+
+        public IActionResult LeaveRequest()
         {
             return View();
         }
