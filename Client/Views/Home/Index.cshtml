@@ -46,7 +46,7 @@
                 </div>
                 <div class="modal-body">
                     <div id="dataRegis">
-                        <form id="contactform" class="was-validated" validate>
+                        <form id="regisForm" class="needs-validation" novalidate>
                             <!-- Line 1 -->
                             <div class="form-row">
                                 <div class="col-4 mb-3">
@@ -265,7 +265,7 @@
         </div>
     </div>
 
-    <!-- Modal - Login -->  
+    <!-- Modal - Login -->
     <div id="doLogin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="doLoginCenterTitle" aria-hidden="true">
         <div class="modal-dialog  modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -343,5 +343,7 @@
 </body>
 
 @section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js" integrity="sha512-LGXaggshOkD/at6PFNcp2V2unf9LzFq6LE+sChH7ceMTDP0g2kn6Vxwgg7wkPP7AAtX+lmPqPdxB47A0Nz0cMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="~/js/homeAction.js"></script>
 }
