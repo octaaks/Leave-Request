@@ -74,6 +74,7 @@ namespace Client.Controllers
 
             var jwtToken = await repository.Auth(loginVM);
             var token = jwtToken.Token;
+            var employeeid = jwtToken.Id;
 
             if (token == null)
             {
@@ -83,6 +84,7 @@ namespace Client.Controllers
 
             HttpContext.Session.SetString("JWToken", token);
             HttpContext.Session.SetString("Email", login.Email);
+            HttpContext.Session.SetString("Id", employeeid);
 
             return RedirectToAction("dashboard", "home");
         }

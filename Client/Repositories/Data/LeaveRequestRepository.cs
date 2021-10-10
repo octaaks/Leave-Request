@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,20 @@ namespace Client.Repositories.Data
                 BaseAddress = new Uri(address.link)
             };
         }
+
+        public HttpStatusCode AddLeaveRequest(LeaveRequest entity)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
+            var result = httpClient.PostAsync(request + "Insert", content).Result;
+            return result.StatusCode;
+        }
+
+        //public string AddLeaveRequest(LeaveRequest entity)
+        //{
+        //    StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
+        //    var result = httpClient.PostAsync(request + "AddLeaveRequest", content).Result.Content.ReadAsStringAsync().Result;
+        //    return result;
+        //}
 
         public async Task<List<LeaveRequestVM>> GetLR()
         {

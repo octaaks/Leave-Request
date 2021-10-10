@@ -21,6 +21,13 @@ namespace Client.Controllers
             this.repository = repository;
         }
 
+        [HttpPost("AddLeaveRequest")]
+        public JsonResult AddLeaveRequest([FromBody] LeaveRequest entity)
+        {
+            var result = repository.AddLeaveRequest(entity);
+            return Json(result);
+        }
+
         [HttpGet("GetLeaveRequests")]
         public async Task<JsonResult> GetLeaveRequests()
         {

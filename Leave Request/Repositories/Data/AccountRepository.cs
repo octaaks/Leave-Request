@@ -106,6 +106,12 @@ namespace Leave_Request.Repositories.Data
             return checkLoginEmail[0].Id;
         }
 
+        public int GetId(string email)
+        {
+            var checkEmail = myContext.Accounts.Where(e => e.Email == email).FirstOrDefault();
+            return checkEmail.Id;
+        }
+
         public bool CheckLoginPassword(int id, string password)
         {
             var checkLoginPass = (from e in myContext.Employees

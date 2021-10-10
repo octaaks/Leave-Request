@@ -1,6 +1,7 @@
 ﻿using Client.Base.Urls;
 using Client.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Client.Repositories
     {
         private readonly Address address;
         private readonly string request;
-        private readonly IHttpContextAccessor _contextAccessor;
+        //private readonly IHttpContextAccessor _contextAccessor;
         private readonly HttpClient httpClient;
 
         public GeneralRepository(Address address, string request)

@@ -4,5 +4,6 @@
     {
         public string Messages { get; set; }
         public string Token { get; set; }
+        public string Id { get; set; }
     }
 }
