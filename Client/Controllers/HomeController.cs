@@ -1,6 +1,7 @@
 ﻿using Client.Models;
 using Leave_Request.Models;
 using Leave_Request.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,6 +24,11 @@ namespace Client.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("auth", "accounts");
+            }
+
             return View();
         }
 
@@ -41,12 +47,22 @@ namespace Client.Controllers
             return View();
         }
 
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
         public IActionResult Dashboard()
         {
             return View();
         }
 
         public IActionResult LeaveRequest()
+        {
+            return View();
+        }
+
+        public IActionResult ChangePassword()
         {
             return View();
         }

@@ -155,10 +155,10 @@
                     <form asp-controller="Login" asp-action="Index" method="get">
                         <button type="submit" class="btn btn-light btn-block">Login</button>
                     </form>-->
-                    @*<a href="/login" class="nav-link">Login</a>*@
+                @*<a href="/login" class="nav-link">Login</a>*@
                 <!--</li>-->
                 <li class="nav-item d-none d-sm-inline-block">
-                    <form asp-controller="Login" asp-action="Logout" method="get">
+                    <form asp-controller="Accounts" asp-action="Logout" method="get">
                         <button type="submit" class="btn btn-secondary btn-block">Logout</button>
                     </form>
                     @*<a href="/login/logout" class="nav-link">Logout</a>*@
@@ -224,6 +224,14 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="ChangePassword" class="nav-link">
+                                <i class="far fa-list-alt mr-2"></i>
+                                <p>
+                                    Change Password
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -330,7 +338,7 @@
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
-
+    @RenderSection("Scripts", required: false)
     <script>
         $(function () {
             var url = window.location;

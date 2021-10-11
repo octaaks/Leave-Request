@@ -179,8 +179,9 @@ namespace Leave_Request.Repositories.Data
             //generate token
             account.Token = Guid.NewGuid().ToString();
 
-            string bodyEmail = $"Here is link for reset your password: reset-password/email={account.Email}&token={account.Token}";
-            SendEmail(bodyEmail, account.Email);
+            // string bodyEmail = $"Here is link for reset your password: https://localhost:44371/api/accounts/reset-password/email={account.Email}&token={account.Token}";
+            // SendEmail(bodyEmail, account.Email);
+            ResetPassword(email, account.Token);
             myContext.SaveChanges();
             return 1;
         }
