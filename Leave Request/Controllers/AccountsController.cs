@@ -129,7 +129,7 @@ namespace Leave_Request.Controllers
             return Ok(new
             {
                 status = HttpStatusCode.OK,
-                message = "Link for Reset Password has been sent to your email!"
+                message = "Your new password has been sent to your email!"
             });
         }
 

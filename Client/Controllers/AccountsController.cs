@@ -1,6 +1,7 @@
 ﻿using Client.Base.Controllers;
 using Client.Repositories.Data;
 using Leave_Request.Models;
+using Leave_Request.ViewModel;
 using Leave_Request.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -60,7 +61,42 @@ namespace Client.Controllers
             {
                 throw;
             }
+        }
 
+        [HttpPost("ForgotPass")]
+        public IActionResult ForgotPass(EmailVM emailVM)
+        {
+            try
+            {
+                var conv = JsonConvert.SerializeObject(emailVM);
+                var buffer = System.Text.Encoding.UTF8.GetBytes(conv);
+                var byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var result = http.PostAsync("accounts/forgot-password", byteContent).Result;
+                return Json(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("ChangePass")]
+        public IActionResult ChangePass(ChangePasswordVM changePasswordVM)
+        {
+            try
+            {
+                var conv = JsonConvert.SerializeObject(changePasswordVM);
+                var buffer = System.Text.Encoding.UTF8.GetBytes(conv);
+                var byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var result = http.PostAsync("accounts/change-password", byteContent).Result;
+                return Json(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [HttpPost("Auth/")]
@@ -88,7 +124,7 @@ namespace Client.Controllers
 
             return RedirectToAction("dashboard", "home");
         }
-
+       
         [HttpGet("Logout/")]
         public IActionResult Logout()
         {

@@ -156,9 +156,9 @@
                         <button type="submit" class="btn btn-light btn-block">Login</button>
                     </form>-->
                 @*<a href="/login" class="nav-link">Login</a>*@
-                <!--</li>
+                <!--</li>-->
                 <li class="nav-item d-none d-sm-inline-block">
-                    <form asp-controller="Login" asp-action="Logout" method="get">
+                    <form asp-controller="Accounts" asp-action="Logout" method="get">
                         <button type="submit" class="btn btn-secondary btn-block">Logout</button>
                     </form>-->
                 @*<a href="/login/logout" class="nav-link">Logout</a>*@
@@ -224,6 +224,14 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="ChangePassword" class="nav-link">
+                                <i class="far fa-list-alt mr-2"></i>
+                                <p>
+                                    Change Password
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <nav class="mt-2">
@@ -342,6 +350,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js" integrity="sha512-LGXaggshOkD/at6PFNcp2V2unf9LzFq6LE+sChH7ceMTDP0g2kn6Vxwgg7wkPP7AAtX+lmPqPdxB47A0Nz0cMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    @RenderSection("Scripts", required: false)
     <script>
         $(function () {
             var url = window.location;

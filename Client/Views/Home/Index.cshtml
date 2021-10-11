@@ -39,14 +39,17 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center bg-light">
-                    <h2 class=" w-100 text-center">FORM REGISTER</h2>
+                    <img class="col-2" src="~/mii-logo.png" width="50"/>
+                    <div class="col w-100 mt-3 justify-content-center">
+                        <h2 class="text-center" id="titleform">FORM REGISTER</h2>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div id="dataRegis">
-                        <form id="regisForm" class="needs-validation" novalidate>
+                        <form id="formRegis" class="was-validated" validate>
                             <!-- Line 1 -->
                             <div class="form-row">
                                 <div class="col-4 mb-3">
@@ -93,7 +96,7 @@
                                     <label for="inputPassword">Password</label>
                                     <div class="input-group">
                                         <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password"
-                                               pattern="^(?=.?[A-Z])(?=.?[a-z])(?=.*?[0-9]).{8,}$" aria-describedby="inputGroupPrepend" required>
+                                               pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" aria-describedby="inputGroupPrepend" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -105,6 +108,9 @@
                                 <div class="col-md mb-3">
                                     <label for="inputPhone">Phone</label>
                                     <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">+62</div>
+                                        </div>
                                         <input type="number" name="phone" class="form-control" id="inputPhone" placeholder="Phone"
                                                aria-describedby="inputGroupPrepend" required>
                                         <div class="valid-feedback">
@@ -270,7 +276,8 @@
         <div class="modal-dialog  modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center bg-light">
-                    <h2 class="w-100 modal-title text-center">LOGIN</h2>
+                    <img class="col-4" src="~/mii-logo.png" width="100" />
+                    <h2 id="titleform" class="col w-100 modal-title text-center">LOGIN</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
