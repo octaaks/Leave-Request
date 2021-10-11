@@ -226,51 +226,71 @@
     $(function () {
 
         //date select
-
         var startdate = "";
         var enddate = "";
         var duration = "";
 
         $('#inputStartDate').datepicker({
-            startDate: '-0m',
             format: 'mm/dd/yyyy',
-            beforeShowDay: $.datepicker.noWeekends
+            startDate: '-0m',
+            daysOfWeekDisabled: [0, 6]
         }).on('changeDate', function (e) {
             startdate = e.format();
 
-            //fetch from API libur nasional
-            getHolidays(moment(startdate).format("YYYY"));
+            duration = 1 + moment(enddate).diff(moment(startdate), 'days');
+            $('#leaveDuration').val(duration);
 
             $("#inputEndDate").datepicker("destroy");
             $('#inputEndDate').datepicker({
                 format: 'mm/dd/yyyy',
                 startDate: new Date(moment(startdate)),
-                beforeShowDay: $.datepicker.noWeekends
+                daysOfWeekDisabled: [0, 6]
             }).on('changeDate', function (e) {
                 enddate = e.format();
 
                 duration = 1 + moment(enddate).diff(moment(startdate), 'days');
                 $('#leaveDuration').val(duration);
+
+                console.log(getNumWorkDays(moment(startdate), enddate));
             });
         });
     });
 
-    function getHolidays(year) {
-        //get holidays
+    calcHolidays();
+    function calcHolidays() {
         $.ajax({
-            url: "https://api-harilibur.vercel.app/api?year="+year
+            url: "https://api-harilibur.vercel.app/api?year=2021"
         }).done((result) => {
             console.log(result);
+            var arr = [];
+
+            for (var i = 0; i < result.length; i++) {
+                arr.push(result[i].holiday_date);
+            }
+
+            console.log("array");
+            console.log(arr);
+
         }).fail((result) => {
             console.log(result);
         });
     }
 
-    function checkHolidays(year) {
+    function getNumWorkDays(startDate, endDate) {
 
-        for (var i = 0; i < length; i++) {
+        console.log(startDate, endDate);
 
+        var numWorkDays = 0;
+        var currentDate = moment(startDate);
+        while (currentDate <= moment(endDate)) {
+            // Skips Sunday and Saturday
+
+            if (moment(currentDate).day() !== 0 && moment(currentDate).day() !== 6) {
+                numWorkDays++;
+            }
+            currentDate = moment(currentDate).add(1,'days');
         }
+        return numWorkDays;
     }
 
     //DATATABLEs
