@@ -234,6 +234,7 @@
         $('#inputStartDate').datepicker({
             startDate: '-0m',
             format: 'mm/dd/yyyy',
+            beforeShowDay: $.datepicker.noWeekends
         }).on('changeDate', function (e) {
             startdate = e.format();
 
@@ -243,7 +244,8 @@
             $("#inputEndDate").datepicker("destroy");
             $('#inputEndDate').datepicker({
                 format: 'mm/dd/yyyy',
-                startDate: new Date(moment(startdate))
+,
+                beforeShowDay: $.datepicker.noWeekends
             }).on('changeDate', function (e) {
                 enddate = e.format();
 
