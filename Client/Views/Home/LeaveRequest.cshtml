@@ -347,10 +347,10 @@
     }).draw();
 
     $(document).ready(function () {
-
+        var employeeid = parseInt($('#inputId').val());
         //get all leave req
         $.ajax({
-            url: "/leaverequests/getemployeeleaverequests/"
+            url: "/leaverequests/getemployeeleaverequests/" + employeeid
         }).done((result) => {
             console.log(result);
         }).fail((result) => {
@@ -399,12 +399,18 @@
                         if (form.checkValidity() === true) {
                             event.preventDefault();
                             var obj = {
+                                //"RequestDate": "1911-11-11T00:00:00",
+                                //"StartDate": "1911-11-11T00:00:00",
+                                //"EndDate": "1911-11-11T00:00:00",
+                                //"LeaveDuration": 2,
+                                //"LeaveTypeId": 1,
+                                //"EmployeeId": 6
                                 "RequestDate": "1911-11-11T00:00:00",
                                 "StartDate": "1911-11-11T00:00:00",
                                 "EndDate": "1911-11-11T00:00:00",
-                                "LeaveDuration": 2,
-                                "LeaveTypeId": 1,
-                                "EmployeeId": 6
+                                "LeaveDuration": $('#leaveDuration').val(),
+                                "LeaveTypeId": $('#leaveType').val(),
+                                "EmployeeId": $('#inputId').val()
                                 //"nik": $('#inputNik').val(),
                             };
 

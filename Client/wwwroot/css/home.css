@@ -28,7 +28,7 @@
     z-index: 0;
     display: block;
     /* The image used */
-    background-image: url("~/img/bg_home.jpg");
+    background-image: url("/img/bg_home.jpg");
     /* Full height */
     height: 100%;
     opacity: 1;
