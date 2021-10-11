@@ -7,10 +7,12 @@ $("#btnSubmit").click(post => {
     console.log(obj);
     post.preventDefault();
     $.ajax({
-        url: "/Accounts/Registering",
+        url: "/Accounts/Register",
         type: 'POST',
-        data: obj,
-        dataType: 'json',
+        data: data,
+        traditional: true,
+        contentType: 'application/json',
+        dataType: "json",
         success: function (data, x, xhr) {
             if (data.statusCode == 200) {
                 Swal.fire({
@@ -50,10 +52,70 @@ $("#btnSubmit").click(post => {
                 button: "OK"
             });
             console.log(error);
-            Reset();
+            //Reset();
         }
     });
-})
+};
+
+//$("#btnSubmit").click(post => {
+
+//    debugger;
+
+//    var obj = DataInsert();
+//    console.log(obj);
+//    var email = $('#email').val();
+//    console.log(email);
+//    post.preventDefault();
+
+//    $.ajax({
+//        url: "/Accounts/Registering",
+//        type: 'POST',
+//        data: obj,
+//        dataType: 'json',
+//        success: function (data, x, xhr) {
+//            if (data.statusCode == 200) {
+//                //$('#insertRegis').modal('hide')
+//                Swal.fire({
+//                    title: "Welcome!",
+//                    text: "Register successful. You can Login now",
+//                    icon: "success",
+//                    button: "OK"
+//                });
+//               // $('#dataTable').DataTable().ajax.reload();
+//                Reset();
+//            }
+//            else {
+//                Swal.fire({
+//                    title: "Oh no...",
+//                    text: "Register unsuccessful ...",
+//                    icon: "error",
+//                    button: "OK"
+//                });
+//            }
+//            console.log(data);
+//            /* $('#insertData').modal('hide');*/
+//        },
+//        fail: function (data) {
+//            Swal.fire({
+//                title: "Oh no...",
+//                text: "Register unsuccessful ...",
+//                icon: "error",
+//                button: "OK"
+//            });
+//            console.log(data.message)
+//        },
+//        error: function (xhr, status, error) {
+//            Swal.fire({
+//                title: "Oh no...",
+//                text: "Register unsuccessful ...",
+//                icon: "error",
+//                button: "OK"
+//            });
+//            console.log(error);
+//            Reset();
+//        }
+//    });
+//})
 
 //get data value registration form
 function DataInsert() {

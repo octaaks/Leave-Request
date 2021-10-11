@@ -85,7 +85,8 @@ namespace Leave_Request.Controllers
                         status = HttpStatusCode.OK,
                         message = "Login successfull !!!",
                         token = new JwtSecurityTokenHandler().WriteToken(repository.GetJWT(id, loginVM)),
-                        tokenexpired = repository.GetJWT(id, loginVM).ValidTo
+                        tokenexpired = repository.GetJWT(id, loginVM).ValidTo,
+                        id = repository.GetId(loginVM.Email)
                     });
 
                     /*return Ok(new JWTokenVM

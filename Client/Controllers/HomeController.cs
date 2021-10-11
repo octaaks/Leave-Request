@@ -1,6 +1,8 @@
 ﻿using Client.Models;
+using Client.Repositories.Data;
 using Leave_Request.Models;
 using Leave_Request.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -54,10 +56,18 @@ namespace Client.Controllers
 
         public IActionResult Dashboard()
         {
+            ViewBag.Email = HttpContext.Session.GetString("Email");
             return View();
         }
 
         public IActionResult LeaveRequest()
+        {
+            ViewBag.Email = HttpContext.Session.GetString("Email");
+            ViewBag.Id = HttpContext.Session.GetString("Id");
+
+            return View();
+        }
+        public IActionResult ManageLeaveRequest()
         {
             return View();
         }
