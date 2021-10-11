@@ -244,7 +244,7 @@
             $("#inputEndDate").datepicker("destroy");
             $('#inputEndDate').datepicker({
                 format: 'mm/dd/yyyy',
-,
+                startDate: new Date(moment(startdate)),
                 beforeShowDay: $.datepicker.noWeekends
             }).on('changeDate', function (e) {
                 enddate = e.format();
@@ -441,7 +441,7 @@
                 $('#registerModal').modal('toggle');
                 $('#contactform')[0].reset();
                 $('#contactform').removeClass('was-validated')
-                $('#contactform').addClass('novalidate')
+                $('#contactform').addClass('needs-validation')
 
                 Swal.fire(
                     'Congratulations!',
