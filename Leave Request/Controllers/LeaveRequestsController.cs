@@ -2,10 +2,10 @@
 using Leave_Request.Repositories.Data;
 using Leave_Request.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using NETCore.Base;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using NETCore.Base;
 
 namespace Leave_Request.Controllers
 {
@@ -68,7 +68,31 @@ namespace Leave_Request.Controllers
             try
             {
                 int output = repository.Insert(lrVM);
-               
+
+                return Ok(new
+                {
+                    status = HttpStatusCode.OK,
+                    message = "Success"
+                });
+            }
+            catch
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    message = "Error!",
+                });
+            }
+        }
+
+
+        [HttpPost("AddLeaveRequest")]
+        public ActionResult AddLeaveRequest(LeaveRequest lrVM)
+        {
+            try
+            {
+                int output = repository.AddLeaveRequest(lrVM);
+
                 return Ok(new
                 {
                     status = HttpStatusCode.OK,

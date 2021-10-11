@@ -35,7 +35,7 @@ namespace Client.Repositories.Data
         public HttpStatusCode AddLeaveRequest(LeaveRequest entity)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
-            var result = httpClient.PostAsync(request + "Insert", content).Result;
+            var result = httpClient.PostAsync(request + "AddLeaveRequest", content).Result;
             return result.StatusCode;
         }
 

@@ -405,12 +405,12 @@
                                 //"LeaveDuration": 2,
                                 //"LeaveTypeId": 1,
                                 //"EmployeeId": 6
-                                "RequestDate": "1911-11-11T00:00:00",
-                                "StartDate": "1911-11-11T00:00:00",
-                                "EndDate": "1911-11-11T00:00:00",
-                                "LeaveDuration": $('#leaveDuration').val(),
-                                "LeaveTypeId": $('#leaveType').val(),
-                                "EmployeeId": $('#inputId').val()
+                                "RequestDate": moment(),
+                                "StartDate": $('#inputStartDate').val(),
+                                "EndDate": $('#inputEndDate').val(),
+                                "LeaveDuration": parseInt($('#leaveDuration').val()),
+                                "LeaveTypeId": parseInt($('#inputLeaveType').val()),
+                                "EmployeeId": parseInt($('#inputId').val())
                                 //"nik": $('#inputNik').val(),
                             };
 
@@ -438,6 +438,8 @@
                 console.log(result);
                 $('#registerModal').modal('toggle');
                 $('#contactform')[0].reset();
+                $('#contactform').removeClass('was-validated')
+                $('#contactform').addClass('novalidate')
 
                 Swal.fire(
                     'Congratulations!',
