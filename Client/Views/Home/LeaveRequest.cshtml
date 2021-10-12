@@ -103,14 +103,14 @@
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New Request</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">New Leave Request</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div id="modal-content" class="modal-body">
+                    <div id="modal-content" class="modal-body p-5">
                         <form id="contactform" class="needs-validation" novalidate>
                             @*<form method="post" action="" id="contactform" class="was-validated">*@
 
-                            <div class="form-row">
+                            @*<div class="form-row">
                                 <div class="col-4 mb-3">
                                     <label for="inputId">Employee ID</label>
                                 </div>
@@ -123,7 +123,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="form-row">
                                 <div class="col-4 mb-3">
                                     <label for="inputLeaveType">Leave Type</label>
@@ -131,6 +131,7 @@
                                 <div class="col-md mb-3">
                                     <div class="input-group">
                                         <select class="custom-select my-1 mr-sm-2" id="inputLeaveType" placeholder="Leave Type" required>
+                                            <option value = 0 >Select leave type</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             Please select the leave type.
@@ -176,6 +177,26 @@
 
                             <div class="form-row">
                                 <div class="col-4 mb-3">
+                                    <label for="">Holidays</label>
+
+                                </div>
+                                <div class="col-md mb-3">
+                                    <input type="number" class="form-control" id="holidays" placeholder="Holidays" autocomplete="off" autocorrect="off"
+                                           autocapitalize="off" spellcheck="false" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="">Duration From Leave Type</label>
+
+                                </div>
+                                <div class="col-md mb-3">
+                                    <input type="number" class="form-control" id="leaveTypeDuration" placeholder="0" autocomplete="off" autocorrect="off"
+                                           autocapitalize="off" spellcheck="false" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
                                     <label for="">Leave Duration</label>
 
                                 </div>
@@ -185,18 +206,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-row">
-                                <div class="col-4 mb-3">
-                                    <label for="">Holidays</label>
-
-                                </div>
-                                <div class="col-md mb-3">
-                                    <input type="number" class="form-control" id="holidays" placeholder="Holidays" autocomplete="off" autocorrect="off"
-                                           autocapitalize="off" spellcheck="false" readonly>
-                                </div>
-                            </div>
-
-                            <div class="form-group mt-3">
+                            @*<div class="form-group mt-3">
                                 <div class="form-check">
                                     <input class="form-check-input" name="univId" type="checkbox" value="" id="invalidCheck" required>
                                     <label class="form-check-label" for="invalidCheck">
@@ -206,15 +216,16 @@
                                         You must agree before submitting.
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
+
                             @*<button id="register" class="btn btn-primary" type="submit">Submit form</button>*@
-                            <button class="btn btn-primary" type="submit" id="btnSubmit">Submit form</button>
+                            <button class="btn btn-primary float-right mt-5" type="submit" id="btnSubmit">Submit form</button>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
                         @*<button type="button" class="btn btn-primary">Save changes</button>*@
-                    </div>
+                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -234,6 +245,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 
 <script>
+
+    var specialLeave = false;
+
     $(function () {
 
         //date select
@@ -244,7 +258,7 @@
 
         //count holidays when enddate selected
         $.ajax({
-            url: "https://api-harilibur.vercel.app/api?year=2021",
+            url: "https://api-harilibur.vercel.app/api?year=" + moment().year(),
             success: function (result) {
 
                 $('#inputStartDate').datepicker({
@@ -255,53 +269,82 @@
                     startdate = e.format();
                     holidays = 0;
 
-                    //duration = 1 + moment(enddate).diff(moment(startdate), 'days');
-                    duration = getNumWorkDays(moment(startdate), enddate);
-                    $('#leaveDuration').val(duration);
+                    if (specialLeave) {
 
-                    $("#inputEndDate").datepicker("destroy");
-                    $('#inputEndDate').datepicker({
-                        format: 'mm/dd/yyyy',
-                        startDate: new Date(moment(startdate)),
-                        daysOfWeekDisabled: [0, 6]
-                    }).on('changeDate', function (e) {
-                        enddate = e.format();
-                        holidays = 0;
+                        $("#inputEndDate").datepicker("destroy");
+                        var selected = $("select#inputLeaveType").children("option:selected").val();
 
-                        //duration = 1 + moment(enddate).diff(moment(startdate), 'days');
-                        duration = getNumWorkDays(moment(startdate), enddate);
-                        $('#leaveDuration').val(duration);
+                        $.ajax({
+                            url: "/leavetypes/getall"
+                        }).done((response) => {
+                            enddate = moment(moment(startdate).add(response[selected - 1].duration - 1, 'days')).format("MM/DD/YYYY");
+                            
 
-                        console.log(getNumWorkDays(moment(startdate), enddate));
+                            for (var i = 0; i < result.length; i++) {
+                                if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
+                                    if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
+                                        holidays++;
+                                        console.log(result[i].holiday_date, result[i].holiday_name);
+                                    }
+                                }
+                            }
+
+                            duration = getNumWorkDays(moment(startdate), enddate) - holidays;
+
+                            $("#inputEndDate").val(enddate);
+                            $('#leaveDuration').val(duration);
+                            $('#holidays').val(holidays);
+
+                        }).fail((result) => {
+                            console.log(result);
+                        });
+
+                    } else {
+
+                        $("#inputEndDate").datepicker("destroy");
+                        $('#inputEndDate').datepicker({
+                            format: 'mm/dd/yyyy',
+                            startDate: new Date(moment(startdate)),
+                            daysOfWeekDisabled: [0, 6]
+                        }).on('changeDate', function (e) {
+                            enddate = e.format();
+                            holidays = 0;
+
+
+                            for (var i = 0; i < result.length; i++) {
+                                if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
+                                    if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
+                                        holidays++;
+                                        console.log(result[i].holiday_date, result[i].holiday_name);
+                                    }
+                                }
+                            }
+
+                            duration = getNumWorkDays(moment(startdate), enddate) - holidays;
+                            $('#leaveDuration').val(duration);
+                            $('#holidays').val(holidays);
+                        });
 
                         for (var i = 0; i < result.length; i++) {
                             if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
                                 if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
                                     holidays++;
+                                    console.log(result[i].holiday_date, result[i].holiday_name);
                                 }
                             }
                         }
-                        console.log(holidays);
-                        $('#holidays').val(holidays);
-                    });
 
-                    for (var i = 0; i < result.length; i++) {
-                        if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
-                            if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
-                                holidays++;
-                            }
-                        }
+                        duration = getNumWorkDays(moment(startdate), enddate) - holidays;
+                        $('#leaveDuration').val(duration);
+                        $('#holidays').val(holidays);
                     }
-                    console.log(holidays);
-                    $('#holidays').val(holidays);
                 });
             }
         });
+
     });
 
     function getNumWorkDays(startDate, endDate) {
-
-        console.log(startDate, endDate);
 
         var numWorkDays = 0;
         var currentDate = moment(startDate);
@@ -400,6 +443,35 @@
             console.log(result);
         }).fail((result) => {
             console.log(result);
+        });
+
+        //get leavetype duration
+        $("select#inputLeaveType").change(function () {
+            var selected = $(this).children("option:selected").val();
+
+            $("#inputEndDate").val('');
+            $("#inputStartDate").val('');
+            $("#holidays").val('0');
+            $("#leaveDuration").val('0');
+
+            if (selected != 1) {
+                document.getElementById('inputEndDate').setAttribute('readonly', true);
+                specialLeave = true;
+            } else {
+                document.getElementById('inputEndDate').removeAttribute('readonly');
+                specialLeave = false;
+            }
+            console.log(selected);
+            //alert("You have selected " + selected);
+            $.ajax({
+                url: "/leavetypes/getall"
+            }).done((result) => {
+
+                $("#leaveTypeDuration").val(result[selected-1].duration);
+
+            }).fail((result) => {
+                console.log(result);
+            });
         });
 
         //get all leave types
