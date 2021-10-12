@@ -176,11 +176,22 @@
 
                             <div class="form-row">
                                 <div class="col-4 mb-3">
-                                    <label for="inputBirthDate">Leave Duration</label>
-                                    
+                                    <label for="">Leave Duration</label>
+
                                 </div>
                                 <div class="col-md mb-3">
                                     <input type="number" class="form-control" id="leaveDuration" placeholder="Leave Duration" autocomplete="off" autocorrect="off"
+                                           autocapitalize="off" spellcheck="false" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="">Holidays</label>
+
+                                </div>
+                                <div class="col-md mb-3">
+                                    <input type="number" class="form-control" id="holidays" placeholder="Holidays" autocomplete="off" autocorrect="off"
                                            autocapitalize="off" spellcheck="false" readonly>
                                 </div>
                             </div>
@@ -229,52 +240,64 @@
         var startdate = "";
         var enddate = "";
         var duration = "";
+        var holidays = 0;
 
-        $('#inputStartDate').datepicker({
-            format: 'mm/dd/yyyy',
-            startDate: '-0m',
-            daysOfWeekDisabled: [0, 6]
-        }).on('changeDate', function (e) {
-            startdate = e.format();
+        //count holidays when enddate selected
+        $.ajax({
+            url: "https://api-harilibur.vercel.app/api?year=2021",
+            success: function (result) {
 
-            duration = 1 + moment(enddate).diff(moment(startdate), 'days');
-            $('#leaveDuration').val(duration);
+                $('#inputStartDate').datepicker({
+                    format: 'mm/dd/yyyy',
+                    startDate: '-0m',
+                    daysOfWeekDisabled: [0, 6]
+                }).on('changeDate', function (e) {
+                    startdate = e.format();
+                    holidays = 0;
 
-            $("#inputEndDate").datepicker("destroy");
-            $('#inputEndDate').datepicker({
-                format: 'mm/dd/yyyy',
-                startDate: new Date(moment(startdate)),
-                daysOfWeekDisabled: [0, 6]
-            }).on('changeDate', function (e) {
-                enddate = e.format();
+                    //duration = 1 + moment(enddate).diff(moment(startdate), 'days');
+                    duration = getNumWorkDays(moment(startdate), enddate);
+                    $('#leaveDuration').val(duration);
 
-                duration = 1 + moment(enddate).diff(moment(startdate), 'days');
-                $('#leaveDuration').val(duration);
+                    $("#inputEndDate").datepicker("destroy");
+                    $('#inputEndDate').datepicker({
+                        format: 'mm/dd/yyyy',
+                        startDate: new Date(moment(startdate)),
+                        daysOfWeekDisabled: [0, 6]
+                    }).on('changeDate', function (e) {
+                        enddate = e.format();
+                        holidays = 0;
 
-                console.log(getNumWorkDays(moment(startdate), enddate));
-            });
+                        //duration = 1 + moment(enddate).diff(moment(startdate), 'days');
+                        duration = getNumWorkDays(moment(startdate), enddate);
+                        $('#leaveDuration').val(duration);
+
+                        console.log(getNumWorkDays(moment(startdate), enddate));
+
+                        for (var i = 0; i < result.length; i++) {
+                            if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
+                                if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
+                                    holidays++;
+                                }
+                            }
+                        }
+                        console.log(holidays);
+                        $('#holidays').val(holidays);
+                    });
+
+                    for (var i = 0; i < result.length; i++) {
+                        if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
+                            if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
+                                holidays++;
+                            }
+                        }
+                    }
+                    console.log(holidays);
+                    $('#holidays').val(holidays);
+                });
+            }
         });
     });
-
-    calcHolidays();
-    function calcHolidays() {
-        $.ajax({
-            url: "https://api-harilibur.vercel.app/api?year=2021"
-        }).done((result) => {
-            console.log(result);
-            var arr = [];
-
-            for (var i = 0; i < result.length; i++) {
-                arr.push(result[i].holiday_date);
-            }
-
-            console.log("array");
-            console.log(arr);
-
-        }).fail((result) => {
-            console.log(result);
-        });
-    }
 
     function getNumWorkDays(startDate, endDate) {
 
