@@ -21,43 +21,85 @@ namespace Leave_Request.Repositories.Data
         {
             var getLR = (from lr in myContext.LeaveRequests
                          join mf in myContext.ManagerFills on lr.Id equals mf.LeaveRequestId
+                         join em in myContext.Employees on lr.EmployeeId equals em.Id
+                         join tp in myContext.LeaveTypes on lr.LeaveTypeId equals tp.Id
+                         join st in myContext.Statuses on mf.StatusId equals st.Id
 
                          select new LeaveRequestVM
                          {
+                             Id = lr.Id,
                              RequestDate = lr.RequestDate,
                              StartDate = lr.StartDate,
                              EndDate = lr.EndDate,
                              LeaveTypeId = lr.LeaveTypeId,
+                             LeaveTypeName = tp.Name,
                              LeaveDuration = lr.LeaveDuration,
                              EmployeeId = lr.EmployeeId,
+                             EmployeeName = em.Name,
 
                              ApprovedDate = mf.DateApproved,
-                             StatusId = mf.StatusId
+                             StatusId = mf.StatusId,
+                             StatusName = st.Name,
+                             Notes = mf.Note,
+                             ManagerFillId = mf.Id
 
-                         }).Where(lr => lr.EmployeeId == employeeId).ToList();
+                         }).Where(lr => lr.EmployeeId == employeeId).OrderBy(lr => lr.RequestDate).ToList();
             return getLR;
         }
         public IEnumerable<LeaveRequestVM> GetLeaveRequestVMs()
         {
             var getLR = (from lr in myContext.LeaveRequests
                          join mf in myContext.ManagerFills on lr.Id equals mf.LeaveRequestId
+                         join em in myContext.Employees on lr.EmployeeId equals em.Id
+                         join tp in myContext.LeaveTypes on lr.LeaveTypeId equals tp.Id
+                         join st in myContext.Statuses on mf.StatusId equals st.Id
 
                          select new LeaveRequestVM
-                            {
-                                RequestDate = lr.RequestDate,
-                                StartDate = lr.StartDate,
-                                EndDate = lr.EndDate,
-                                LeaveTypeId = lr.LeaveTypeId,
-                                LeaveDuration = lr.LeaveDuration,
-                                EmployeeId = lr.EmployeeId,
-                             
-                                ApprovedDate = mf.DateApproved,
-                                StatusId = mf.StatusId
+                         {
+                             Id = lr.Id,
+                             RequestDate = lr.RequestDate,
+                             StartDate = lr.StartDate,
+                             EndDate = lr.EndDate,
+                             LeaveTypeId = lr.LeaveTypeId,
+                             LeaveTypeName = tp.Name,
+                             LeaveDuration = lr.LeaveDuration,
+                             EmployeeId = lr.EmployeeId,
+                             EmployeeName = em.Name,
 
-                                //ApprovedDate = myContext.ManagerFills.Where(e => e.LeaveRequestId == lr.Id).FirstOrDefault().DateApproved,
-                                //StatusId = myContext.ManagerFills.Where(e => e.LeaveRequestId == lr.Id).FirstOrDefault().StatusId
-
+                             ApprovedDate = mf.DateApproved,
+                             StatusId = mf.StatusId,
+                             StatusName = st.Name,
+                             Notes = mf.Note,
+                             ManagerFillId = mf.Id
                          }).ToList();
+            return getLR;
+        }
+        public LeaveRequestVM GetById(int id)
+        {
+            var getLR = (from lr in myContext.LeaveRequests
+                         join mf in myContext.ManagerFills on lr.Id equals mf.LeaveRequestId
+                         join em in myContext.Employees on lr.EmployeeId equals em.Id
+                         join tp in myContext.LeaveTypes on lr.LeaveTypeId equals tp.Id
+                         join st in myContext.Statuses on mf.StatusId equals st.Id
+
+                         select new LeaveRequestVM
+                         {
+                             Id = lr.Id,
+                             RequestDate = lr.RequestDate,
+                             StartDate = lr.StartDate,
+                             EndDate = lr.EndDate,
+                             LeaveTypeId = lr.LeaveTypeId,
+                             LeaveTypeName = tp.Name,
+                             LeaveDuration = lr.LeaveDuration,
+                             EmployeeId = lr.EmployeeId,
+                             EmployeeName = em.Name,
+
+                             ApprovedDate = mf.DateApproved,
+                             StatusId = mf.StatusId,
+                             StatusName = st.Name,
+                             Notes = mf.Note,
+                             ManagerFillId = mf.Id
+                         }).Where(lr => lr.Id == id).First();
             return getLR;
         }
 
@@ -75,35 +117,6 @@ namespace Leave_Request.Repositories.Data
                     );
                 myContext.LeaveRequests.Add(leaveRequestVM);
                 myContext.SaveChanges();
-
-                var insert = myContext.SaveChanges();
-                return insert;
-            }
-            catch
-            {
-                throw new DbUpdateException();
-            }
-        }
-
-        //register new leave request
-        public int Insert(LeaveRequestVM leaveRequestVM)
-        {
-            try
-            {
-                LeaveRequest leaveRequest = new LeaveRequest(
-                    leaveRequestVM.RequestDate,
-                    leaveRequestVM.StartDate,
-                    leaveRequestVM.EndDate,
-                    leaveRequestVM.LeaveTypeId,
-                    leaveRequestVM.LeaveDuration,
-                    leaveRequestVM.EmployeeId
-                    );
-                myContext.LeaveRequests.Add(leaveRequest);
-                myContext.SaveChanges();
-
-                ManagerFill managerFill = new ManagerFill("test", leaveRequestVM.ApprovedDate, leaveRequest.Id, leaveRequestVM.StatusId);
-
-                myContext.ManagerFills.Add(managerFill);
 
                 var insert = myContext.SaveChanges();
                 return insert;

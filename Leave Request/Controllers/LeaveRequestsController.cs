@@ -62,29 +62,26 @@ namespace Leave_Request.Controllers
             }
         }
 
-        [HttpPost("Register")]
-        public ActionResult Insert(LeaveRequestVM lrVM)
+        [HttpGet("GetById/{id}")]
+        public ActionResult GetById(int id)
         {
-            try
+            var getLR = repository.GetById(id);
+            if (getLR != null)
             {
-                int output = repository.Insert(lrVM);
 
-                return Ok(new
-                {
-                    status = HttpStatusCode.OK,
-                    message = "Success"
-                });
+                return Ok(getLR);
             }
-            catch
+            else
             {
-                return BadRequest(new
+                var get = NotFound(new
                 {
-                    status = HttpStatusCode.BadRequest,
-                    message = "Error!",
+                    status = HttpStatusCode.NotFound,
+                    result = getLR,
+                    message = "No Data"
                 });
+                return get;
             }
         }
-
 
         [HttpPost("AddLeaveRequest")]
         public ActionResult AddLeaveRequest(LeaveRequest lrVM)

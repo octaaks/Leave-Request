@@ -42,10 +42,15 @@ namespace Client.Controllers
             return Json(result);
         }
 
+        [HttpGet("GetById/{id}")]
+        public async Task<JsonResult> GetById(int id)
+        {
+            var result = await repository.GetById(id);
+            return Json(result);
+        }
         public IActionResult Index()
         {
             return View();
         }
-            
     }
 }
