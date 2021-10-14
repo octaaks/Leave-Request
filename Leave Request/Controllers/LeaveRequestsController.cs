@@ -2,10 +2,10 @@
 using Leave_Request.Repositories.Data;
 using Leave_Request.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using NETCore.Base;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using NETCore.Base;
 
 namespace Leave_Request.Controllers
 {
@@ -62,13 +62,34 @@ namespace Leave_Request.Controllers
             }
         }
 
-        [HttpPost("Register")]
-        public ActionResult Insert(LeaveRequestVM lrVM)
+        [HttpGet("GetById/{id}")]
+        public ActionResult GetById(int id)
+        {
+            var getLR = repository.GetById(id);
+            if (getLR != null)
+            {
+
+                return Ok(getLR);
+            }
+            else
+            {
+                var get = NotFound(new
+                {
+                    status = HttpStatusCode.NotFound,
+                    result = getLR,
+                    message = "No Data"
+                });
+                return get;
+            }
+        }
+
+        [HttpPost("AddLeaveRequest")]
+        public ActionResult AddLeaveRequest(LeaveRequest lrVM)
         {
             try
             {
-                int output = repository.Insert(lrVM);
-               
+                int output = repository.AddLeaveRequest(lrVM);
+
                 return Ok(new
                 {
                     status = HttpStatusCode.OK,

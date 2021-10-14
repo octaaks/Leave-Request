@@ -10,6 +10,7 @@ namespace Leave_Request.ViewModels
         [Key]
         public int Id { get; set; }
         public int LeaveTypeId { get; set; }
+        public string LeaveTypeName { get; set; }
         [Required]
         public DateTime RequestDate { get; set; }
         [Required]
@@ -19,6 +20,10 @@ namespace Leave_Request.ViewModels
         public DateTime ApprovedDate { get; set; }
         public int LeaveDuration { get; set; }
         public int EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
         public int StatusId { get; set; }
+        public string StatusName { get; set; }
+        public string Notes { get; set; }
+        public int ManagerFillId { get; set; }
     }
 }

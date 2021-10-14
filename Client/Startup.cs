@@ -49,6 +49,7 @@ namespace Client
             services.AddScoped<LeaveRequestRepository>();
             services.AddScoped<JobRepository>();
             services.AddScoped<ReligionRepository>();
+            services.AddScoped<ManagerFillRepository>();
             services.AddScoped<EmployeeRepository>();
             services.AddScoped<Address>();
 

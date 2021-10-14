@@ -35,16 +35,20 @@ namespace Client.Repositories.Data
         public HttpStatusCode AddLeaveRequest(LeaveRequest entity)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
-            var result = httpClient.PostAsync(request + "Insert", content).Result;
+            var result = httpClient.PostAsync(request + "AddLeaveRequest", content).Result;
             return result.StatusCode;
         }
+        public async Task<LeaveRequestVM> GetById(int id)
+        {
+            LeaveRequestVM entity = null;
 
-        //public string AddLeaveRequest(LeaveRequest entity)
-        //{
-        //    StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
-        //    var result = httpClient.PostAsync(request + "AddLeaveRequest", content).Result.Content.ReadAsStringAsync().Result;
-        //    return result;
-        //}
+            using (var response = await httpClient.GetAsync(request + "GetById/" + id))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entity = JsonConvert.DeserializeObject<LeaveRequestVM>(apiResponse);
+            }
+            return entity;
+        }
 
         public async Task<List<LeaveRequestVM>> GetLR()
         {

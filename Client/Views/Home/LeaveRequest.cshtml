@@ -74,168 +74,190 @@
             </div>
         </div>
 
-        <!-- Modal 1-->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div id="modal-content" class="modal-body">
-                        <div class="row">
-                            <div class="col-4 pl-5 font-weight-bold">
-                                <div>NIK</div>
-                                <div>Name</div>
-                                <div>Gender</div>
-                                <div>Email</div>
-                                <div>Phone</div>
-                                <div>BirthDate</div>
-                                <div>Salary</div>
+            <!-- Modal 1-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div id="modal-content" class="modal-body">
+                            <div class="row">
+                                <div class="col-4 pl-5 font-weight-bold">
+                                    <div>NIK</div>
+                                    <div>Name</div>
+                                    <div>Gender</div>
+                                    <div>Email</div>
+                                    <div>Phone</div>
+                                    <div>BirthDate</div>
+                                    <div>Salary</div>
 
-                                <div>University</div>
-                                <div>Degree</div>
-                                <div>GPA</div>
+                                    <div>University</div>
+                                    <div>Degree</div>
+                                    <div>GPA</div>
 
-                                <div>Roles</div>
-                            </div>
-                            <div class="col-1">
-                                <div>:</div>
-                                <div>:</div>
-                                <div>:</div>
-                                <div>:</div>
-                                <div>:</div>
-                                <div>:</div>
-                                <div>:</div>
-                                <div>:</div>
-                                <div>:</div>
-                                <div>:</div>
-                                <div>:</div>
-                            </div>
-                            <div class="col-7">
-                                <div id="modal-data"></div>
+                                    <div>Roles</div>
+                                </div>
+                                <div class="col-1">
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                    <div>:</div>
+                                </div>
+                                <div class="col-7">
+                                    <div id="modal-data"></div>
+                                </div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+            <!-- Modal Request Form-->
+            <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New Leave Request</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div id="modal-content" class="modal-body p-5">
+                            <form id="contactform" class="needs-validation" novalidate>
+                                @*<form method="post" action="" id="contactform" class="was-validated">*@
+
+                                @*<div class="form-row">
+                                        <div class="col-4 mb-3">
+                                            <label for="inputId">Employee ID</label>
+                                        </div>
+                                        <div class="col mb-3">
+                                            <div class="input-group">
+                                                <input type="text" name="nik" class="form-control" id="inputId" placeholder="Employee ID" aria-describedby="" value="@ViewData["Id"]" autocomplete="off" readonly>
+                                                <p class="validation-message" id="invalid-nik"></p>
+                                                <div class="invalid-feedback">
+                                                    Please type your ID.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                <div class="form-row">
+                                    <div class="col-4 mb-3">
+                                        <label for="inputLeaveType">Leave Type</label>
+                                    </div>
+                                    <div class="col-md mb-3">
+                                        <div class="input-group">
+                                            <select class="custom-select my-1 mr-sm-2" id="inputLeaveType" placeholder="Leave Type" required>
+                                                <option value=0>Select leave type</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select the leave type.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-4 mb-3">
+                                        <label>Date Range</label>
+                                    </div>
+                                    <div class="col-md mb-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                                            </div>
+                                            <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputStartDate" placeholder="Start Date" autocomplete="off" autocorrect="off"
+                                                   autocapitalize="off" spellcheck="false" required>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-th"></span>
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please insert the start date.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md mb-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                                            </div>
+                                            <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputEndDate" placeholder="End Date" autocomplete="off" autocorrect="off"
+                                                   autocapitalize="off" spellcheck="false" required>
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-th"></span>
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please insert the end date.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-4 mb-3">
+                                        <label for="">Holidays</label>
+
+                                    </div>
+                                    <div class="col-md mb-3">
+                                        <input type="number" class="form-control" id="holidays" placeholder="Holidays" autocomplete="off" autocorrect="off"
+                                               autocapitalize="off" spellcheck="false" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-4 mb-3">
+                                        <label for="">Duration From Leave Type</label>
+
+                                    </div>
+                                    <div class="col-md mb-3">
+                                        <input type="number" class="form-control" id="leaveTypeDuration" placeholder="0" autocomplete="off" autocorrect="off"
+                                               autocapitalize="off" spellcheck="false" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-4 mb-3">
+                                        <label for="">Leave Duration</label>
+
+                                    </div>
+                                    <div class="col-md mb-3">
+                                        <input type="number" class="form-control" id="leaveDuration" placeholder="Leave Duration" autocomplete="off" autocorrect="off"
+                                               autocapitalize="off" spellcheck="false" readonly>
+                                    </div>
+                                </div>
+
+                                @*<div class="form-group mt-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="univId" type="checkbox" value="" id="invalidCheck" required>
+                                            <label class="form-check-label" for="invalidCheck">
+                                                Agree to terms and conditions
+                                            </label>
+                                            <div class="invalid-feedback">
+                                                You must agree before submitting.
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                @*<button id="register" class="btn btn-primary" type="submit">Submit form</button>*@
+                                <button class="btn btn-primary float-right mt-5" type="submit" id="btnSubmit">Submit form</button>
+                            </form>
+                        </div>
+                        <!--<div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
                         @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                        <!--</div>-->
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Modal Request Form-->
-        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New Request</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div id="modal-content" class="modal-body">
-                        <form id="contactform" class="needs-validation" novalidate>
-                            @*<form method="post" action="" id="contactform" class="was-validated">*@
-
-                            <div class="form-row">
-                                <div class="col-4 mb-3">
-                                    <label for="inputId">Employee ID</label>
-                                </div>
-                                <div class="col mb-3">
-                                    <div class="input-group">
-                                        <input type="text" name="nik" class="form-control" id="inputId" placeholder="Employee ID" aria-describedby="" value="@ViewData["Id"]" autocomplete="off" readonly>
-                                        <p class="validation-message" id="invalid-nik"></p>
-                                        <div class="invalid-feedback">
-                                            Please type your ID.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-4 mb-3">
-                                    <label for="inputLeaveType">Leave Type</label>
-                                </div>
-                                <div class="col-md mb-3">
-                                    <div class="input-group">
-                                        <select class="custom-select my-1 mr-sm-2" id="inputLeaveType" placeholder="Leave Type" required>
-                                        </select>
-                                        <div class="invalid-feedback">
-                                            Please select the leave type.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-4 mb-3">
-                                    <label>Date Range</label>
-                                </div>
-                                <div class="col-md mb-3">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
-                                        </div>
-                                        <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputStartDate" placeholder="Start Date" autocomplete="off" autocorrect="off"
-                                               autocapitalize="off" spellcheck="false" required>
-                                        <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-th"></span>
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Please insert the start date.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md mb-3">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
-                                        </div>
-                                        <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputEndDate" placeholder="End Date" autocomplete="off" autocorrect="off"
-                                               autocapitalize="off" spellcheck="false" required>
-                                        <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-th"></span>
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Please insert the end date.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="col-4 mb-3">
-                                    <label for="inputBirthDate">Leave Duration</label>
-                                    
-                                </div>
-                                <div class="col-md mb-3">
-                                    <input type="number" class="form-control" id="leaveDuration" placeholder="Leave Duration" autocomplete="off" autocorrect="off"
-                                           autocapitalize="off" spellcheck="false" readonly>
-                                </div>
-                            </div>
-
-                            <div class="form-group mt-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="univId" type="checkbox" value="" id="invalidCheck" required>
-                                    <label class="form-check-label" for="invalidCheck">
-                                        Agree to terms and conditions
-                                    </label>
-                                    <div class="invalid-feedback">
-                                        You must agree before submitting.
-                                    </div>
-                                </div>
-                            </div>
-                            @*<button id="register" class="btn btn-primary" type="submit">Submit form</button>*@
-                            <button class="btn btn-primary" type="submit" id="btnSubmit">Submit form</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        @*<button type="button" class="btn btn-primary">Save changes</button>*@
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
+    </body>
 </html>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -250,99 +272,225 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 
 <script>
+
+    //reload datatable
+
+    function reloadTable() {
+        mt.ajax.reload(function (json) {
+            $('#table_id').val(json.lastInput);
+        });
+    }
+
+    //datepicker functions
+
+    var specialLeave = false;
+    var startdate = "";
+    var enddate = "";
+    var duration = "";
+    var holidays = 0;
+
     $(function () {
+        $.ajax({
+            url: "https://api-harilibur.vercel.app/api?year=" + moment().year(),
+            success: function (result) {
 
-        //date select
+                $('#inputStartDate').datepicker({
+                    format: 'mm/dd/yyyy',
+                    startDate: '-0m',
+                    daysOfWeekDisabled: [0, 6]
+                }).on('changeDate', function (e) {
+                    startdate = e.format();
+                    holidays = 0;
 
-        var startdate = "";
-        var enddate = "";
-        var duration = "";
+                    if (specialLeave) {
 
-        $('#inputStartDate').datepicker({
-            startDate: '-0m',
-            format: 'mm/dd/yyyy',
-        }).on('changeDate', function (e) {
-            startdate = e.format();
+                        $("#inputEndDate").datepicker("destroy");
+                        var selected = $("select#inputLeaveType").children("option:selected").val();
 
-            //fetch from API libur nasional
-            getHolidays(moment(startdate).format("YYYY"));
+                        $.ajax({
+                            url: "/leavetypes/getall"
+                        }).done((response) => {
+                            enddate = moment(moment(startdate).add(response[selected - 1].duration - 1, 'days')).format("MM/DD/YYYY");
 
-            $("#inputEndDate").datepicker("destroy");
-            $('#inputEndDate').datepicker({
-                format: 'mm/dd/yyyy',
-                startDate: new Date(moment(startdate))
-            }).on('changeDate', function (e) {
-                enddate = e.format();
 
-                duration = 1 + moment(enddate).diff(moment(startdate), 'days');
-                $('#leaveDuration').val(duration);
-            });
+                            for (var i = 0; i < result.length; i++) {
+                                if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
+                                    if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
+                                        holidays++;
+                                        console.log(result[i].holiday_date, result[i].holiday_name);
+                                    }
+                                }
+                            }
+
+                            duration = getNumWorkDays(moment(startdate), enddate) - holidays;
+
+                            $("#inputEndDate").val(enddate);
+                            $('#leaveDuration').val(duration);
+                            $('#holidays').val(holidays);
+
+                        }).fail((result) => {
+                            console.log(result);
+                        });
+
+                    } else {
+
+                        $("#inputEndDate").datepicker("destroy");
+                        $('#inputEndDate').datepicker({
+                            format: 'mm/dd/yyyy',
+                            startDate: new Date(moment(startdate)),
+                            daysOfWeekDisabled: [0, 6]
+                        }).on('changeDate', function (e) {
+                            enddate = e.format();
+                            holidays = 0;
+
+
+                            for (var i = 0; i < result.length; i++) {
+                                if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
+                                    if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
+                                        holidays++;
+                                        console.log(result[i].holiday_date, result[i].holiday_name);
+                                    }
+                                }
+                            }
+
+                            duration = getNumWorkDays(moment(startdate), enddate) - holidays;
+                            $('#leaveDuration').val(duration);
+                            $('#holidays').val(holidays);
+                        });
+
+                        for (var i = 0; i < result.length; i++) {
+                            if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
+                                if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
+                                    holidays++;
+                                    console.log(result[i].holiday_date, result[i].holiday_name);
+                                }
+                            }
+                        }
+
+                        duration = getNumWorkDays(moment(startdate), enddate) - holidays;
+                        $('#leaveDuration').val(duration);
+                        $('#holidays').val(holidays);
+                    }
+                });
+            }
         });
     });
 
-    function getHolidays(year) {
-        //get holidays
+    //get leavetype duration
+
+    $("select#inputLeaveType").change(function () {
+        var selected = $(this).children("option:selected").val();
+
+        $("#inputEndDate").val('');
+        $("#inputStartDate").val('');
+        $("#holidays").val('0');
+        $("#leaveDuration").val('0');
+
+        if (selected != 1) {
+            document.getElementById('inputEndDate').setAttribute('readonly', true);
+            specialLeave = true;
+        } else {
+            document.getElementById('inputEndDate').removeAttribute('readonly');
+            specialLeave = false;
+        }
+        console.log(selected);
+
         $.ajax({
-            url: "https://api-harilibur.vercel.app/api?year="+year
+            url: "/leavetypes/getall"
         }).done((result) => {
-            console.log(result);
+
+            $("#leaveTypeDuration").val(result[selected - 1].duration);
+
         }).fail((result) => {
             console.log(result);
         });
-    }
+    });
 
-    function checkHolidays(year) {
+    //fetch all leave types innto form dropdown
 
-        for (var i = 0; i < length; i++) {
+    $.ajax({
+        url: "/leavetypes/getall"
+    }).done((result) => {
+        var text = "";
+        console.log(result);
+        $.each(result, function (key, val) {
+            text += `
+            <option value="${val.id}">${val.name}</option>
+        `
+        });
+        $("#inputLeaveType").html(text);
+    }).fail((result) => {
+        console.log(result);
+    });
 
+    //get jumlah hari kerja dlm range
+
+    function getNumWorkDays(startDate, endDate) {
+
+        var numWorkDays = 0;
+        var currentDate = moment(startDate);
+        while (currentDate <= moment(endDate)) {
+            // Skips Sunday and Saturday
+
+            if (moment(currentDate).day() !== 0 && moment(currentDate).day() !== 6) {
+                numWorkDays++;
+            }
+            currentDate = moment(currentDate).add(1,'days');
         }
+        return numWorkDays;
     }
 
-    //DATATABLEs
+    //Leave Requests DATATABLEs
+
     var mt = $('#table_id').DataTable({
         "columnDefs": [{
             "targets": 0,
             "searchable": false,
             "orderable": false
         }],
-        "order": [[1, 'asc']],
+        "order": [[1, 'desc']],
         "filter": true,
         "ajax": {
-            "url": "/leaverequests/getleaverequests",
+            "url": "/leaverequests/getemployeeleaverequests/" + parseInt('@ViewData["Id"]'),
             "datatype": "json",
             "dataSrc": ""
         },
         "columns": [
             { "data": null },
-            { "data": "nik" },
-            { "data": "fullName" },
-            { "data": "email" },
             {
-                "data": "gender",
+                "data": "requestDate",
                 "render": function (data, type, row) {
-                    if (data == 0) {
-                        return 'Male' + ' <i class="fas fa-mars"></i>';
-                    } else {
-                        return 'Female' + ' <i class="fas fa-venus"></i>';
-                    }
+                    return moment(data).format("DD/MM/YY hh:mm")
                 }
             },
             {
-                "data": "phone",
-                "render": function (data, type, row) {
-
-                    return '(+62)' + data.slice(1, 99);
-                },
-                "autoWidth": true
+                "data": "leaveTypeName"
             },
             {
-                "data": "nik",
+                "data": "startDate",
                 "render": function (data, type, row) {
-
-                    return '<button class="btn btn-primary mr-1" onclick="show(' + data + ')" data-bs-toggle="modal" data-bs-target="#exampleModal"> Details </button><button class="btn btn-danger" onclick="deletePerson(' + data + ')"> Delete </button>';
-                },
-                "autoWidth": true
-            }
+                    return moment(data).format("DD/MM/YY")
+                }
+            },
+            {
+                "data": "endDate",
+                "render": function (data, type, row) {
+                    return moment(data).format("DD/MM/YY")
+                }
+            },
+            { "data": "leaveDuration" },
+            {
+                "data": "statusId",
+                "render": function (data, type, row) {
+                    if (data == 3) {
+                        return '<span class="badge badge-pill badge-danger"> Rejected </span>';
+                    } else if (data == 2) {
+                        return '<span class="badge badge-pill badge-success"> Accepted </span>';
+                    } else if (data == 1){
+                        return '<span class="badge badge-pill badge-warning"> Pending </span>';
+                    }
+                }
+            },
         ],
         dom: 'Bfrtip',
         buttons: [
@@ -367,125 +515,92 @@
         ]
     });
 
+    //first column
+
     mt.on('order.dt search.dt', function () {
         mt.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
             cell.innerHTML = i + 1;
         });
     }).draw();
 
-    $(document).ready(function () {
-        var employeeid = parseInt($('#inputId').val());
-        //get all leave req
+    //form validation
+
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === true) {
+                        event.preventDefault();
+                        var obj = {
+                            "EmployeeId": parseInt('@ViewData["Id"]'),
+                            "RequestDate": moment().format("YYYY/MM/DD hh:mm"),
+                            "StartDate": moment($('#inputStartDate').val()).format("YYYY/MM/DD"),
+                            "EndDate": moment($('#inputEndDate').val()).format("YYYY/MM/DD"),
+                            "LeaveDuration": parseInt($('#leaveDuration').val()),
+                            "LeaveTypeId": parseInt($('#inputLeaveType').val())
+                        };
+
+                        var data = JSON.stringify(obj);
+                        insertRequest(data);
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+
+    //submit and register
+    function insertRequest(data) {
+        console.log(data);
+
         $.ajax({
-            url: "/leaverequests/getemployeeleaverequests/" + employeeid
+            type: "POST",
+            url: "/leaverequests/addleaverequest",
+            data: data,
+            traditional: true,
+            contentType: 'application/json',
+            dataType: "json",
+
         }).done((result) => {
             console.log(result);
+
+            //reset form and fields
+            $('#registerModal').modal('toggle');
+            $('#contactform')[0].reset();
+            $('#contactform').removeClass('was-validated');
+            $('#contactform').addClass('needs-validation');
+            $('#inputId').val('@ViewData["Id"]');
+            document.getElementById('inputEndDate').removeAttribute('readonly');
+
+            //reload datatable only
+            reloadTable();
+
+            Swal.fire(
+                'Congratulations!',
+                'Register succeed!'
+            );
+
         }).fail((result) => {
             console.log(result);
         });
-
-        //get all leave types
-        $.ajax({
-            url: "/leavetypes/getall"
-        }).done((result) => {
-            var text = "";
-            console.log(result);
-            $.each(result, function (key, val) {
-                text += `
-                <option value="${val.id}">${val.name}</option>
-            `
-            });
-            $("#inputLeaveType").html(text);
-        }).fail((result) => {
-            console.log(result);
-        });
-
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                            })
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === true) {
-                            event.preventDefault();
-                            var obj = {
-                                //"RequestDate": "1911-11-11T00:00:00",
-                                //"StartDate": "1911-11-11T00:00:00",
-                                //"EndDate": "1911-11-11T00:00:00",
-                                //"LeaveDuration": 2,
-                                //"LeaveTypeId": 1,
-                                //"EmployeeId": 6
-                                "RequestDate": "1911-11-11T00:00:00",
-                                "StartDate": "1911-11-11T00:00:00",
-                                "EndDate": "1911-11-11T00:00:00",
-                                "LeaveDuration": $('#leaveDuration').val(),
-                                "LeaveTypeId": $('#leaveType').val(),
-                                "EmployeeId": $('#inputId').val()
-                                //"nik": $('#inputNik').val(),
-                            };
-
-                            var data = JSON.stringify(obj);
-                            insertRequest(data);
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-
-        function insertRequest(data) {
-            console.log(data);
-
-            $.ajax({
-                type: "POST",
-                url: "/leaverequests/addleaverequest",
-                data: data,
-                traditional: true,
-                contentType: 'application/json',
-                dataType: "json",
-
-            }).done((result) => {
-                console.log(result);
-                $('#registerModal').modal('toggle');
-                $('#contactform')[0].reset();
-
-                Swal.fire(
-                    'Congratulations!',
-                    'Register succeed!'
-                );
-                mt.ajax.reload(function (json) {
-                    $('#table_id').val(json.lastInput);
-                });
-
-                $('#inputId').val('@ViewData["Id"]');
-
-            }).fail((result) => {
-                console.log(result);
-            });
-        };
-
-        //reload button
-        $("#reloadBtn").click(function () {
-            mt.ajax.reload(function (json) {
-                $('#table_id').val(json.lastInput);
-            });
-        });
-    });
+    };
 </script>
