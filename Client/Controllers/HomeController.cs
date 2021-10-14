@@ -50,6 +50,10 @@ namespace Client.Controllers
 
         public IActionResult ForgotPassword()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Dashboard");
+            }
             return View();
         }
 

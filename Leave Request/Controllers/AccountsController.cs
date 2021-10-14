@@ -80,13 +80,11 @@ namespace Leave_Request.Controllers
                 }
                 else if ((repository.CheckLoginPassword(id, loginVM.Password)))
                 {
-                    return Ok(new
+                    return Ok(new JWTokenVM
                     {
-                        status = HttpStatusCode.OK,
-                        message = "Login successfull !!!",
-                        token = new JwtSecurityTokenHandler().WriteToken(repository.GetJWT(id, loginVM)),
-                        tokenexpired = repository.GetJWT(id, loginVM).ValidTo,
-                        id = repository.GetId(loginVM.Email)
+                        Messages = "Login successfull !!!",
+                        Token = new JwtSecurityTokenHandler().WriteToken(repository.GetJWT(id, loginVM)),
+                        Id = repository.GetId(loginVM.Email).ToString()
                     });
 
                     /*return Ok(new JWTokenVM

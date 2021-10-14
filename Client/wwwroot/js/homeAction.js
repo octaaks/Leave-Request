@@ -1,7 +1,7 @@
 ﻿//styling
 document.getElementById("titleform").style.fontFamily = 'Tahoma, sans-serif';
 
-(function () {
+/*(function () {
     'use strict';
     window.addEventListener('load', function () {
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -71,23 +71,24 @@ document.getElementById("titleform").style.fontFamily = 'Tahoma, sans-serif';
 
                     var data = JSON.stringify(obj);
 
-                    register(data);
+                    register(obj);
                 }
                 form.classList.add('was-validated');
             }, false);
         });
     }, false);
 })();
-
+*/
+/*
 function register(inputdata) {
     console.log(inputdata);
 
     $.ajax({
-        url: "/Accounts/Register",
+        url: "/Accounts/Registering",
         type: 'POST',
         data: inputdata,
-        traditional: true,
-        contentType: 'application/json',
+        //traditional: true,
+        //contentType: 'application/json',
         dataType: "json",
         success: function (data, x, xhr) {
 
@@ -100,7 +101,7 @@ function register(inputdata) {
                     icon: "success",
                     button: "OK"
                 });
-                Reset();
+                $('#formRegis')[0].reset();
                 $('#insertRegis').modal('hide');
                 $('.modal-backdrop').remove();
             //}
@@ -135,7 +136,7 @@ function register(inputdata) {
         }
     });
 };
-
+*/
 //posting data registration form to db
 //$("#btnSubmit").click(post => {
 //    var obj = DataInsert();
@@ -194,7 +195,6 @@ function register(inputdata) {
 
 //posting data registration form to db
 $("#btnSubmit").click(post => {
-
     var obj = DataInsert();
     console.log(obj);
     //post.preventDefault();
@@ -209,11 +209,16 @@ $("#btnSubmit").click(post => {
                     title: "Welcome!",
                     text: "Register successful. You can Login now",
                     icon: "success",
-                    button: "OK"
-                });
-                $('#formRegis')[0].reset();
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    console.log(result);
+                    if (result.isConfirmed){
+                        $('#formRegis')[0].reset();
+                        $('#insertRegis').modal('hide');
+                        $('.modal-backdrop').remove();
+                    }
+                })
             }
-            console.log(data);
         },
         fail: function (data) {
             if (data.statusCode == 400) {

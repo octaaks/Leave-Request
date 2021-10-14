@@ -208,7 +208,8 @@ namespace Leave_Request.Repositories.Data
 
             //generate new password
             string passwordReset = Guid.NewGuid().ToString();
-            account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset);
+            string saltPassword = BCrypt.Net.BCrypt.GenerateSalt(12);
+            account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset, saltPassword);
 
             //kirim email
             string bodyEmail = $"Your new password : <b>{passwordReset}</b>";
@@ -253,7 +254,9 @@ namespace Leave_Request.Repositories.Data
 
             //insert new password
             string newPassword = cpVM.ConfirmNewPassword;
-            account.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+
+            string saltPassword = BCrypt.Net.BCrypt.GenerateSalt(12);
+            account.Password = BCrypt.Net.BCrypt.HashPassword(newPassword, saltPassword);
 
             //save ke DB
             Update(account);

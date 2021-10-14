@@ -11,8 +11,12 @@ namespace Client.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.Id = HttpContext.Session.GetString("Id");
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Id = HttpContext.Session.GetString("Id");
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }
