@@ -108,7 +108,7 @@ namespace Client.Controllers
 
             var login = new LoginVM { Email = email, Password = password };
 
-            var jwtToken = await repository.Auth(loginVM);
+            var jwtToken = await repository.Auth(login);
             var token = jwtToken.Token;
             var employeeid = jwtToken.Id;
 
@@ -117,11 +117,10 @@ namespace Client.Controllers
                 return RedirectToAction("index","home");
             }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            var userIdentity = new ClaimsIdentity(employeeid);
             HttpContext.Session.SetString("JWToken", token);
             HttpContext.Session.SetString("Email", login.Email);
             HttpContext.Session.SetString("Id", employeeid);
-
             return RedirectToAction("Dashboard", "Home");
         }
        

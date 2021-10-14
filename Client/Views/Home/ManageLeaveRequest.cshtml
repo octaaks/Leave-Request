@@ -30,24 +30,26 @@
 
         <div class="card shadow p-3 mt-3 p-lg-3">
             <h1 class="card-title text-center mb-5" style="font-weight:bold" id="judul" sstyle="text-align:start;">Manage Leave Request</h1>
-            <table id="table_id" class="display nowrap" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>Req. Date</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Start</th>
-                        <th>End</th>
-                        <th>Duration</th>
-                        <th>Status</th>
-                        <th>Approved</th>
-                        <th>Act</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div class="card-body">
+                <table id="table_id" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>Req. Date</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>Approved</th>
+                            <th>Act</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
             <div class="card-footer mt-5">
                 <p style="font-weight:bold">Leave types in company:</p>
                 <div class="row">
@@ -408,8 +410,8 @@
                 $('#exampleModal').modal('toggle');
                 
                 Swal.fire(
-                    'Congratulations!',
-                    'Leave Request Approved!'
+                    'Finish!',
+                    'Leave Request Updated!'
                 );
 
             }).fail((result) => {

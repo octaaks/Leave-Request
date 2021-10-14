@@ -155,8 +155,8 @@
                 @*<a href="/login" class="nav-link">Login</a>*@
                 <!--</li>-->
                 <li class="nav-item d-none d-sm-inline-block">
-                    <form asp-controller="Accounts" asp-action="Logout" method="get">
-                        <button type="submit" class="btn btn-danger btn-block">Logout</button>
+                    <form>
+                        <button type="button" class="btn btn-danger btn-block" onclick="closing()">Logout</button>
                     </form>
                     @*<a href="/login/logout" class="nav-link">Logout</a>*@
                 </li>
@@ -191,7 +191,7 @@
                         <img src="~/user.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <strong><a href="https://localhost:44324/profil" class="d-block" id="username" value="@ViewData["Id"]" data-value="@ViewData["Id"]">User</a></strong>
+                        <strong><a href="https://localhost:44324/profil" class="d-block" id="username" value="@ViewData["Id"]" data-value="@ViewData["Id"]"></a></strong>
                     </div>
                 </div>
 
@@ -222,20 +222,23 @@
                         </li>
                     </ul>
                 </nav>
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+                @if (User.IsInRole("Approver"))
+                {
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="ManageLeaveRequest" class="nav-link">
-                                <i class="far fa-list-alt mr-2"></i>
-                                <p>
-                                    Manage Leave Request
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="ManageLeaveRequest" class="nav-link">
+                                    <i class="far fa-list-alt mr-2"></i>
+                                    <p>
+                                        Approve Leave Request
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                }
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
@@ -379,6 +382,27 @@
                 document.getElementById('username').innerHTML = result.name;
             })
         });
+
+        function closing() {
+            Swal.fire({
+                title: 'Do you want to end this session?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, i do!',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                console.log(result);
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/Accounts/Logout/",
+                        success: function (result) {
+                            console.log("logout success")
+                            location.reload();
+                        }
+                    })
+                }
+            })
+        }
     </script>
 </body>
 </html>

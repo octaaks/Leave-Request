@@ -30,29 +30,11 @@ namespace Client
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
-            services.Configure<FormOptions>(options =>
-            {
-                options.ValueCountLimit = int.MaxValue;
-                options.ValueLengthLimit = int.MaxValue;
-            });
-
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(10);//set 10 menit   
             });
-
-            services.AddControllersWithViews();
-            services.AddScoped<AccountRepository>();
-            services.AddScoped<LeaveTypeRepository>();
-            services.AddScoped<LeaveRequestRepository>();
-            services.AddScoped<JobRepository>();
-            services.AddScoped<ReligionRepository>();
-            services.AddScoped<ManagerFillRepository>();
-            services.AddScoped<EmployeeRepository>();
-            services.AddScoped<Address>();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
@@ -65,8 +47,24 @@ namespace Client
                     ValidIssuer = Configuration["Jwt:Issuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
-            }
-            );
+            });
+            services.AddHttpContextAccessor();
+            services.AddControllersWithViews();
+            services.AddControllers().AddNewtonsoftJson();
+            services.Configure<FormOptions>(options =>
+            {
+                options.ValueCountLimit = int.MaxValue;
+                options.ValueLengthLimit = int.MaxValue;
+            });
+            services.AddRazorPages();
+            services.AddScoped<AccountRepository>();
+            services.AddScoped<LeaveTypeRepository>();
+            services.AddScoped<LeaveRequestRepository>();
+            services.AddScoped<JobRepository>();
+            services.AddScoped<ReligionRepository>();
+            services.AddScoped<ManagerFillRepository>();
+            services.AddScoped<EmployeeRepository>();
+            services.AddScoped<Address>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
