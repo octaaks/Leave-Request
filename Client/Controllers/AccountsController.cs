@@ -46,7 +46,7 @@ namespace Client.Controllers
         }
 
         [HttpPost("Registering")]
-        public IActionResult Registering([FromBody] RegistrationVM entity)
+        public IActionResult Registering(RegistrationVM entity)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace Client.Controllers
             HttpContext.Session.SetString("Email", login.Email);
             HttpContext.Session.SetString("Id", employeeid);
 
-            return RedirectToAction("dashboard", "home");
+            return RedirectToAction("Dashboard", "Home");
         }
        
         [HttpGet("Logout/")]
@@ -131,5 +131,6 @@ namespace Client.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("index", "home");
         }
+
     }
 }

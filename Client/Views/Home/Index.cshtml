@@ -15,6 +15,7 @@
             <p id="title">Welcome!</p>
         </div>
         <div class="row vertical-center">
+            <!-- Login button -->
             <div class="col">
                 @*<form asp-controller="Home" asp-action="Login" method="get">*@
                 <button type="button" class="btn btn-outline-light" id="button-home"
@@ -23,6 +24,8 @@
                 </button>
                 @*</form>*@
             </div>
+
+            <!-- Regis button -->
             <div class="col">
                 @*<form asp-controller="Home" asp-action="Register" method="get">*@
                 <button type="button" class="btn btn-outline-light" id="button-home"
@@ -249,17 +252,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group mt-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="check" type="checkbox" value="" id="invalidCheck" required>
-                                    <label class="form-check-label" for="invalidCheck">
-                                        Agree to terms and conditions
-                                    </label>
-                                    <div class="invalid-feedback">
-                                        You must agree before submitting.
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <button class="btn btn-primary" type="submit" id="btnSubmit">Submit</button>
                             @*<p class="mb-1 mt-3 float-right">
                                     Already have an account? <a asp-controller="Home" asp-action="Login">Log In Here!</a>
@@ -308,16 +301,8 @@
                                 </div>
                             </div>
 
-                            <!-- Login -->
+                            <!-- login -->
                             <div class="row">
-                                <div class="col-8">
-                                    <div class="icheck-primary">
-                                        <input class="form-check-input" type="checkbox" id="remember">
-                                        <label for="remember">
-                                            Remember Me
-                                        </label>
-                                    </div>
-                                </div>
                                 <!-- /.col -->
                                 <div class="col-4">
                                     <button type="submit" class="btn btn-primary btn-block">Sign In</button>
@@ -329,9 +314,6 @@
                         <p class="mb-1">
                             <a asp-controller="Home" asp-action="ForgotPassword">I forgot my password</a>
                         </p>
-                        @*<p class="mb-0">
-                                <a asp-controller="Home" asp-action="Register" class="text-center">Register a new membership</a>
-                            </p>*@
                     </div>
                     <!-- /.login-card-body -->
                 </div>

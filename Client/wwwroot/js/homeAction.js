@@ -2,87 +2,27 @@
 document.getElementById("titleform").style.fontFamily = 'Tahoma, sans-serif';
 
 //posting data registration form to db
-$("#btnSubmit").click(post => {
-    var obj = DataInsert();
-    console.log(obj);
-    post.preventDefault();
-    $.ajax({
-        url: "/Accounts/Register",
-        type: 'POST',
-        data: data,
-        traditional: true,
-        contentType: 'application/json',
-        dataType: "json",
-        success: function (data, x, xhr) {
-            if (data.statusCode == 200) {
-                Swal.fire({
-                    title: "Welcome!",
-                    text: "Register successful. You can Login now",
-                    icon: "success",
-                    button: "OK"
-                });
-                Reset();
-                $('#insertRegis').modal('hide')
-            }
-            else {
-                Swal.fire({
-                    title: "Oh no...",
-                    text: "Register unsuccessful ...",
-                    icon: "error",
-                    button: "OK"
-                });
-            }
-            console.log(data);
-            /* $('#insertData').modal('hide');*/
-        },
-        fail: function (data) {
-            Swal.fire({
-                title: "Oh no...",
-                text: "Register unsuccessful ...",
-                icon: "error",
-                button: "OK"
-            });
-            console.log(data.message)
-        },
-        error: function (xhr, status, error) {
-            Swal.fire({
-                title: "Oh no...",
-                text: "Register unsuccessful ...",
-                icon: "error",
-                button: "OK"
-            });
-            console.log(error);
-            //Reset();
-        }
-    });
-};
-
 //$("#btnSubmit").click(post => {
-
-//    debugger;
-
 //    var obj = DataInsert();
 //    console.log(obj);
-//    var email = $('#email').val();
-//    console.log(email);
 //    post.preventDefault();
-
 //    $.ajax({
-//        url: "/Accounts/Registering",
+//        url: "/Accounts/Register",
 //        type: 'POST',
-//        data: obj,
-//        dataType: 'json',
+//        data: data,
+//        traditional: true,
+//        contentType: 'application/json',
+//        dataType: "json",
 //        success: function (data, x, xhr) {
 //            if (data.statusCode == 200) {
-//                //$('#insertRegis').modal('hide')
 //                Swal.fire({
 //                    title: "Welcome!",
 //                    text: "Register successful. You can Login now",
 //                    icon: "success",
 //                    button: "OK"
 //                });
-//               // $('#dataTable').DataTable().ajax.reload();
 //                Reset();
+//                $('#insertRegis').modal('hide')
 //            }
 //            else {
 //                Swal.fire({
@@ -112,10 +52,50 @@ $("#btnSubmit").click(post => {
 //                button: "OK"
 //            });
 //            console.log(error);
-//            Reset();
+//            //Reset();
 //        }
 //    });
-//})
+//});
+
+//posting data registration form to db
+$("#btnSubmit").click(post => {
+
+    var obj = DataInsert();
+    console.log(obj);
+    //post.preventDefault();
+    $.ajax({
+        url: "/Accounts/Registering",
+        type: 'POST',
+        data: obj,
+        dataType: 'json',
+        success: function (data, x, xhr) {
+            if (data.statusCode == 200) {
+                Swal.fire({
+                    title: "Welcome!",
+                    text: "Register successful. You can Login now",
+                    icon: "success",
+                    button: "OK"
+                });
+                $('#formRegis')[0].reset();
+            }
+            console.log(data);
+        },
+        fail: function (data) {
+            if (data.statusCode == 400) {
+                Swal.fire({
+                    title: "Oh no...",
+                    text: "Register unsuccessful ...",
+                    icon: "error",
+                    button: "OK"
+                });
+            }
+            console.log(data.message)
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+})
 
 //get data value registration form
 function DataInsert() {
@@ -134,11 +114,6 @@ function DataInsert() {
         "Password": $('#inputPassword').val()
     };
     return obj;
-}
-
-//reset data registration form
-function Reset() {
-    $('#formRegis')[0].reset();
 }
 
 //send link for reset password by email
@@ -160,6 +135,7 @@ $("#resetButton").click(post => {
                     icon: "success",
                     button: "OK"
                 });
+            $('#changepassform')[0].reset();
             }
             else {
                 Swal.fire({
@@ -209,6 +185,7 @@ $("#changeButton").click(post => {
                     icon: "success",
                     button: "OK"
                 });
+                $('#changepassform')[0].reset();
             }
             else {
                 Swal.fire({
@@ -252,3 +229,6 @@ function DataChangePass() {
     };
     return obj;
 }
+
+
+

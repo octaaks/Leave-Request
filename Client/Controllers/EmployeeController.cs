@@ -8,15 +8,17 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Client.Controllers
 {
     [Route("[controller]")]
-    public class JobsController : BaseController<Job, JobRepository, int>
+    public class EmployeeController : BaseController<Employee, EmployeeRepository, int>
     {
-        private readonly JobRepository repository;
-        public JobsController(JobRepository repository) : base(repository)
+
+        private readonly EmployeeRepository repository;
+        public EmployeeController(EmployeeRepository repository) : base(repository)
         {
             this.repository = repository;
         }
@@ -26,10 +28,10 @@ namespace Client.Controllers
             return View();
         }
 
-        [HttpGet("GetJob/{id}")]
-        public async Task<JsonResult> GetJob(int id)
+        [HttpGet("GetEmployeeById/{id}")]
+        public async Task<JsonResult> GetEmployeeById(int id)
         {
-            var result = await repository.GetJobById(id);
+            var result = await repository.GetEmploById(id);
             return Json(result);
         }
     }

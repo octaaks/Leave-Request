@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Client.Controllers
 {
+    [Route("[controller]")]
     public class ReligionsController : BaseController<Religion, ReligionRepository, int>
     {
         private readonly ReligionRepository repository;
@@ -25,5 +26,11 @@ namespace Client.Controllers
             return View();
         }
 
+        [HttpGet("GetReligion/{id}")]
+        public async Task<JsonResult> GetReligion(int id)
+        {
+            var result = await repository.GetReligionById(id);
+            return Json(result);
+        }
     }
 }

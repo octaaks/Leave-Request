@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="~/fontawesome/css/all.css" rel="stylesheet">--> <!--load all styles -->
+    <!-- CSS Boostrap -->
+    @*<link rel="styles heet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">*@
+
+    <!-- CSS Bootstrap Datepicker -->
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">*@
+    @*<link rel="stylesheet" href="~/css/persons.css" />*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/css/home.css">
+</head>
+
+<div class="container">
+    <div class="card justify-content-center" style="width:700px;">
+        <div class="card-header row mt-2 text-center justify-content-center">
+            <img class="col-2" src="~/mii-logo.png" width="50" />
+        </div>
+        <div class="card-body login-card-body">
+            <div class="row mb-3 justify-content-center" style="font-size:25px">Personal Data</div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Employee ID</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="idvalue" class="col-7 m-2" placeholder="Employee ID" value="@ViewData["Id"]" data-value="@ViewData["Id"]" readonly>
+
+            </div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Name</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="namevalue" class="col-7 m-2" placeholder="Name" readonly>
+            </div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Address</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="addressvalue" class="col-7 m-2" placeholder="Address" readonly>
+            </div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Gender</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="gendervalue" class="col-7 m-2" placeholder="Gender" readonly>
+            </div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Phone</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="phonevalue" class="col-7 m-2" placeholder="Phone" readonly>
+            </div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Birthdate</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="bdvalue" class="col-7 m-2" placeholder="Birthdate" readonly>
+            </div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Salary</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="salaryvalue" class="col-7 m-2" placeholder="Salary" readonly>
+            </div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Join Date</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="jdvalue" class="col-7 m-2" placeholder="Join Date" readonly>
+            </div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Total Leave</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="leavevalue" class="col-7 m-2" placeholder="Total Leave" readonly>
+            </div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Religion</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="religionvalue" class="col-7 m-2" placeholder="Religion" readonly>
+            </div>
+            <div class="row">
+                <div id="tagdata" class="col-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Job Title</li>
+                    </ul>
+                </div>
+                <div class="col-1">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">:</li>
+                    </ul>
+                </div>
+                <input id="jobvalue" class="col-7 m-2" placeholder="Job Title">
+            </div>
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/js/personalData.js"></script>
+}
+

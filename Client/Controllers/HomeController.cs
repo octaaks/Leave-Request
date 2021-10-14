@@ -28,9 +28,8 @@ namespace Client.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("auth", "accounts");
+                return RedirectToAction("Dashboard", "Home");
             }
-
             return View();
         }
 
@@ -57,6 +56,7 @@ namespace Client.Controllers
         public IActionResult Dashboard()
         {
             ViewBag.Email = HttpContext.Session.GetString("Email");
+            ViewBag.Id = HttpContext.Session.GetString("Id");
             return View();
         }
 
@@ -69,11 +69,14 @@ namespace Client.Controllers
         }
         public IActionResult ManageLeaveRequest()
         {
+            ViewBag.Id = HttpContext.Session.GetString("Id");
             return View();
         }
 
         public IActionResult ChangePassword()
         {
+            ViewBag.Email = HttpContext.Session.GetString("Email");
+            ViewBag.Id = HttpContext.Session.GetString("Id");
             return View();
         }
 

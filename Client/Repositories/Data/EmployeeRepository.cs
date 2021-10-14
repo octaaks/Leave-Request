@@ -1,6 +1,7 @@
 ﻿using Client.Base.Urls;
 using Leave_Request.Models;
 using Leave_Request.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,32 +12,34 @@ using System.Threading.Tasks;
 
 namespace Client.Repositories.Data
 {
-    public class JobRepository : GeneralRepository<Job, int>
+    public class EmployeeRepository : GeneralRepository<Employee, int>
     {
         private readonly Address address;
-        private readonly HttpClient httpClient;
         private readonly string request;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly HttpClient httpClient;
 
-        public JobRepository(Address address, string request = "Jobs/") : base(address, request)
+        public EmployeeRepository(Address address, string request = "Employees/") : base(address, request)
         {
             this.address = address;
             this.request = request;
+            _contextAccessor = new HttpContextAccessor();
             this.httpClient = new HttpClient
             {
                 BaseAddress = new Uri(address.link)
             };
         }
 
-        public async Task<Job> GetJobById(int id)
+        public async Task<Employee> GetEmploById(int id)
         {
-            Job job = null;
+            Employee employee = null;
 
             using (var response = await httpClient.GetAsync(request + id))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                job = JsonConvert.DeserializeObject<Job>(apiResponse);
+                employee = JsonConvert.DeserializeObject<Employee>(apiResponse);
             }
-            return job;
+            return employee;
         }
     }
 }

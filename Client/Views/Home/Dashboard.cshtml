@@ -1,20 +1,54 @@
 ﻿@{
+    ViewData["Title"] = "Dashboard";
     Layout = (string)ViewData["Layout"] ?? "_LayoutUser";
 }
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
-    <link rel="stylesheet" href="~/css/index.css">
+    <!--<link href="~/fontawesome/css/all.css" rel="stylesheet">--> <!--load all styles -->
+    <!-- CSS Boostrap -->
+    @*<link rel="styles heet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">*@
+
+    <!-- CSS Bootstrap Datepicker -->
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">*@
+    @*<link rel="stylesheet" href="~/css/persons.css" />*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/css/home.css">
 </head>
-<body>
-    <div class="container">
-        <div class="vertical-center">
-            <p style="text-align:center">LOGIN BERHASIL</p>
+
+<div class="container">
+    <div class="row m-1">
+        <div class="col-12 m-1">
+            <div class="card card-light h-100 justify-content-center">
+                <div class="card-header">
+                    <h3 class="card-title text-center">My Leave History</h3>
+                </div>
+                <div class="card-body">
+                    <div id="chartminelv">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</body>
-</html>
+    <div class="row m-1">
+        <div class="col-12 m-1">
+            <div class="card card-light h-100  justify-content-center">
+                <div class="card-header">
+                    <h3 class="card-title text-center">Employee Leave Calculation 2021</h3>
+                </div>
+                <div class="card-body">
+                    <div id="chartemplolv">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+@section scripts{
+    <script src="~/js/dashboard.js"></script>
+}
