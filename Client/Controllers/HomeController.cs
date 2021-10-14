@@ -55,29 +55,58 @@ namespace Client.Controllers
 
         public IActionResult Dashboard()
         {
-            ViewBag.Email = HttpContext.Session.GetString("Email");
-            ViewBag.Id = HttpContext.Session.GetString("Id");
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Email = HttpContext.Session.GetString("Email");
+                ViewBag.Id = HttpContext.Session.GetString("Id");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public IActionResult LeaveRequest()
-        {
-            ViewBag.Email = HttpContext.Session.GetString("Email");
-            ViewBag.Id = HttpContext.Session.GetString("Id");
+        { 
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Email = HttpContext.Session.GetString("Email");
+                ViewBag.Id = HttpContext.Session.GetString("Id");
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
+        [Authorize(Roles = "Approver")]
         public IActionResult ManageLeaveRequest()
         {
-            ViewBag.Id = HttpContext.Session.GetString("Id");
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Id = HttpContext.Session.GetString("Id");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public IActionResult ChangePassword()
         {
-            ViewBag.Email = HttpContext.Session.GetString("Email");
-            ViewBag.Id = HttpContext.Session.GetString("Id");
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Email = HttpContext.Session.GetString("Email");
+                ViewBag.Id = HttpContext.Session.GetString("Id");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

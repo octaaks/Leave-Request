@@ -26,14 +26,14 @@ $(document).ready(function () {
             }],
             labels: ["Annual Leave", "Marriage Leave", "Maternity Leave", "Medical Leave", "Death Leave"],
             chart: {
-                width: 500,
+                //width: 500,
                 type: 'bar',
             },
             plotOptions: {
                 bar: {
                     borderRadius: 5,
-                    columnWidth: '35%',
-                    barHeight: '70%',
+                    //columnWidth: '35%',
+                    //barHeight: '70%',
                     dataLabels: {
                         position: 'top', // top, center, bottom
                     }
@@ -108,7 +108,7 @@ $(document).ready(function () {
         var options = {
             series: [annualLeave, marriageLeave, maternityLeave, medicalLeave, deathLeave],
             chart: {
-                width: 500,
+                //width: 500,
                 type: 'pie',
             },
             labels: ["Annual Leave", "Marriage Leave", "Maternity Leave", "Medical Leave", "Death Leave"],
@@ -116,7 +116,7 @@ $(document).ready(function () {
                 breakpoint: 480,
                 options: {
                     chart: {
-                        width: 200
+                        //width: 200
                     },
                     legend: {
                         position: 'bottom'

@@ -37,13 +37,13 @@
                 <thead>
                     <tr>
                         <th>NO</th>
-                        <th>Request Date</th>
+                        <th>Req. At</th>
                         <th>Leave Type</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
+                        <th>Start</th>
+                        <th>End</th>
                         <th>Duration</th>
                         <th>Status</th>
-                        <th>Date Approved</th>
+                        <th>Apr. At</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -312,12 +312,13 @@
                         }).done((response) => {
                             enddate = moment(moment(startdate).add(response[selected - 1].duration - 1, 'days')).format("MM/DD/YYYY");
 
-
                             for (var i = 0; i < result.length; i++) {
                                 if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
                                     if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
-                                        holidays++;
-                                        console.log(result[i].holiday_date, result[i].holiday_name);
+                                        if (result[i].is_national_holiday == true) {
+                                            holidays++;
+                                            console.log(result[i].holiday_date, result[i].holiday_name);
+                                        }
                                     }
                                 }
                             }
@@ -347,8 +348,10 @@
                             for (var i = 0; i < result.length; i++) {
                                 if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
                                     if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
-                                        holidays++;
-                                        console.log(result[i].holiday_date, result[i].holiday_name);
+                                        if (result[i].is_national_holiday == true) {
+                                            holidays++;
+                                            console.log(result[i].holiday_date, result[i].holiday_name);
+                                        }
                                     }
                                 }
                             }
@@ -361,8 +364,10 @@
                         for (var i = 0; i < result.length; i++) {
                             if (moment(startdate) <= moment(result[i].holiday_date) && moment(result[i].holiday_date) <= moment(enddate)) {
                                 if (moment(result[i].holiday_date).day() != 0 || moment(result[i].holiday_date).day() != 0) {
-                                    holidays++;
-                                    console.log(result[i].holiday_date, result[i].holiday_name);
+                                    if (result[i].is_national_holiday == true) {
+                                        holidays++;
+                                        console.log(result[i].holiday_date, result[i].holiday_name);
+                                    }
                                 }
                             }
                         }
@@ -491,6 +496,16 @@
                     }
                 }
             },
+            {
+                "data": "approvedDate",
+                "render": function (data, type, row) {
+                    if (row['statusId'] == 2) {
+                        return moment(data).format("DD/MM/YY hh:mm");
+                    } else {
+                        return "-";
+                    }
+                }
+            }
         ],
         dom: 'Bfrtip',
         buttons: [
