@@ -159,6 +159,19 @@ namespace Leave_Request.Controllers
             });
         }
 
+        [HttpPost("SendEmailToRequester")]
+        public ActionResult SendEmailToRequester(RequestApprovalVM raVM)
+        {
+            int output = repository.SendEmailToRequester(raVM);
+
+            return Ok(new
+            {
+                statusCode = StatusCode(200),
+                status = HttpStatusCode.OK,
+                message = "Email has been sent!"
+            });
+        }
+
         [HttpPost("change-password")]
         public ActionResult ChangePassword(ChangePasswordVM cpVM)
         {

@@ -123,7 +123,14 @@ namespace Client.Controllers
             HttpContext.Session.SetString("Id", employeeid);
             return RedirectToAction("Dashboard", "Home");
         }
-       
+
+        [HttpPost("SendEmailToRequester")]
+        public IActionResult SendEmailToRequester([FromBody] RequestApprovalVM raVM)
+        {
+            var result = repository.SendEmailToRequester(raVM);
+            return Json(result);
+        }
+
         [HttpGet("Logout/")]
         public IActionResult Logout()
         {
