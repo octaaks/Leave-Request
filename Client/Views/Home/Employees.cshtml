@@ -35,47 +35,21 @@
                     <thead>
                         <tr>
                             <th>NO</th>
-                            <th>Req. Date</th>
+                            <th>ID</th>
                             <th>Name</th>
-                            <th>Type</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Dur.</th>
-                            <th>Status</th>
-                            <th>Apr. At</th>
-                            <th>Act</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>Position</th>
+                            <th>Total Leave</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer mt-5">
-                <p style="font-weight:bold">Leave types in company:</p>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <ol class="ml-4">
-                            <li> Annual Leave</li>
-                            <li> Marriage Leave</li>
-                            <li> Maternity Leave</li>
-                            <li> Medical Leave</li>
-                            <li> Sudden-death Leave</li>
-                        </ol>
-                    </div>
-                    <div class="col-9">
-                        <ul class="mr-5" style="list-style-type: none;">
-                            <li>:  12 days/years, can only be taken after 12 months work for company</li>
-                            <li>:  3 days working days</li>
-                            <li>:  40 days working days</li>
-                            <li>:  Adjust doctor's recommendation</li>
-                            <li>:  1 days working days</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- Modal Review-->
+        <!-- Modal 1-->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -90,12 +64,19 @@
                                 <div>Employee ID</div>
                                 <div>Name</div>
                                 <div>Leave Type</div>
-                                <div>Start Date</div>
-                                <div>End Date</div>
-                                <div>Notes</div>
+                                <div>Gender</div>
+                                <div>Religion</div>
+                                <div>Phone</div>
+                                <div>Birth Date</div>
+                                <div>Position</div>
+                                <div>Join Date</div>
+                                <div>Total Leave</div>
 
                             </div>
                             <div class="col-1">
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
                                 <div>:</div>
                                 <div>:</div>
                                 <div>:</div>
@@ -129,7 +110,6 @@
                     <div id="modal-content" class="modal-body">
                         <form id="contactform" class="needs-validation" novalidate>
                             @*<form method="post" action="" id="contactform" class="was-validated">*@
-
                             <div class="form-row">
                                 <div class="col-4 mb-3">
                                     <label for="inputId">Employee ID</label>
@@ -267,51 +247,22 @@
         "columns": [
             { "data": null },
             {
-                "data": "requestDate",
-                "render": function (data, type, row) {
-                    return moment(data).format("DD/MM/YY hh:mm")
-                }
+                "data": "id"
             },
             {
-                "data": "employeeName"
+                "data": "name"
             },
             {
-                "data": "leaveTypeName"
+                "data": "gender"
             },
             {
-                "data": "startDate",
-                "render": function (data, type, row) {
-                    return moment(data).format("DD/MM/YY")
-                }
+                "data": "phone"
             },
             {
-                "data": "endDate",
-                "render": function (data, type, row) {
-                    return moment(data).format("DD/MM/YY")
-                }
-            },
-            { "data": "leaveDuration" },
-            {
-                "data": "statusId",
-                "render": function (data, type, row) {
-                    if (data == 3) {
-                        return '<span class="badge badge-pill badge-danger"> Rejected </span>';
-                    } else if (data == 2) {
-                        return '<span class="badge badge-pill badge-success"> Accepted </span>';
-                    } else if (data == 1) {
-                        return '<span class="badge badge-pill badge-warning"> Pending </span>';
-                    }
-                }
+                "data": "jobid"
             },
             {
-                "data": "approvedDate",
-                "render": function (data, type, row) {
-                    if (row['statusId'] == 2) {
-                        return moment(data).format("DD/MM/YY hh:mm");
-                    } else {
-                        return "-";
-                    }
-                }
+                "data": "totalleave"
             },
             {
                 "data": "id",
@@ -353,144 +304,28 @@
 
     function show(id) {
         $.ajax({
-            url: "/leaverequests/getbyid/" + id
+            url: "/##########" + id
         }).done((result) => {
 
             var text = "";
             text += `
             <div>${result.employeeId}</div>
             <div>${result.employeeName}</div>
-            <div>${result.leaveTypeName}</div>
-            <div>${moment(result.startDate).format("DD/MM/YY hh:mm")}</div>
-            <div>${moment(result.endDate).format("DD/MM/YY hh:mm")}</div>
-            <div>"${result.notes}"</div>
+            <div>${result.address}</div>
+            <div>${result.gender}</div>
+            <div>${moment(result.birthDate).format("DD/MM/YY hh:mm")}</div>
+            <div>${result.religionid}</div>
+            <div>${result.phone}</div>
+            <div>${result.jobid}</div>
+            <div>${moment(result.joindate).format("DD/MM/YY hh:mm")}</div>
+            <div>${result.totalleaves}</div>
         `
             $("#modal-data").html(text);
-            $("#exampleModalLabel").html(result.employeeName + "'s leave request");
+            //$("#exampleModalLabel").html(result.employeeName + "'s leave request");
 
-
-            $("#btn_approve").click(function () {
-                updateManagerFill(id, 2);
-
-                var datainput = {
-                    //"EmployeeId": 666,
-                    //"Status": "Approved",
-                    //"Approver": "dsadad",
-                    //"LeaveType": "annual",
-                    //"StartDate": "1990-10-10",
-                    //"EndDate": "1990-11-10",
-                    //"Notes": "Hello there"
-                    "EmployeeId": parseInt(result.employeeId),
-                    "Status": "Approved",
-                    "Approver": "-",
-                    "LeaveType": result.leaveTypeName,
-                    "StartDate": moment(result.startDate).format("YYYY-MM-DD"),
-                    "EndDate": moment(result.endDate).format("YYYY-MM-DD"),
-                    "Notes": result.notes
-                }
-
-                console.log(datainput);
-                $.ajax({
-                    type: "POST",
-                    url: "/accounts/SendEmailToRequester",
-                    data: JSON.stringify(datainput),
-                    traditional: true,
-                    contentType: 'application/json',
-                    dataType: "json"
-                }).done((result) => {
-                    console.log(result);
-                    console.log("done", result);
-                }).fail((result) => {
-                    console.log(result);
-                });
-
-            });
-            $("#btn_reject").click(function () {
-                updateManagerFill(id, 3);
-
-                var datainput = {
-                    "EmployeeId": parseInt(result.employeeId),
-                    "Status": "Rejected",
-                    "Approver": "-",
-                    "LeaveType": result.leaveTypeName,
-                    "StartDate": moment(result.startDate).format("DD/MM/YY hh:mm"),
-                    "EndDate": moment(result.endDate).format("DD/MM/YY hh:mm"),
-                    "Notes": result.notes
-                }
-
-                console.log(dataInput);
-                $.ajax({
-                    type: "POST",
-                    url: "/accounts/SendEmailToRequester",
-                    data: JSON.stringify(datainput),
-                    traditional: true,
-                    contentType: 'application/json',
-                    dataType: "json"
-                }).done((result) => {
-                    console.log(result);
-                    console.log("done", result);
-                }).fail((result) => {
-                    console.log(result);
-                });
-
-            });
 
         }).fail((result) => {
             console.log(result);
         });
     }
-
-    function sendApprovalEmail(datainput) {
-
-    }
-
-    function sendRejectionEmail() {
-
-    }
-
-    function updateManagerFill(id,status) {
-
-        $.ajax({
-            url: "/leaverequests/getbyid/" + id
-        }).done((result) => {
-
-            var mfdata = {
-                "id": result.managerFillId,
-                "note": result.notes,
-                "dateApproved": moment(),
-                "leaveRequestId": id,
-                "statusId": status
-            }
-
-            $.ajax({
-                type: "PUT",
-                url: "/managerfills/UpdateManagerFill",
-                data: JSON.stringify(mfdata),
-                traditional: true,
-                contentType: 'application/json',
-                dataType: "json",
-
-            }).done((result) => {
-
-                reloadTable();
-
-                console.log(result);
-                $('#exampleModal').modal('toggle');
-                
-                Swal.fire(
-                    'Finish!',
-                    'Leave Request Updated!'
-                );
-
-            }).fail((result) => {
-                console.log(result);
-            });
-
-        }).fail((result) => {
-            console.log(result);
-        });
-
-      
-    };
-
 </script>

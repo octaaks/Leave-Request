@@ -264,10 +264,21 @@ namespace Leave_Request.Repositories.Data
             return 1;
         }
 
+        public int SendEmailToRequester(RequestApprovalVM raVM)
+        {
+            var account = myContext.Accounts.Where(e => e.Id == raVM.EmployeeId).FirstOrDefault();
+
+            string bodyEmail = $"{raVM.EmployeeId} berhasil";
+
+            SendEmail(bodyEmail, account.Email);
+
+            return 1;
+        }
+
         public static void SendEmail(string htmlString, string toMailAddress)
         {
-            string fromMail = "leaverequest55@gmail.com";
-            string fromPassword = "Leave_Request_55";
+            string fromMail = "";
+            string fromPassword = "";
             string timeStamp = DateTime.Now.ToString();
             MailMessage message = new MailMessage();
 

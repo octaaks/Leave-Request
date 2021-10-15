@@ -99,6 +99,19 @@ namespace Client.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
+        public IActionResult Employees()
+        {
+            if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
         public IActionResult ChangePassword()
         {
             if (User.Identity.IsAuthenticated)

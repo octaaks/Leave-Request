@@ -33,7 +33,7 @@
 
         <div class="card shadow p-3 mt-3 p-lg-3">
             <h2 class="card-title text-center mb-5" style="font-weight:bold" id="judul" sstyle="text-align:start;">Leave Request History</h2>
-            <table id="table_id" class="display nowrap" style="width:100%">
+            <table id="table_id" class="display nowrap hover" style="width:100%">
                 <thead>
                     <tr>
                         <th>NO</th>
@@ -63,201 +63,190 @@
                     </div>
                     <div class="col-9">
                         <ul class="mr-5" style="list-style-type: none;">
-                            <li>:  12 days/years, can only be taken after 12 months work for company</li>
-                            <li>:  3 days working days</li>
-                            <li>:  40 days working days</li>
-                            <li>:  Adjust doctor's recommendation</li>
-                            <li>:  1 days working days</li>
+                            <li> :  12 days/years, can only be taken after 12 months work for company</li>
+                            <li> :  3 days working days</li>
+                            <li> :  40 days working days</li>
+                            <li> :  Adjust doctor's recommendation</li>
+                            <li> :  1 days working days</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-            <!-- Modal 1-->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div id="modal-content" class="modal-body">
-                            <div class="row">
-                                <div class="col-4 pl-5 font-weight-bold">
-                                    <div>NIK</div>
-                                    <div>Name</div>
-                                    <div>Gender</div>
-                                    <div>Email</div>
-                                    <div>Phone</div>
-                                    <div>BirthDate</div>
-                                    <div>Salary</div>
+        <!-- Modal 1-->
+        <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="modal-content" class="modal-body">
+                        <div class="row">
+                            <div class="col-4 pl-5 font-weight-bold">
 
-                                    <div>University</div>
-                                    <div>Degree</div>
-                                    <div>GPA</div>
+                                <div>Employee ID</div>
+                                <div>Name</div>
+                                <div>Leave Type</div>
+                                <div>Start Date</div>
+                                <div>End Date</div>
+                                <div>Notes</div>
 
-                                    <div>Roles</div>
-                                </div>
-                                <div class="col-1">
-                                    <div>:</div>
-                                    <div>:</div>
-                                    <div>:</div>
-                                    <div>:</div>
-                                    <div>:</div>
-                                    <div>:</div>
-                                    <div>:</div>
-                                    <div>:</div>
-                                    <div>:</div>
-                                    <div>:</div>
-                                    <div>:</div>
-                                </div>
-                                <div class="col-7">
-                                    <div id="modal-data"></div>
-                                </div>
+                            </div>
+                            <div class="col-1">
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                                <div>:</div>
+                            </div>
+                            <div class="col-7">
+                                <div id="modal-data"></div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            @*<button type="button" class="btn btn-primary">Save changes</button>*@
-                        </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Modal Request Form-->
-            <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">New Leave Request</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div id="modal-content" class="modal-body p-5">
-                            <form id="contactform" class="needs-validation" novalidate>
-                                @*<form method="post" action="" id="contactform" class="was-validated">*@
-
-                                @*<div class="form-row">
-                                        <div class="col-4 mb-3">
-                                            <label for="inputId">Employee ID</label>
-                                        </div>
-                                        <div class="col mb-3">
-                                            <div class="input-group">
-                                                <input type="text" name="nik" class="form-control" id="inputId" placeholder="Employee ID" aria-describedby="" value="@ViewData["Id"]" autocomplete="off" readonly>
-                                                <p class="validation-message" id="invalid-nik"></p>
-                                                <div class="invalid-feedback">
-                                                    Please type your ID.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>*@
-                                <div class="form-row">
-                                    <div class="col-4 mb-3">
-                                        <label for="inputLeaveType">Leave Type</label>
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <div class="input-group">
-                                            <select class="custom-select my-1 mr-sm-2" id="inputLeaveType" placeholder="Leave Type" required>
-                                                <option value=0>Select leave type</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Please select the leave type.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-4 mb-3">
-                                        <label>Date Range</label>
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
-                                            </div>
-                                            <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputStartDate" placeholder="Start Date" autocomplete="off" autocorrect="off"
-                                                   autocapitalize="off" spellcheck="false" required>
-                                            <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-th"></span>
-                                            </div>
-                                            <div class="invalid-feedback">
-                                                Please insert the start date.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
-                                            </div>
-                                            <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputEndDate" placeholder="End Date" autocomplete="off" autocorrect="off"
-                                                   autocapitalize="off" spellcheck="false" required>
-                                            <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-th"></span>
-                                            </div>
-                                            <div class="invalid-feedback">
-                                                Please insert the end date.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-4 mb-3">
-                                        <label for="">Holidays</label>
-
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <input type="number" class="form-control" id="holidays" placeholder="Holidays" autocomplete="off" autocorrect="off"
-                                               autocapitalize="off" spellcheck="false" readonly>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-4 mb-3">
-                                        <label for="">Duration From Leave Type</label>
-
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <input type="number" class="form-control" id="leaveTypeDuration" placeholder="0" autocomplete="off" autocorrect="off"
-                                               autocapitalize="off" spellcheck="false" readonly>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-4 mb-3">
-                                        <label for="">Leave Duration</label>
-
-                                    </div>
-                                    <div class="col-md mb-3">
-                                        <input type="number" class="form-control" id="leaveDuration" placeholder="Leave Duration" autocomplete="off" autocorrect="off"
-                                               autocapitalize="off" spellcheck="false" readonly>
-                                    </div>
-                                </div>
-
-                                @*<div class="form-group mt-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" name="univId" type="checkbox" value="" id="invalidCheck" required>
-                                            <label class="form-check-label" for="invalidCheck">
-                                                Agree to terms and conditions
-                                            </label>
-                                            <div class="invalid-feedback">
-                                                You must agree before submitting.
-                                            </div>
-                                        </div>
-                                    </div>*@
-
-                                @*<button id="register" class="btn btn-primary" type="submit">Submit form</button>*@
-                                <button class="btn btn-primary float-right mt-5" type="submit" id="btnSubmit">Submit form</button>
-                            </form>
-                        </div>
-                        <!--<div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-                        @*<button type="button" class="btn btn-primary">Save changes</button>*@
-                        <!--</div>-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+
+        <!-- Modal Request Form-->
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Leave Request</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="modal-content" class="modal-body p-5">
+                        <form id="contactform" class="needs-validation" novalidate>
+                            @*<form method="post" action="" id="contactform" class="was-validated">*@
+
+                            @*<div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="inputId">Employee ID</label>
+                                </div>
+                                <div class="col mb-3">
+                                    <div class="input-group">
+                                        <input type="text" name="nik" class="form-control" id="inputId" placeholder="Employee ID" aria-describedby="" value="@ViewData["Id"]" autocomplete="off" readonly>
+                                        <p class="validation-message" id="invalid-nik"></p>
+                                        <div class="invalid-feedback">
+                                            Please type your ID.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="inputLeaveType">Leave Type</label>
+                                </div>
+                                <div class="col-md mb-3">
+                                    <div class="input-group">
+                                        <select class="custom-select my-1 mr-sm-2" id="inputLeaveType" placeholder="Leave Type" required>
+                                            <option value=0>Select leave type</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select the leave type.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label>Date Range</label>
+                                </div>
+                                <div class="col-md mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                                        </div>
+                                        <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputStartDate" placeholder="Start Date" autocomplete="off" autocorrect="off"
+                                               autocapitalize="off" spellcheck="false" required>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please insert the start date.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                                        </div>
+                                        <input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="inputEndDate" placeholder="End Date" autocomplete="off" autocorrect="off"
+                                               autocapitalize="off" spellcheck="false" required>
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please insert the end date.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="">Holidays</label>
+
+                                </div>
+                                <div class="col-md mb-3">
+                                    <input type="number" class="form-control" id="holidays" placeholder="Holidays" autocomplete="off" autocorrect="off"
+                                           autocapitalize="off" spellcheck="false" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="">Duration From Leave Type</label>
+
+                                </div>
+                                <div class="col-md mb-3">
+                                    <input type="number" class="form-control" id="leaveTypeDuration" placeholder="0" autocomplete="off" autocorrect="off"
+                                           autocapitalize="off" spellcheck="false" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="">Leave Duration</label>
+
+                                </div>
+                                <div class="col-md mb-3">
+                                    <input type="number" class="form-control" id="leaveDuration" placeholder="Leave Duration" autocomplete="off" autocorrect="off"
+                                           autocapitalize="off" spellcheck="false" readonly>
+                                </div>
+                            </div>
+
+                            @*<div class="form-group mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="univId" type="checkbox" value="" id="invalidCheck" required>
+                                    <label class="form-check-label" for="invalidCheck">
+                                        Agree to terms and conditions
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        You must agree before submitting.
+                                    </div>
+                                </div>
+                            </div>*@
+
+                            @*<button id="register" class="btn btn-primary" type="submit">Submit form</button>*@
+                            <button class="btn btn-primary float-right mt-5" type="submit" id="btnSubmit">Submit form</button>
+                        </form>
+                    </div>
+                    <!--<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+                    @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -447,97 +436,108 @@
 
     //Leave Requests DATATABLEs
 
-    var mt = $('#table_id').DataTable({
-        "columnDefs": [{
-            "targets": 0,
-            "searchable": false,
-            "orderable": false
-        }],
-        "order": [[1, 'desc']],
-        "filter": true,
-        "ajax": {
-            "url": "/leaverequests/getemployeeleaverequests/" + parseInt('@ViewData["Id"]'),
-            "datatype": "json",
-            "dataSrc": ""
-        },
-        "columns": [
-            { "data": null },
-            {
-                "data": "requestDate",
-                "render": function (data, type, row) {
-                    return moment(data).format("DD/MM/YY hh:mm")
-                }
+    $(document).ready(function () {
+        var mt = $('#table_id').DataTable({
+            "columnDefs": [{
+                "targets": 0,
+                "searchable": false,
+                "orderable": false
+            }],
+            "order": [[1, 'desc']],
+            "filter": true,
+            "ajax": {
+                "url": "/leaverequests/getemployeeleaverequests/" + parseInt('@ViewData["Id"]'),
+                "datatype": "json",
+                "dataSrc": ""
             },
-            {
-                "data": "leaveTypeName"
-            },
-            {
-                "data": "startDate",
-                "render": function (data, type, row) {
-                    return moment(data).format("DD/MM/YY")
-                }
-            },
-            {
-                "data": "endDate",
-                "render": function (data, type, row) {
-                    return moment(data).format("DD/MM/YY")
-                }
-            },
-            { "data": "leaveDuration" },
-            {
-                "data": "statusId",
-                "render": function (data, type, row) {
-                    if (data == 3) {
-                        return '<span class="badge badge-pill badge-danger"> Rejected </span>';
-                    } else if (data == 2) {
-                        return '<span class="badge badge-pill badge-success"> Accepted </span>';
-                    } else if (data == 1){
-                        return '<span class="badge badge-pill badge-warning"> Pending </span>';
+            "columns": [
+                { "data": null },
+                {
+                    "data": "requestDate",
+                    "render": function (data, type, row) {
+                        return moment(data).format("DD/MM/YY hh:mm")
+                    }
+                },
+                {
+                    "data": "leaveTypeName"
+                },
+                {
+                    "data": "startDate",
+                    "render": function (data, type, row) {
+                        return moment(data).format("DD/MM/YY")
+                    }
+                },
+                {
+                    "data": "endDate",
+                    "render": function (data, type, row) {
+                        return moment(data).format("DD/MM/YY")
+                    }
+                },
+                { "data": "leaveDuration" },
+                {
+                    "data": "statusId",
+                    "render": function (data, type, row) {
+                        if (data == 3) {
+                            return '<span class="badge badge-pill badge-danger"> Rejected </span>';
+                        } else if (data == 2) {
+                            return '<span class="badge badge-pill badge-success"> Accepted </span>';
+                        } else if (data == 1){
+                            return '<span class="badge badge-pill badge-warning"> Pending </span>';
+                        }
+                    }
+                },
+                {
+                    "data": "approvedDate",
+                    "render": function (data, type, row) {
+                        if (row['statusId'] == 2) {
+                            return moment(data).format("DD/MM/YY hh:mm");
+                        } else {
+                            return "-";
+                        }
                     }
                 }
-            },
-            {
-                "data": "approvedDate",
-                "render": function (data, type, row) {
-                    if (row['statusId'] == 2) {
-                        return moment(data).format("DD/MM/YY hh:mm");
-                    } else {
-                        return "-";
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5]
                     }
-                }
-            }
-        ],
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'copyHtml5',
-                exportOptions: {
-                    columns: [1, 2, 3, 4, 5]
-                }
-            },
-            {
-                extend: 'excelHtml5',
-                exportOptions: {
-                    columns: [1, 2, 3, 4, 5]
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: [1, 2, 3, 4, 5]
-                }
-            },
-        ]
-    });
-
-    //first column
-
-    mt.on('order.dt search.dt', function () {
-        mt.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-            cell.innerHTML = i + 1;
+                },
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5]
+                    }
+                },
+            ]
         });
-    }).draw();
 
+        //Column onclick action
+
+        $('#table_id tbody').on('click', 'tr', function () {
+            var data = mt.row(this).data();
+            //alert('You clicked on ' + data.id + '\'s row');
+            $("#detailsModal").modal('show');
+            console.log(data);
+            showDetails(data.id);
+        });
+
+        //first column
+
+        mt.on('order.dt search.dt', function () {
+            mt.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    });
     //form validation
 
     (function () {
@@ -582,6 +582,30 @@
             });
         }, false);
     })();
+
+    //show employee details
+
+    function showDetails(id) {
+        $.ajax({
+            url: "/leaverequests/getbyid/" + id
+        }).done((result) => {
+
+            var text = "";
+            text += `
+            <div>${result.employeeId}</div>
+            <div>${result.employeeName}</div>
+            <div>${result.leaveTypeName}</div>
+            <div>${moment(result.startDate).format("DD/MM/YY hh:mm")}</div>
+            <div>${moment(result.endDate).format("DD/MM/YY hh:mm")}</div>
+            <div>"${result.notes}"</div>
+        `
+            $("#modal-data").html(text);
+            //$("#exampleModalLabel").html(result.employeeName + "'s leave request");
+
+        }).fail((result) => {
+            console.log(result);
+        });
+    }
 
     //submit and register
     function insertRequest(data) {

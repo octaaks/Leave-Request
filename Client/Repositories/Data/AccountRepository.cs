@@ -60,5 +60,18 @@ namespace Client.Repositories.Data
 
             return token;
         }
+        //public HttpStatusCode SendEmailToRequester(RequestApprovalVM entity)
+        //{
+        //    StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
+        //    var result = httpClient.GetAsync(request + "SendEmailToRequester", content).Result;
+        //    return result.StatusCode;
+        //}
+
+        public HttpStatusCode SendEmailToRequester(RequestApprovalVM entity)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
+            var result = httpClient.PostAsync(address.link + request +"SendEmailToRequester", content).Result;
+            return result.StatusCode;
+        }
     }
 }
