@@ -40,16 +40,20 @@ namespace Leave_Request.Migrations
 
             modelBuilder.Entity("Leave_Request.Models.AccountRole", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("AccountId", "RoleId");
+                    b.HasIndex("AccountId");
 
                     b.HasIndex("RoleId");
 
@@ -86,6 +90,9 @@ namespace Leave_Request.Migrations
 
                     b.Property<int>("Salary")
                         .HasColumnType("int");
+
+                    b.Property<string>("StatusEmplo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TotalLeave")
                         .HasColumnType("int");

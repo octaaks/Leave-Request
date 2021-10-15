@@ -28,8 +28,10 @@ namespace Leave_Request.Models
         public int Salary { get; set; }
         public DateTime JoinDate { get; set; }
         public int TotalLeave { get; set; }
+        public string StatusEmplo { get; set; }
         public int ReligionId { get; set; }
         public int JobId { get; set; }
+        
 
         [JsonIgnore]
         public virtual Account Account { get; set; }

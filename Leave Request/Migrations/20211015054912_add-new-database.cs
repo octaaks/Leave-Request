@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Leave_Request.Migrations
 {
-    public partial class newdatabases : Migration
+    public partial class addnewdatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,6 +27,7 @@ namespace Leave_Request.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Duration = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -86,6 +87,7 @@ namespace Leave_Request.Migrations
                     Salary = table.Column<int>(type: "int", nullable: false),
                     JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalLeave = table.Column<int>(type: "int", nullable: false),
+                    StatusEmplo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReligionId = table.Column<int>(type: "int", nullable: false),
                     JobId = table.Column<int>(type: "int", nullable: false)
                 },

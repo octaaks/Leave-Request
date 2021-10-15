@@ -39,6 +39,7 @@ namespace Leave_Request.Repositories.Data
             employee.JoinDate = registrationVM.JoinDate;
             employee.ReligionId = registrationVM.ReligionId;
             employee.JobId = registrationVM.JobId;
+            employee.StatusEmplo = "Active";
             if (registrationVM.JoinDate.AddYears(1) <= DateTime.Now)
             {
                 employee.TotalLeave = 12;

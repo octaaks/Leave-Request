@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,24 @@ namespace Client.Repositories.Data
                 employee = JsonConvert.DeserializeObject<Employee>(apiResponse);
             }
             return employee;
+        }
+
+        public async Task<List<Employee>> GetEmplo()
+        {
+            List<Employee> entities = new List<Employee>();
+
+            using (var response = await httpClient.GetAsync(request))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<Employee>>(apiResponse);
+            }
+            return entities;
+        }
+
+        public HttpStatusCode Deleted(int Id)
+        {
+            var result = httpClient.DeleteAsync(address.link + request + Id).Result;
+            return result.StatusCode;
         }
     }
 }

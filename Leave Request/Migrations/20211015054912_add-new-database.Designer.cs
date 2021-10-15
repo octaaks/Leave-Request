@@ -10,8 +10,8 @@ using NETCore.Context;
 namespace Leave_Request.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20211006073703_new-databases")]
-    partial class newdatabases
+    [Migration("20211015054912_add-new-database")]
+    partial class addnewdatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,6 +93,9 @@ namespace Leave_Request.Migrations
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
+                    b.Property<string>("StatusEmplo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TotalLeave")
                         .HasColumnType("int");
 
@@ -166,6 +169,9 @@ namespace Leave_Request.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
