@@ -85,10 +85,10 @@ namespace Client.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        [Authorize(Roles = "Approver")]
+        
         public IActionResult ManageLeaveRequest()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated && User.IsInRole("Approver"))
             {
                 ViewBag.Id = HttpContext.Session.GetString("Id");
                 return View();
@@ -98,12 +98,13 @@ namespace Client.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
-        [Authorize(Roles = "Administrator")]
+       
         public IActionResult Employees()
         {
             if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
             {
+                ViewBag.Id = HttpContext.Session.GetString("Id");
+
                 return View();
             }
             else
