@@ -262,14 +262,6 @@
 
 <script>
 
-    //reload datatable
-
-    function reloadTable() {
-        mt.ajax.reload(function (json) {
-            $('#table_id').val(json.lastInput);
-        });
-    }
-
     //datepicker functions
 
     var specialLeave = false;
@@ -290,6 +282,11 @@
                 }).on('changeDate', function (e) {
                     startdate = e.format();
                     holidays = 0;
+
+                    if (moment($("#inputStartDate").val()) > moment($("#inputEndDate").val())) {
+                        $("#inputEndDate").datepicker("destroy");
+                        $("#inputEndDate").val('');
+                    }
 
                     if (specialLeave) {
 
@@ -436,108 +433,115 @@
 
     //Leave Requests DATATABLEs
 
-    $(document).ready(function () {
-        var mt = $('#table_id').DataTable({
-            "columnDefs": [{
-                "targets": 0,
-                "searchable": false,
-                "orderable": false
-            }],
-            "order": [[1, 'desc']],
-            "filter": true,
-            "ajax": {
-                "url": "/leaverequests/getemployeeleaverequests/" + parseInt('@ViewData["Id"]'),
-                "datatype": "json",
-                "dataSrc": ""
+    var mt = $('#table_id').DataTable({
+        "columnDefs": [{
+            "targets": 0,
+            "searchable": false,
+            "orderable": false
+        }],
+        "order": [[1, 'desc']],
+        "filter": true,
+        "ajax": {
+            "url": "/leaverequests/getemployeeleaverequests/" + parseInt('@ViewData["Id"]'),
+            "datatype": "json",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": null },
+            {
+                "data": "requestDate",
+                "render": function (data, type, row) {
+                    return moment(data).lang("id").format("DD/MM/YY HH:mm")
+                }
             },
-            "columns": [
-                { "data": null },
-                {
-                    "data": "requestDate",
-                    "render": function (data, type, row) {
-                        return moment(data).format("DD/MM/YY hh:mm")
-                    }
-                },
-                {
-                    "data": "leaveTypeName"
-                },
-                {
-                    "data": "startDate",
-                    "render": function (data, type, row) {
-                        return moment(data).format("DD/MM/YY")
-                    }
-                },
-                {
-                    "data": "endDate",
-                    "render": function (data, type, row) {
-                        return moment(data).format("DD/MM/YY")
-                    }
-                },
-                { "data": "leaveDuration" },
-                {
-                    "data": "statusId",
-                    "render": function (data, type, row) {
-                        if (data == 3) {
-                            return '<span class="badge badge-pill badge-danger"> Rejected </span>';
-                        } else if (data == 2) {
-                            return '<span class="badge badge-pill badge-success"> Accepted </span>';
-                        } else if (data == 1){
-                            return '<span class="badge badge-pill badge-warning"> Pending </span>';
-                        }
-                    }
-                },
-                {
-                    "data": "approvedDate",
-                    "render": function (data, type, row) {
-                        if (row['statusId'] == 2) {
-                            return moment(data).format("DD/MM/YY hh:mm");
-                        } else {
-                            return "-";
-                        }
+            {
+                "data": "leaveTypeName"
+            },
+            {
+                "data": "startDate",
+                "render": function (data, type, row) {
+                    return moment(data).format("DD/MM/YY")
+                }
+            },
+            {
+                "data": "endDate",
+                "render": function (data, type, row) {
+                    return moment(data).format("DD/MM/YY")
+                }
+            },
+            { "data": "leaveDuration" },
+            {
+                "data": "statusId",
+                "render": function (data, type, row) {
+                    if (data == 3) {
+                        return '<span class="badge badge-pill badge-danger"> Rejected </span>';
+                    } else if (data == 2) {
+                        return '<span class="badge badge-pill badge-success"> Accepted </span>';
+                    } else if (data == 1){
+                        return '<span class="badge badge-pill badge-warning"> Pending </span>';
                     }
                 }
-            ],
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'copyHtml5',
-                    exportOptions: {
-                        columns: [1, 2, 3, 4, 5]
+            },
+            {
+                "data": "approvedDate",
+                "render": function (data, type, row) {
+                    if (row['statusId'] == 2) {
+                        return moment(data).lang("id").format("DD/MM/YY HH:mm");
+                    } else {
+                        return "-";
                     }
-                },
-                {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: [1, 2, 3, 4, 5]
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: [1, 2, 3, 4, 5]
-                    }
-                },
-            ]
-        });
-
-        //Column onclick action
-
-        $('#table_id tbody').on('click', 'tr', function () {
-            var data = mt.row(this).data();
-            //alert('You clicked on ' + data.id + '\'s row');
-            $("#detailsModal").modal('show');
-            console.log(data);
-            showDetails(data.id);
-        });
-
-        //first column
-
-        mt.on('order.dt search.dt', function () {
-            mt.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-                cell.innerHTML = i + 1;
-            });
-        }).draw();
+                }
+            }
+        ],
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                }
+            },
+        ]
     });
+
+    //Column onclick action
+
+    $('#table_id tbody').on('click', 'tr', function () {
+        var data = mt.row(this).data();
+        //alert('You clicked on ' + data.id + '\'s row');
+        $("#detailsModal").modal('show');
+        console.log(data);
+        showDetails(data.id);
+    });
+
+    //first column
+
+    mt.on('order.dt search.dt', function () {
+        mt.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
+
+    //reload datatable
+
+    function reloadTable() {
+        mt.ajax.reload(function (json) {
+            $('#table_id').val(json.lastInput);
+        });
+    }
+
     //form validation
 
     (function () {
@@ -567,7 +571,7 @@
                         event.preventDefault();
                         var obj = {
                             "EmployeeId": parseInt('@ViewData["Id"]'),
-                            "RequestDate": moment().format("YYYY/MM/DD hh:mm"),
+                            "RequestDate": moment().format("YYYY/MM/DD HH:mm"),
                             "StartDate": moment($('#inputStartDate').val()).format("YYYY/MM/DD"),
                             "EndDate": moment($('#inputEndDate').val()).format("YYYY/MM/DD"),
                             "LeaveDuration": parseInt($('#leaveDuration').val()),
@@ -595,8 +599,8 @@
             <div>${result.employeeId}</div>
             <div>${result.employeeName}</div>
             <div>${result.leaveTypeName}</div>
-            <div>${moment(result.startDate).format("DD/MM/YY hh:mm")}</div>
-            <div>${moment(result.endDate).format("DD/MM/YY hh:mm")}</div>
+            <div>${moment(result.startDate).format("DD/MM/YY")}</div>
+            <div>${moment(result.endDate).format("DD/MM/YY")}</div>
             <div>"${result.notes}"</div>
         `
             $("#modal-data").html(text);
