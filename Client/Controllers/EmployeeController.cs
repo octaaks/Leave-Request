@@ -28,10 +28,24 @@ namespace Client.Controllers
             return View();
         }
 
+        [HttpGet("GetAllEmployee")]
+        public async Task<JsonResult> GetEmployee()
+        {
+            var result = await repository.GetEmplo();
+            return Json(result);
+        }
+
         [HttpGet("GetEmployeeById/{id}")]
         public async Task<JsonResult> GetEmployeeById(int id)
         {
             var result = await repository.GetEmploById(id);
+            return Json(result);
+        }
+
+        [HttpDelete("Deleted/{Id}")]
+        public JsonResult Deleted(int Id)
+        {
+            var result = repository.Deleted(Id);
             return Json(result);
         }
     }
