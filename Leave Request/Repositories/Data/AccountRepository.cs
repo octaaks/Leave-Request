@@ -147,6 +147,21 @@ namespace Leave_Request.Repositories.Data
             }
             return GetRoles;
         }
+        public IEnumerable<ApproverVM> GetApprovers()
+        {
+            var getLR = (from e in myContext.Employees
+                         join a in myContext.Accounts on e.Id equals a.Id
+                         join ar in myContext.AccountRoles on a.Id equals ar.AccountId
+
+                         select new ApproverVM
+                         {
+                             Id = e.Id,
+                             Name = e.Name,
+                             Role = ar.Role.Name
+
+                         }).Where(a => a.Role.Contains("Approver")).OrderBy(a => a.Name).ToList();
+            return getLR;
+        }
 
         public JwtSecurityToken GetJWT(int id, LoginVM loginVM)
         {

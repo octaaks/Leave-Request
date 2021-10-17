@@ -21,9 +21,11 @@ namespace Client.Controllers
             this.repository = repository;
         }
 
-        public IActionResult Index()
+        [HttpGet("GetManagerFills")]
+        public async Task<JsonResult> GetManagerFills()
         {
-            return View();
+            var result = await repository.Get();
+            return Json(result);
         }
 
         [HttpPut("UpdateManagerFill")]

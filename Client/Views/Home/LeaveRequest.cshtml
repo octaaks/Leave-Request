@@ -89,12 +89,14 @@
                                 <div>Employee ID</div>
                                 <div>Name</div>
                                 <div>Leave Type</div>
+                                <div>Approver</div>
                                 <div>Start Date</div>
                                 <div>End Date</div>
                                 <div>Notes</div>
 
                             </div>
                             <div class="col-1">
+                                <div>:</div>
                                 <div>:</div>
                                 <div>:</div>
                                 <div>:</div>
@@ -140,6 +142,21 @@
                                     </div>
                                 </div>
                             </div>*@
+                            <div class="form-row">
+                                <div class="col-4 mb-3">
+                                    <label for="inputApprover">Approver</label>
+                                </div>
+                                <div class="col-md mb-3">
+                                    <div class="input-group">
+                                        <select class="custom-select my-1 mr-sm-2" id="inputApprover" placeholder="Approver" required>
+                                            <option value=0>Select approver</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select the approver.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-row">
                                 <div class="col-4 mb-3">
                                     <label for="inputLeaveType">Leave Type</label>
@@ -223,16 +240,16 @@
                             </div>
 
                             @*<div class="form-group mt-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="univId" type="checkbox" value="" id="invalidCheck" required>
-                                    <label class="form-check-label" for="invalidCheck">
-                                        Agree to terms and conditions
-                                    </label>
-                                    <div class="invalid-feedback">
-                                        You must agree before submitting.
-                                    </div>
-                                </div>
-                            </div>*@
+            <div class="form-check">
+                <input class="form-check-input" name="univId" type="checkbox" value="" id="invalidCheck" required>
+                <label class="form-check-label" for="invalidCheck">
+                    Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                    You must agree before submitting.
+                </div>
+            </div>
+        </div>*@
 
                             @*<button id="register" class="btn btn-primary" type="submit">Submit form</button>*@
                             <button class="btn btn-primary float-right mt-5" type="submit" id="btnSubmit">Submit form</button>
@@ -395,6 +412,23 @@
         }).fail((result) => {
             console.log(result);
         });
+    });
+
+    //fetch all approver innto form dropdown
+
+    $.ajax({
+        url: "/accounts/GetApprovers"
+    }).done((result) => {
+        var text = "";
+        console.log(result);
+        $.each(result, function (key, val) {
+            text += `
+            <option value="${val.id}">${val.name}</option>
+        `
+        });
+        $("#inputApprover").html(text);
+    }).fail((result) => {
+        console.log(result);
     });
 
     //fetch all leave types innto form dropdown
@@ -571,6 +605,7 @@
                         event.preventDefault();
                         var obj = {
                             "EmployeeId": parseInt('@ViewData["Id"]'),
+                            "ApproverId": parseInt($('#inputApprover').val()),
                             "RequestDate": moment().format("YYYY/MM/DD HH:mm"),
                             "StartDate": moment($('#inputStartDate').val()).format("YYYY/MM/DD"),
                             "EndDate": moment($('#inputEndDate').val()).format("YYYY/MM/DD"),
@@ -587,24 +622,30 @@
         }, false);
     })();
 
-    //show employee details
-
+    //show LR details
     function showDetails(id) {
         $.ajax({
             url: "/leaverequests/getbyid/" + id
         }).done((result) => {
 
-            var text = "";
-            text += `
+            console.log("result", result);
+            $.ajax({
+                url: "/employee/GetEmployeeById/" + result.approverId
+            }).done((res) => {
+                console.log("res",res);
+                var text = "";
+                text += `
             <div>${result.employeeId}</div>
             <div>${result.employeeName}</div>
             <div>${result.leaveTypeName}</div>
+            <div>${res.name}</div>
             <div>${moment(result.startDate).format("DD/MM/YY")}</div>
             <div>${moment(result.endDate).format("DD/MM/YY")}</div>
             <div>"${result.notes}"</div>
-        `
-            $("#modal-data").html(text);
-            //$("#exampleModalLabel").html(result.employeeName + "'s leave request");
+            `
+                $("#modal-data").html(text);
+                $("#exampleModalLabel").html("Leave Request Details");
+            });
 
         }).fail((result) => {
             console.log(result);

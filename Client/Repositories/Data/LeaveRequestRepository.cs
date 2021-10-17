@@ -50,11 +50,11 @@ namespace Client.Repositories.Data
             return entity;
         }
 
-        public async Task<List<LeaveRequestVM>> GetLR()
+        public async Task<List<LeaveRequestVM>> GetLR(int id)
         {
             List<LeaveRequestVM> entities = new List<LeaveRequestVM>();
 
-            using (var response = await httpClient.GetAsync(request + "GetLeaveRequests"))
+            using (var response = await httpClient.GetAsync(request + "GetLeaveRequests/"+id))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 entities = JsonConvert.DeserializeObject<List<LeaveRequestVM>>(apiResponse);

@@ -60,12 +60,18 @@ namespace Client.Repositories.Data
 
             return token;
         }
-        //public HttpStatusCode SendEmailToRequester(RequestApprovalVM entity)
-        //{
-        //    StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
-        //    var result = httpClient.GetAsync(request + "SendEmailToRequester", content).Result;
-        //    return result.StatusCode;
-        //}
+
+        public async Task<List<ApproverVM>> GetApprovers()
+        {
+            List<ApproverVM> entities = new List<ApproverVM>();
+
+            using (var response = await httpClient.GetAsync(request + "GetApprovers"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<ApproverVM>>(apiResponse);
+            }
+            return entities;
+        }
 
         public HttpStatusCode SendEmailToRequester(RequestApprovalVM entity)
         {

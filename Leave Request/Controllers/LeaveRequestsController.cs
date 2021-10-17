@@ -20,10 +20,10 @@ namespace Leave_Request.Controllers
             this.repository = repository;
         }
 
-        [HttpGet("GetLeaveRequests")]
-        public ActionResult GetLeaveRequests()
+        [HttpGet("GetLeaveRequests/{id}")]
+        public ActionResult GetLeaveRequests(int id)
         {
-            var getPerson = repository.GetLeaveRequestVMs();
+            var getPerson = repository.GetLeaveRequestVMs(id);
             if (getPerson != null)
             {
 

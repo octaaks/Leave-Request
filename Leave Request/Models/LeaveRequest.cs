@@ -19,6 +19,7 @@ namespace Leave_Request.Models
         public int LeaveDuration { get; set; }
         public int EmployeeId { get; set; }
         public int LeaveTypeId { get; set; }
+        public int ApproverId { get; set; }
 
         [JsonIgnore]
         public virtual Employee Employee { get; set; }
@@ -29,13 +30,14 @@ namespace Leave_Request.Models
         [JsonIgnore]
         public virtual ICollection<ManagerFill> ManagerFills { get; set; }
 
-        public LeaveRequest(DateTime requestDate, DateTime startDate, DateTime endDate, int leaveDuration, int employeeId, int leaveTypeId)
+        public LeaveRequest(DateTime requestDate, DateTime startDate, DateTime endDate, int leaveDuration, int employeeId, int approverId, int leaveTypeId)
         {
             RequestDate = requestDate;
             StartDate = startDate;
             EndDate = endDate;
             LeaveDuration = leaveDuration;
             EmployeeId = employeeId;
+            ApproverId = approverId;
             LeaveTypeId = leaveTypeId;
         }
     }

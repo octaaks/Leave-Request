@@ -50,7 +50,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer mt-5">
+            @*<div class="card-footer mt-5">
                 <p style="font-weight:bold">Leave types in company:</p>
                 <div class="row">
                     <div class="col-sm-3">
@@ -72,7 +72,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
 
         <!-- Modal Review-->
@@ -253,7 +253,7 @@
         "order": [[1, 'desc']],
         "filter": true,
         "ajax": {
-            "url": "/leaverequests/getleaverequests",
+            "url": "/leaverequests/getleaverequests/"+ parseInt('@ViewData["Id"]'),
             "datatype": "json",
             "dataSrc": ""
         },
@@ -516,7 +516,7 @@
             console.log(result);
         });
 
-      
+
     };
 
 </script>

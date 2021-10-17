@@ -38,6 +38,7 @@ namespace Leave_Request.Repositories.Data
                              EmployeeName = em.Name,
 
                              ApprovedDate = mf.DateApproved,
+                             ApproverId = lr.ApproverId,
                              StatusId = mf.StatusId,
                              StatusName = st.Name,
                              Notes = mf.Note,
@@ -46,7 +47,7 @@ namespace Leave_Request.Repositories.Data
                          }).Where(lr => lr.EmployeeId == employeeId).OrderBy(lr => lr.RequestDate).ToList();
             return getLR;
         }
-        public IEnumerable<LeaveRequestVM> GetLeaveRequestVMs()
+        public IEnumerable<LeaveRequestVM> GetLeaveRequestVMs(int approverId)
         {
             var getLR = (from lr in myContext.LeaveRequests
                          join mf in myContext.ManagerFills on lr.Id equals mf.LeaveRequestId
@@ -67,11 +68,12 @@ namespace Leave_Request.Repositories.Data
                              EmployeeName = em.Name,
 
                              ApprovedDate = mf.DateApproved,
+                             ApproverId = lr.ApproverId,
                              StatusId = mf.StatusId,
                              StatusName = st.Name,
                              Notes = mf.Note,
                              ManagerFillId = mf.Id
-                         }).ToList();
+                         }).Where(lr => lr.ApproverId == approverId).OrderBy(lr => lr.RequestDate).ToList();
             return getLR;
         }
         public LeaveRequestVM GetById(int id)
@@ -95,6 +97,7 @@ namespace Leave_Request.Repositories.Data
                              EmployeeName = em.Name,
 
                              ApprovedDate = mf.DateApproved,
+                             ApproverId = lr.ApproverId,
                              StatusId = mf.StatusId,
                              StatusName = st.Name,
                              Notes = mf.Note,
@@ -113,7 +116,8 @@ namespace Leave_Request.Repositories.Data
                     leaveRequestVM.EndDate,
                     leaveRequestVM.LeaveTypeId,
                     leaveRequestVM.LeaveDuration,
-                    leaveRequestVM.EmployeeId
+                    leaveRequestVM.EmployeeId,
+                    leaveRequestVM.ApproverId
                     );
                 myContext.LeaveRequests.Add(leaveRequestVM);
                 myContext.SaveChanges();

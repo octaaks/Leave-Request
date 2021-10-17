@@ -95,7 +95,7 @@ $(document).ready(function () {
 //employee leave history chart
 $(document).ready(function () {
     $.ajax({
-        url: "/leaverequests/GetLeaveRequests/",
+        url: "/leaverequests/GetLeaveRequests/"+parseInt('@ViewData["Id"]'),
         type: "GET"
     }).done((result) => {
         console.log(result);
