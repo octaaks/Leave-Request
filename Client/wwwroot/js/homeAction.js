@@ -1,7 +1,7 @@
 ﻿//styling
 document.getElementById("titleform").style.fontFamily = 'Tahoma, sans-serif';
 
-/*(function () {
+(function () {
     'use strict';
     window.addEventListener('load', function () {
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -78,17 +78,17 @@ document.getElementById("titleform").style.fontFamily = 'Tahoma, sans-serif';
         });
     }, false);
 })();
-*/
-/*
+
+
 function register(inputdata) {
     console.log(inputdata);
 
     $.ajax({
-        url: "/Accounts/Registering",
+        url: "/Accounts/Register",
         type: 'POST',
         data: inputdata,
-        //traditional: true,
-        //contentType: 'application/json',
+        traditional: true,
+        contentType: 'application/json',
         dataType: "json",
         success: function (data, x, xhr) {
 
@@ -136,7 +136,7 @@ function register(inputdata) {
         }
     });
 };
-*/
+
 //posting data registration form to db
 //$("#btnSubmit").click(post => {
 //    var obj = DataInsert();
@@ -194,7 +194,7 @@ function register(inputdata) {
 //});
 
 //posting data registration form to db
-$("#btnSubmit").click(post => {
+/*$("#btnSubmit").click(post => {
     var obj = DataInsert();
     console.log(obj);
     //post.preventDefault();
@@ -238,7 +238,7 @@ $("#btnSubmit").click(post => {
             console.log(error);
         }
     });
-})
+})*/
 
 //get data value registration form
 function DataInsert() {
