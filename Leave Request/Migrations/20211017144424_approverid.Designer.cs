@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NETCore.Context;
 
 namespace Leave_Request.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20211017144424_approverid")]
+    partial class approverid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,9 +133,6 @@ namespace Leave_Request.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ApproverId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
@@ -189,6 +188,9 @@ namespace Leave_Request.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ApproverId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateApproved")
                         .HasColumnType("datetime2");
 
@@ -202,6 +204,8 @@ namespace Leave_Request.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApproverId");
 
                     b.HasIndex("LeaveRequestId");
 
@@ -325,6 +329,10 @@ namespace Leave_Request.Migrations
 
             modelBuilder.Entity("Leave_Request.Models.ManagerFill", b =>
                 {
+                    b.HasOne("Leave_Request.Models.Employee", "Employee")
+                        .WithMany("ManagerFills")
+                        .HasForeignKey("ApproverId");
+
                     b.HasOne("Leave_Request.Models.LeaveRequest", "LeaveRequest")
                         .WithMany("ManagerFills")
                         .HasForeignKey("LeaveRequestId")
@@ -336,6 +344,8 @@ namespace Leave_Request.Migrations
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Employee");
 
                     b.Navigation("LeaveRequest");
 
@@ -352,6 +362,8 @@ namespace Leave_Request.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("LeaveRequests");
+
+                    b.Navigation("ManagerFills");
                 });
 
             modelBuilder.Entity("Leave_Request.Models.Job", b =>

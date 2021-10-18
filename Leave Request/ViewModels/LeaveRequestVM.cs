@@ -24,6 +24,7 @@ namespace Leave_Request.ViewModels
         public int StatusId { get; set; }
         public string StatusName { get; set; }
         public string Notes { get; set; }
+        public int ApproverId { get; set; }
         public int ManagerFillId { get; set; }
     }
 }

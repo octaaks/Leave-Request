@@ -37,5 +37,17 @@ namespace Client.Repositories.Data
             var result = httpClient.PutAsync(request, content).Result;
             return result.StatusCode;
         }
+
+        public async Task<List<ManagerFill>> GetManagerFills()
+        {
+            List<ManagerFill> entities = new List<ManagerFill>();
+
+            using (var response = await httpClient.GetAsync(request))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<ManagerFill>>(apiResponse);
+            }
+            return entities;
+        }
     }
 }

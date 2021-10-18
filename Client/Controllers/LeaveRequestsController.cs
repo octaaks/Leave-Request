@@ -28,10 +28,10 @@ namespace Client.Controllers
             return Json(result);
         }
 
-        [HttpGet("GetLeaveRequests")]
-        public async Task<JsonResult> GetLeaveRequests()
+        [HttpGet("GetLeaveRequests/{id}")]
+        public async Task<JsonResult> GetLeaveRequests(int id)
         {
-            var result = await repository.GetLR();
+            var result = await repository.GetLR(id);
             return Json(result);
         }
 

@@ -112,6 +112,26 @@ namespace Leave_Request.Controllers
             }
         }
 
+        [HttpGet("GetApprovers")]
+        public ActionResult GetApprovers()
+        {
+            var appr = repository.GetApprovers();
+            if (appr != null)
+            {
+                return Ok(appr);
+            }
+            else
+            {
+                var get = NotFound(new
+                {
+                    status = HttpStatusCode.NotFound,
+                    result = appr,
+                    message = "Data Empty"
+                });
+                return get;
+            }
+        }
+
         [HttpPost("forgot-password")]
         public ActionResult ForgotPassword(EmailVM email)
         {

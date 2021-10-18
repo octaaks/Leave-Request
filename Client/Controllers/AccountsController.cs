@@ -131,6 +131,13 @@ namespace Client.Controllers
             return Json(result);
         }
 
+        [HttpGet("GetApprovers")]
+        public async Task<JsonResult> GetApprovers()
+        {
+            var result = await repository.GetApprovers();
+            return Json(result);
+        }
+
         [HttpGet("Logout/")]
         public IActionResult Logout()
         {

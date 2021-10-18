@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using NETCore.Context;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
@@ -146,6 +147,21 @@ namespace Leave_Request.Repositories.Data
             }
             return GetRoles;
         }
+        public IEnumerable<ApproverVM> GetApprovers()
+        {
+            var getLR = (from e in myContext.Employees
+                         join a in myContext.Accounts on e.Id equals a.Id
+                         join ar in myContext.AccountRoles on a.Id equals ar.AccountId
+
+                         select new ApproverVM
+                         {
+                             Id = e.Id,
+                             Name = e.Name,
+                             Role = ar.Role.Name
+
+                         }).Where(a => a.Role.Contains("Approver")).OrderBy(a => a.Name).ToList();
+            return getLR;
+        }
 
         public JwtSecurityToken GetJWT(int id, LoginVM loginVM)
         {
@@ -270,7 +286,17 @@ namespace Leave_Request.Repositories.Data
         {
             var account = myContext.Accounts.Where(e => e.Id == raVM.EmployeeId).FirstOrDefault();
 
-            string bodyEmail = $"{raVM.EmployeeId} berhasil";
+            string bodyEmail = $"" +
+               $"<p>Berikut adalah status pengajuan cuti anda :</p>" +
+               $"<p style='padding-left: 40px;'>Status : <b>{raVM.Status}</b></p>" +
+               $"<p style='padding-left: 40px;'>Jenis Cuti : {raVM.LeaveType}</p>" +
+               $"<p style='padding-left: 40px;'>Tgl mulai : {raVM.StartDate.ToString("d",CultureInfo.CreateSpecificCulture("en-NZ"))}</p>" +
+               $"<p style='padding-left: 40px;'>Tgl selesai : {raVM.EndDate.ToString("d", CultureInfo.CreateSpecificCulture("en-NZ"))}</p>" +
+               $"<p style='padding-left: 40px;'>Approver : {raVM.Approver}</p>" +
+               $"<p style='padding-left: 40px;'>Catatan : {raVM.Notes}</p>" +
+               $"<br>" +
+               $"<p>Terima Kasih atas perhatiannya,</p>" +
+               $"<p>Salam</p>";
 
             SendEmail(bodyEmail, account.Email);
 
@@ -286,7 +312,7 @@ namespace Leave_Request.Repositories.Data
 
             message.From = new MailAddress(fromMail);
             message.To.Add(new MailAddress(toMailAddress));
-            message.Subject = $"Reset Password - Leave Request ({timeStamp})";
+            message.Subject = $"Leave Request ({timeStamp})";
             message.Body = "<html><body>" + htmlString + "<html><body>";
             message.IsBodyHtml = true;
             var smtpClient = new SmtpClient("smtp.gmail.com")

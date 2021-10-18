@@ -50,7 +50,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer mt-5">
+            @*<div class="card-footer mt-5">
                 <p style="font-weight:bold">Leave types in company:</p>
                 <div class="row">
                     <div class="col-sm-3">
@@ -72,7 +72,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
 
         <!-- Modal Review-->
@@ -112,7 +112,6 @@
                         <button type="button" class="btn btn-success" id="btn_approve">Approve</button>
                         <button type="button" class="btn btn-danger" id="btn_reject">Reject</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        @*<button type="button" class="btn btn-primary">Save changes</button>*@
                     </div>
                 </div>
             </div>
@@ -244,12 +243,6 @@
 
 <script>
 
-    function reloadTable() {
-        mt.ajax.reload(function (json) {
-            $('#table_id').val(json.lastInput);
-        });
-    }
-
     //DATATABLEs
     var mt = $('#table_id').DataTable({
         "columnDefs": [{
@@ -260,7 +253,7 @@
         "order": [[1, 'desc']],
         "filter": true,
         "ajax": {
-            "url": "/leaverequests/getleaverequests",
+            "url": "/leaverequests/getleaverequests/"+ parseInt('@ViewData["Id"]'),
             "datatype": "json",
             "dataSrc": ""
         },
@@ -269,7 +262,7 @@
             {
                 "data": "requestDate",
                 "render": function (data, type, row) {
-                    return moment(data).format("DD/MM/YY hh:mm")
+                    return moment(data).lang("id").format("DD/MM/YY HH:mm")
                 }
             },
             {
@@ -307,7 +300,7 @@
                 "data": "approvedDate",
                 "render": function (data, type, row) {
                     if (row['statusId'] == 2) {
-                        return moment(data).format("DD/MM/YY hh:mm");
+                        return moment(data).lang("id").format("DD/MM/YY HH:mm");
                     } else {
                         return "-";
                     }
@@ -351,6 +344,12 @@
         });
     }).draw();
 
+    function reloadTable() {
+        mt.ajax.reload(function (json) {
+            $('#table_id').val(json.lastInput);
+        });
+    }
+
     function show(id) {
         $.ajax({
             url: "/leaverequests/getbyid/" + id
@@ -361,51 +360,38 @@
             <div>${result.employeeId}</div>
             <div>${result.employeeName}</div>
             <div>${result.leaveTypeName}</div>
-            <div>${moment(result.startDate).format("DD/MM/YY hh:mm")}</div>
-            <div>${moment(result.endDate).format("DD/MM/YY hh:mm")}</div>
+            <div>${moment(result.startDate).format("DD/MM/YY")}</div>
+            <div>${moment(result.endDate).format("DD/MM/YY")}</div>
             <div>"${result.notes}"</div>
         `
             $("#modal-data").html(text);
             $("#exampleModalLabel").html(result.employeeName + "'s leave request");
 
+            console.log(result.statusId);
+            if (result.statusId == 3 || result.statusId == 2) {
+                $("#btn_approve").hide();
+                $("#btn_reject").hide();
+            } else {
+                $("#btn_approve").show();
+                $("#btn_reject").show();
+            }
 
-            $("#btn_approve").click(function () {
+            $("#btn_approve").unbind().click(function () {
                 updateManagerFill(id, 2);
 
                 var datainput = {
-                    //"EmployeeId": 666,
-                    //"Status": "Approved",
-                    //"Approver": "dsadad",
-                    //"LeaveType": "annual",
-                    //"StartDate": "1990-10-10",
-                    //"EndDate": "1990-11-10",
-                    //"Notes": "Hello there"
                     "EmployeeId": parseInt(result.employeeId),
                     "Status": "Approved",
                     "Approver": "-",
                     "LeaveType": result.leaveTypeName,
                     "StartDate": moment(result.startDate).format("YYYY-MM-DD"),
                     "EndDate": moment(result.endDate).format("YYYY-MM-DD"),
-                    "Notes": result.notes
+                    "Notes": "Enjoy your leave!"
                 }
-
-                console.log(datainput);
-                $.ajax({
-                    type: "POST",
-                    url: "/accounts/SendEmailToRequester",
-                    data: JSON.stringify(datainput),
-                    traditional: true,
-                    contentType: 'application/json',
-                    dataType: "json"
-                }).done((result) => {
-                    console.log(result);
-                    console.log("done", result);
-                }).fail((result) => {
-                    console.log(result);
-                });
-
+                sendResponseEmail(datainput);
             });
-            $("#btn_reject").click(function () {
+
+            $("#btn_reject").unbind().click(function () {
                 updateManagerFill(id, 3);
 
                 var datainput = {
@@ -413,26 +399,11 @@
                     "Status": "Rejected",
                     "Approver": "-",
                     "LeaveType": result.leaveTypeName,
-                    "StartDate": moment(result.startDate).format("DD/MM/YY hh:mm"),
-                    "EndDate": moment(result.endDate).format("DD/MM/YY hh:mm"),
-                    "Notes": result.notes
+                    "StartDate": moment(result.startDate).format("YYYY-MM-DD"),
+                    "EndDate": moment(result.endDate).format("YYYY-MM-DD"),
+                    "Notes": "Sorry for the rejection"
                 }
-
-                console.log(dataInput);
-                $.ajax({
-                    type: "POST",
-                    url: "/accounts/SendEmailToRequester",
-                    data: JSON.stringify(datainput),
-                    traditional: true,
-                    contentType: 'application/json',
-                    dataType: "json"
-                }).done((result) => {
-                    console.log(result);
-                    console.log("done", result);
-                }).fail((result) => {
-                    console.log(result);
-                });
-
+                sendResponseEmail(datainput);
             });
 
         }).fail((result) => {
@@ -440,12 +411,50 @@
         });
     }
 
-    function sendApprovalEmail(datainput) {
+    function sendResponseEmail(datainput) {
 
-    }
+        console.log(datainput);
+        $.ajax({
+            type: "POST",
+            url: "/accounts/SendEmailToRequester",
+            data: JSON.stringify(datainput),
+            traditional: true,
+            contentType: 'application/json',
+            dataType: "json"
+        }).done((result) => {
+            console.log(result);
 
-    function sendRejectionEmail() {
+            if (result == 400) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Email not sent!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
 
+            } else if (result == 200) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Email sent!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Email not sent!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+
+            console.log("done", result);
+        }).fail((result) => {
+            console.log(result);
+        });
     }
 
     function updateManagerFill(id,status) {
@@ -472,25 +481,42 @@
 
             }).done((result) => {
 
-                reloadTable();
+                if (result == 400) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    })
+                } else if (result == 200) {
+                    reloadTable();
 
-                console.log(result);
-                $('#exampleModal').modal('toggle');
-                
-                Swal.fire(
-                    'Finish!',
-                    'Leave Request Updated!'
-                );
+                    console.log(result);
+                    $('#exampleModal').modal('toggle');
+
+                    Swal.fire(
+                        'Done!',
+                        'Leave Request Updated!'
+                    );
+
+                } else {
+                    console.log(result);
+                }
+
 
             }).fail((result) => {
                 console.log(result);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
             });
 
         }).fail((result) => {
             console.log(result);
         });
 
-      
+
     };
 
 </script>
