@@ -280,11 +280,12 @@ $("#resetButton").click(post => {
             else {
                 Swal.fire({
                     title: "Oh no...",
-                    text: "Reset password unsuccessful ...",
+                    text: "Reset password unsuccessful. Check your input email",
                     icon: "error",
                     button: "OK"
                 });
             }
+            console.log(data.statusCode)
         },
         fail: function (data) {
             Swal.fire({
@@ -335,12 +336,12 @@ $("#changeButton").click(post => {
                     button: "OK"
                 });
             }
-            console.log(data);
+            console.log(data.statusCode);
         },
         fail: function (data) {
             Swal.fire({
                 title: "Oh no...",
-                text: "Change password unsuccessful ...",
+                text: "Change password unsuccessful !",
                 icon: "error",
                 button: "OK"
             });

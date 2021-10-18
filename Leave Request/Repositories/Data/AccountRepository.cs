@@ -226,7 +226,7 @@ namespace Leave_Request.Repositories.Data
             //generate new password
             string passwordReset = Guid.NewGuid().ToString();
             string saltPassword = BCrypt.Net.BCrypt.GenerateSalt(12);
-
+            
 
             //kirim email
             string bodyEmail = $"Your new password : <b>{passwordReset}</b>";

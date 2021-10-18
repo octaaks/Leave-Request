@@ -10,8 +10,8 @@ using NETCore.Context;
 namespace Leave_Request.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20211017160521_revert-approver")]
-    partial class revertapprover
+    [Migration("20211018035443_adding-db")]
+    partial class addingdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
