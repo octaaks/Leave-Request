@@ -91,10 +91,7 @@ function register(inputdata) {
         contentType: 'application/json',
         dataType: "json",
         success: function (data, x, xhr) {
-
-            console.log(data.statusCode);
-
-            //if (data.status == 200) {
+           // if (data.statusCode == 200) {
                 Swal.fire({
                     title: "Welcome!",
                     text: "Register successful. You can Login now",
@@ -104,15 +101,15 @@ function register(inputdata) {
                 $('#formRegis')[0].reset();
                 $('#insertRegis').modal('hide');
                 $('.modal-backdrop').remove();
-            //}
-            //else {
-            //    Swal.fire({
-            //        title: "Oh no...",
-            //        text: "Register unsuccessful ...",
-            //        icon: "error",
-            //        button: "OK"
-            //    });
-            //}
+           // }
+           /* else {
+                Swal.fire({
+                    title: "Oh no...",
+                    text: "Register unsuccessful!",
+                    icon: "error",
+                    button: "OK"
+                });
+            }*/
             console.log(data);
         },
         fail: function (data) {
