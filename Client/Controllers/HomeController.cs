@@ -98,6 +98,19 @@ namespace Client.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        public IActionResult LeaveTypes()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Id = HttpContext.Session.GetString("Id");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
        
         public IActionResult Employees()
         {
