@@ -71,7 +71,7 @@ document.getElementById("titleform").style.fontFamily = 'Tahoma, sans-serif';
 
                     var data = JSON.stringify(obj);
 
-                    register(obj);
+                    register(data);
                 }
                 form.classList.add('was-validated');
             }, false);
@@ -193,52 +193,49 @@ function register(inputdata) {
 //    });
 //});
 
-//posting data registration form to db
-/*$("#btnSubmit").click(post => {
-    var obj = DataInsert();
-    console.log(obj);
-    //post.preventDefault();
-    $.ajax({
-        url: "/Accounts/Register",
-        type: 'POST',
-        data: obj,
-        dataType: 'json',
-        success: function (data, x, xhr) {
-            if (data.statusCode == 200) {
-                Swal.fire({
-                    title: "Welcome!",
-                    text: "Register successful. You can Login now",
-                    icon: "success",
-                    confirmButtonText: 'Ok!'
-                });
-                $('#formRegis')[0].reset();
-                $('#insertRegis').modal('hide');
-                $('.modal-backdrop').remove();
-                }
-            else if (data.statusCode == 400)
-            {
-                Swal.fire({
-                    title: "Oh no...",
-                    text: "Register unsuccessful ...",
-                    icon: "error",
-                    button: "OK"
-                });
-            }
-        },
-        fail: function (data) {
-            Swal.fire({
-                title: "Oh no...",
-                text: "Register unsuccessful !",
-                icon: "error",
-                button: "OK"
-            });
-            console.log(data.message)
-        },
-        error: function (xhr, status, error) {
-            console.log(error);
-        }
-    });
-})*/
+////posting data registration form to db
+//$("#btnSubmit").click(post => {
+//    var obj = DataInsert();
+//    console.log(obj);
+//    //post.preventDefault();
+//    $.ajax({
+//        url: "/Accounts/Registering",
+//        type: 'POST',
+//        data: obj,
+//        dataType: 'json',
+//        success: function (data, x, xhr) {
+//            if (data.statusCode == 200) {
+//                Swal.fire({
+//                    title: "Welcome!",
+//                    text: "Register successful. You can Login now",
+//                    icon: "success",
+//                    confirmButtonText: 'Ok!'
+//                }).then((result) => {
+//                    console.log(result);
+//                    if (result.isConfirmed){
+//                        $('#formRegis')[0].reset();
+//                        $('#insertRegis').modal('hide');
+//                        $('.modal-backdrop').remove();
+//                    }
+//                })
+//            }
+//        },
+//        fail: function (data) {
+//            if (data.statusCode == 400) {
+//                Swal.fire({
+//                    title: "Oh no...",
+//                    text: "Register unsuccessful ...",
+//                    icon: "error",
+//                    button: "OK"
+//                });
+//            }
+//            console.log(data.message)
+//        },
+//        error: function (xhr, status, error) {
+//            console.log(error);
+//        }
+//    });
+//})
 
 //get data value registration form
 function DataInsert() {
