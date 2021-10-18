@@ -14,7 +14,7 @@ $(document).ready(function () {
         document.getElementById('username').innerHTML = result.name;
         document.getElementById('addressvalue').value = result.address;
         document.getElementById('gendervalue').value = result.gender;
-        document.getElementById('phonevalue').value = result.phone;
+        document.getElementById('phonevalue').value = "+62"+result.phone;
         document.getElementById('bdvalue').value = (result.birthDate).toString().substring(0,10);
         document.getElementById('salaryvalue').value = result.salary;
         document.getElementById('jdvalue').value = (result.joinDate).toString().substring(0, 10);

@@ -199,7 +199,7 @@ $("#btnSubmit").click(post => {
     console.log(obj);
     //post.preventDefault();
     $.ajax({
-        url: "/Accounts/Registering",
+        url: "/Accounts/Register",
         type: 'POST',
         data: obj,
         dataType: 'json',
@@ -210,18 +210,13 @@ $("#btnSubmit").click(post => {
                     text: "Register successful. You can Login now",
                     icon: "success",
                     confirmButtonText: 'Ok!'
-                }).then((result) => {
-                    console.log(result);
-                    if (result.isConfirmed){
-                        $('#formRegis')[0].reset();
-                        $('#insertRegis').modal('hide');
-                        $('.modal-backdrop').remove();
-                    }
-                })
-            }
-        },
-        fail: function (data) {
-            if (data.statusCode == 400) {
+                });
+                $('#formRegis')[0].reset();
+                $('#insertRegis').modal('hide');
+                $('.modal-backdrop').remove();
+                }
+            else if (data.statusCode == 400)
+            {
                 Swal.fire({
                     title: "Oh no...",
                     text: "Register unsuccessful ...",
@@ -229,6 +224,14 @@ $("#btnSubmit").click(post => {
                     button: "OK"
                 });
             }
+        },
+        fail: function (data) {
+            Swal.fire({
+                title: "Oh no...",
+                text: "Register unsuccessful !",
+                icon: "error",
+                button: "OK"
+            });
             console.log(data.message)
         },
         error: function (xhr, status, error) {
@@ -280,11 +283,12 @@ $("#resetButton").click(post => {
             else {
                 Swal.fire({
                     title: "Oh no...",
-                    text: "Reset password unsuccessful ...",
+                    text: "Reset password unsuccessful. Check your input email",
                     icon: "error",
                     button: "OK"
                 });
             }
+            console.log(data.statusCode)
         },
         fail: function (data) {
             Swal.fire({
@@ -335,12 +339,12 @@ $("#changeButton").click(post => {
                     button: "OK"
                 });
             }
-            console.log(data);
+            console.log(data.statusCode);
         },
         fail: function (data) {
             Swal.fire({
                 title: "Oh no...",
-                text: "Change password unsuccessful ...",
+                text: "Change password unsuccessful !",
                 icon: "error",
                 button: "OK"
             });

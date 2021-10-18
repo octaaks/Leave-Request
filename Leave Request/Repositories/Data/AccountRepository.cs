@@ -184,16 +184,16 @@ namespace Leave_Request.Repositories.Data
             }
 
             //generate token
-            account.Token = Guid.NewGuid().ToString();
+            //account.Token = Guid.NewGuid().ToString();
 
             // string bodyEmail = $"Here is link for reset your password: https://localhost:44371/api/accounts/reset-password/email={account.Email}&token={account.Token}";
             // SendEmail(bodyEmail, account.Email);
-            ResetPassword(email, account.Token);
+            ResetPassword(email);
             myContext.SaveChanges();
             return 1;
         }
 
-        public int ResetPassword(string email, string token)
+        public int ResetPassword(string email)
         {
             //return 100 = token salah
             //return 200 = email salah
@@ -202,15 +202,15 @@ namespace Leave_Request.Repositories.Data
             {
                 return 200;
             }
-            if (account.Token != token)
+            /*if (account.Token != token)
             {
                 return 100;
-            }
+            }*/
 
             //generate new password
             string passwordReset = Guid.NewGuid().ToString();
             string saltPassword = BCrypt.Net.BCrypt.GenerateSalt(12);
-            account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset, saltPassword);
+            
 
             //kirim email
             string bodyEmail = $"Your new password : <b>{passwordReset}</b>";
@@ -219,6 +219,7 @@ namespace Leave_Request.Repositories.Data
             //save ke DB
             Update(account);
             account.Token = null;
+            account.Password = BCrypt.Net.BCrypt.HashPassword(passwordReset, saltPassword);
             myContext.SaveChanges();
 
             return 1;
@@ -278,8 +279,8 @@ namespace Leave_Request.Repositories.Data
 
         public static void SendEmail(string htmlString, string toMailAddress)
         {
-            string fromMail = "";
-            string fromPassword = "";
+            string fromMail = "leaverequest55@gmail.com";
+            string fromPassword = "Leave_Request_55";
             string timeStamp = DateTime.Now.ToString();
             MailMessage message = new MailMessage();
 
