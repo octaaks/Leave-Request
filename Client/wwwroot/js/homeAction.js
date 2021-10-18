@@ -92,7 +92,7 @@ function register(inputdata) {
         dataType: "json",
         success: function (data, x, xhr) {
 
-            console.log(data.status);
+            console.log(data.statusCode);
 
             //if (data.status == 200) {
                 Swal.fire({
