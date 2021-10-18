@@ -54,7 +54,19 @@ namespace Client.Repositories.Data
         {
             List<LeaveRequestVM> entities = new List<LeaveRequestVM>();
 
-            using (var response = await httpClient.GetAsync(request + "GetLeaveRequests/"+id))
+            using (var response = await httpClient.GetAsync(request + "GetLeaveRequests/" + id))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<LeaveRequestVM>>(apiResponse);
+            }
+            return entities;
+        }
+
+        public async Task<List<LeaveRequestVM>> GetAllLR()
+        {
+            List<LeaveRequestVM> entities = new List<LeaveRequestVM>();
+
+            using (var response = await httpClient.GetAsync(request + "GetAllLeaveRequests/"))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 entities = JsonConvert.DeserializeObject<List<LeaveRequestVM>>(apiResponse);

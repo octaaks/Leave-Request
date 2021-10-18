@@ -35,6 +35,13 @@ namespace Client.Controllers
             return Json(result);
         }
 
+        [HttpGet("GetAllLeaveRequests")]
+        public async Task<JsonResult> GetAllLeaveRequests(int id)
+        {
+            var result = await repository.GetAllLR();
+            return Json(result);
+        }
+
         [HttpGet("GetEmployeeLeaveRequests/{id}")]
         public async Task<JsonResult> GetEmployeeLeaveRequests(int id)
         {

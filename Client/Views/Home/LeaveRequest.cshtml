@@ -129,19 +129,27 @@
                             @*<form method="post" action="" id="contactform" class="was-validated">*@
 
                             @*<div class="form-row">
+            <div class="col-4 mb-3">
+                <label for="inputId">Employee ID</label>
+            </div>
+            <div class="col mb-3">
+                <div class="input-group">
+                    <input type="text" name="nik" class="form-control" id="inputId" placeholder="Employee ID" aria-describedby="" value="@ViewData["Id"]" autocomplete="off" readonly>
+                    <p class="validation-message" id="invalid-nik"></p>
+                    <div class="invalid-feedback">
+                        Please type your ID.
+                    </div>
+                </div>
+            </div>
+        </div>*@
+                            <div class="form-row">
                                 <div class="col-4 mb-3">
-                                    <label for="inputId">Employee ID</label>
+                                    <label for="inputApprover">Total Leave</label>
                                 </div>
-                                <div class="col mb-3">
-                                    <div class="input-group">
-                                        <input type="text" name="nik" class="form-control" id="inputId" placeholder="Employee ID" aria-describedby="" value="@ViewData["Id"]" autocomplete="off" readonly>
-                                        <p class="validation-message" id="invalid-nik"></p>
-                                        <div class="invalid-feedback">
-                                            Please type your ID.
-                                        </div>
-                                    </div>
+                                <div class="col-md mb-3">
+                                    <label id="totalleave" for="inputApprover">0</label>
                                 </div>
-                            </div>*@
+                            </div>
                             <div class="form-row">
                                 <div class="col-4 mb-3">
                                     <label for="inputApprover">Approver</label>
@@ -413,6 +421,15 @@
             console.log(result);
         });
     });
+
+    //fetch employee's data
+
+    $.ajax({
+        url: "/Employee/GetEmployeeById/" + parseInt('@ViewData["Id"]')
+    }).done((result) => {
+        console.log(result);
+        $("#totalleave").html(result.totalLeave);
+    })
 
     //fetch all approver innto form dropdown
 

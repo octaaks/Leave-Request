@@ -382,7 +382,7 @@
                 var datainput = {
                     "EmployeeId": parseInt(result.employeeId),
                     "Status": "Approved",
-                    "Approver": "-",
+                    "Approver": result.approverId,
                     "LeaveType": result.leaveTypeName,
                     "StartDate": moment(result.startDate).format("YYYY-MM-DD"),
                     "EndDate": moment(result.endDate).format("YYYY-MM-DD"),
@@ -397,7 +397,7 @@
                 var datainput = {
                     "EmployeeId": parseInt(result.employeeId),
                     "Status": "Rejected",
-                    "Approver": "-",
+                    "Approver": result.approverId,
                     "LeaveType": result.leaveTypeName,
                     "StartDate": moment(result.startDate).format("YYYY-MM-DD"),
                     "EndDate": moment(result.endDate).format("YYYY-MM-DD"),

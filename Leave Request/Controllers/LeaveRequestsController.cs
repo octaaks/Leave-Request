@@ -41,6 +41,27 @@ namespace Leave_Request.Controllers
             }
         }
 
+        [HttpGet("GetAllLeaveRequests")]
+        public ActionResult GetAllLeaveRequests()
+        {
+            var getPerson = repository.GetAllLeaveRequestVMs();
+            if (getPerson != null)
+            {
+
+                return Ok(getPerson);
+            }
+            else
+            {
+                var get = NotFound(new
+                {
+                    status = HttpStatusCode.NotFound,
+                    result = getPerson,
+                    message = "Data Empty"
+                });
+                return get;
+            }
+        }
+
         [HttpGet("GetEmployeeLeaveRequests/{id}")]
         public ActionResult GetEmployeeLeaveRequestVMs(int id)
         {

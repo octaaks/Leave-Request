@@ -76,6 +76,36 @@ namespace Leave_Request.Repositories.Data
                          }).Where(lr => lr.ApproverId == approverId).OrderBy(lr => lr.RequestDate).ToList();
             return getLR;
         }
+
+        public IEnumerable<LeaveRequestVM> GetAllLeaveRequestVMs()
+        {
+            var getLR = (from lr in myContext.LeaveRequests
+                         join mf in myContext.ManagerFills on lr.Id equals mf.LeaveRequestId
+                         join em in myContext.Employees on lr.EmployeeId equals em.Id
+                         join tp in myContext.LeaveTypes on lr.LeaveTypeId equals tp.Id
+                         join st in myContext.Statuses on mf.StatusId equals st.Id
+
+                         select new LeaveRequestVM
+                         {
+                             Id = lr.Id,
+                             RequestDate = lr.RequestDate,
+                             StartDate = lr.StartDate,
+                             EndDate = lr.EndDate,
+                             LeaveTypeId = lr.LeaveTypeId,
+                             LeaveTypeName = tp.Name,
+                             LeaveDuration = lr.LeaveDuration,
+                             EmployeeId = lr.EmployeeId,
+                             EmployeeName = em.Name,
+
+                             ApprovedDate = mf.DateApproved,
+                             ApproverId = lr.ApproverId,
+                             StatusId = mf.StatusId,
+                             StatusName = st.Name,
+                             Notes = mf.Note,
+                             ManagerFillId = mf.Id
+                         }).OrderBy(lr => lr.RequestDate).ToList();
+            return getLR;
+        }
         public LeaveRequestVM GetById(int id)
         {
             var getLR = (from lr in myContext.LeaveRequests
